@@ -7,8 +7,7 @@
     <title>Cognitio</title>
 </head>
 <body>
-    Hello Cognitio!
-    <img src="./img/cognitio_logo_sort.png" alt="" height="25">
+    <img src="./img/cognitio_logo_sort.png" alt="" height="25"><br><br>
 
     <a href="./login.php">Logg inn</a>
     <a href="">Registrer</a>
