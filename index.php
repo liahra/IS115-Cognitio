@@ -9,7 +9,7 @@
 <body>
     <img src="./img/cognitio_logo_sort.png" alt="" height="25"><br><br>
 
-    <a href="./login.php">Logg inn</a>
+    <a href="phplogin/index.html">Logg inn</a>
     <a href="">Registrer</a>
 
 </body>

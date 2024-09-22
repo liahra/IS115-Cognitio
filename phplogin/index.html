@@ -4,40 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <title>Logg inn</title>
 </head>
 
 <body>
-<!-- <img src="./img/cognitio_logo_sort.png" alt="" height="25">
-    <p>Logg inn på din konto.</p>
-    <form action="">
-        <div>
-            <label for="username">Brukernavn</label>
-            <input type="text" name="username" id="username">
-        </div>
-        <div>
-            <label for="password">Passord</label>
-            <input type="password" name="password" id="password">
-        </div>
-        <div>
-            <input type="submit" value="Logg inn">
-        </div>
-    </form>
-    <p>
-        <a href="./dashboard.php">Gå til dashboard</a>
-    </p>
-    <p>
-        <a href="">
-            Ingen bruker? Registrer deg her &rarr;
-        </a>
-    </p> -->
-
+    <img src="../img/cognitio_logo_sort.png" alt="" height="35">
     <div class="login">
         <h1>Logg inn</h1>
         <form action="authenticate.php" method="post">
-            
+            <label for="username">
+                <i class="fas fa-user"></i>
+            </label>
+            <input type="text" name="username" placeholder="Brukernavn" id="username" required>
+            <label for="password">
+                <i class="fas fa-lock"></i>
+            </label>
+            <input type="password" name="password" placeholder="Passord" id="password" required>
+            <input type="submit" value="Logg inn">
         </form>
     </div>
 </body>
