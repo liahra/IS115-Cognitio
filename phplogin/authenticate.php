@@ -16,8 +16,8 @@
 
     // / Har form blitt sendt?
     if ( !isset($_POST['username'], $_POST['password']) ) {
-        // Could not get the data that should have been sent.
-        exit('Please fill both the username and password fields!');
+        // Kan ikke hente data som skulle blitt sendt
+        exit('<br><b> Vennligst fyll inn feltene for både brukernavn og passord! </b>');
     }
 
     // Forbereder SQL-spørringene -> forhindrer SQL-injections.
@@ -38,7 +38,7 @@
                 $_SESSION['loggedin'] = TRUE;
                 $_SESSION['name'] = $_POST['username'];
                 $_SESSION['id'] = $id;
-                echo 'Velkommmen tilbake, ' . htmlspecialchars($_SESSION['name'], ENT_QUOTES) . '!';
+                echo header('Location: home.php');
             } else {
                 // Feil passord.
                 echo 'Feil brukernavn og/eller passord!';
