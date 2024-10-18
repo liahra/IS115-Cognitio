@@ -32,9 +32,9 @@
             $stmt->fetch();
 
             // Konto eksisterer, verifiser passord.
-            if ($_POST['password'] === $password) {
+            if (password_verify($_POST['password'], $password)) {
             // Bruker verifisert og logget inn.
-            // Lag tilhørende bruker-sessions.
+            // Lag tilhørende bruker-session.
                 $_SESSION['loggedin'] = TRUE;
                 $_SESSION['name'] = $_POST['username'];
                 $_SESSION['id'] = $id;
