@@ -15,13 +15,6 @@
 </head>
 
 <body>
-    <nav>
-        <img src="./img/cognitio_logo_sort.png" height="25" alt="Cognitio logo"/>
-        <p>Headshot</p>
-        <p>Username</p>
-        <p>Sider</p>
-        <p>Logout</p>
-    </nav>
     <main>
         <img src="./img/cognitio_logo_sort.png" alt="" height="25">
         <h1>Hei</h1>

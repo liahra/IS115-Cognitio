@@ -1,15 +1,6 @@
 <?php 
 // DB-tilkobling
-$DATABASE_HOST = 'localhost';
-$DATABASE_USER = 'root';
-$DATABASE_PASS = 'root';
-$DATABASE_NAME = 'phplogin';
-
-$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-
-if (mysqli_connect_errno()) {
-	exit('Mislyktes å koble til MySQL: ' . mysqli_connect_error());
-}
+include_once '../../private/inc/db.inc.php';
 
 // Eksisterer dataen?
 if (!isset($_POST['username'], $_POST['password'], $_POST['email'])) {

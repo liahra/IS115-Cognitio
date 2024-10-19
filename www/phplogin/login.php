@@ -13,7 +13,7 @@
     <img src="../img/cognitio_logo_sort.png" alt="" height="35">
     <div class="login">
         <h1>Logg inn</h1>
-        <form action="authenticate.php" method="post">
+        <form action="../../private/inc/authenticate.inc.php" method="post">
             <label for="username">
                 <i class="fas fa-user"></i>
             </label>
