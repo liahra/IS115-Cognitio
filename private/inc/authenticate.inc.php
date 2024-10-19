@@ -1,9 +1,10 @@
 <?php
     session_start();
     include 'db.inc.php';
-    
+   
     // Sjekk om skjemaet er sendt
     if (!isset($_POST['username'], $_POST['password'])) {
+        
 
         // Kan ikke hente data, returner til innlogging med feilmelding
         header('Location: login.php?error=empty_fields');
@@ -22,12 +23,13 @@
             $stmt->fetch();
 
             // Konto eksisterer, verifiser passord
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             if (password_verify($_POST['password'], $password)) {
                 // Bruker verifisert og logget inn, lag session
                 $_SESSION['loggedin'] = TRUE;
                 $_SESSION['name'] = $_POST['username'];
                 $_SESSION['id'] = $id;
-                header('Location: ../../phplogin/home.php');
+                header('Location: ../../www/phplogin/home.php');
                 exit();
             } else {
                 // Feil passord, returner til innlogging

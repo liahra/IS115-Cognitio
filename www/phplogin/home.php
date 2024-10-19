@@ -3,7 +3,7 @@ session_start();
 
 // Hvis ikke bruker er logget inn, send til logg inn side.
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: index.html');
+    header('Location: index.php');
     exit;
 }
 ?>
