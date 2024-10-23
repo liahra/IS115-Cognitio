@@ -1,21 +1,17 @@
 <?php 
     session_start();
-    
-    $DATABASE_HOST = 'localhost';
-    $DATABASE_USER = 'root';
-    $DATABASE_PASS = 'root';
-    $DATABASE_NAME = 'phplogin';
 
-    // Koble til databasen.
-    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-    if ( mysqli_connect_errno() ) {
-        // // Hvis feil.
-        exit('Mislyktes å koble til MySQL: ' . mysqli_connect_error());
-    } else {
-        echo 'Vellykket tilkobling til MySQL!<br>';
+    define ('DB_HOST', 'localhost');
+    define ('DB_USER', 'root');
+    define ('DB_PASS', 'root');
+    define ('DB_NAME', 'phplogin');
+    $dkn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
+
+    try {
+        $pdo = new PDO($dkn, DB_USER, DB_PASS);
+        echo 'Tilkobling til databasen var vellykket! <br>';
+    } catch (PDOExeption $e) {
+        echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
     }
 
-    function get_db_info($con) {
-
-    }
 ?>

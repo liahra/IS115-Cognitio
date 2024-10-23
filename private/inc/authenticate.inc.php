@@ -1,34 +1,35 @@
 <?php
     session_start();
-    include 'db.inc.php';
-   
+    include 'db.inc.php'; 
+
     // Sjekk om skjemaet er sendt
     if (!isset($_POST['username'], $_POST['password'])) {
-        
-
         // Kan ikke hente data, returner til innlogging med feilmelding
         header('Location: login.php?error=empty_fields');
         exit();
     }
 
-    // Forbereder SQL-spørringene
-    if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
-        // Bind parameter (s = string)
-        $stmt->bind_param('s', $_POST['username']);
-        $stmt->execute();
-        $stmt->store_result(); // Lagre resultatet
+    try {
+        // Forbered SQL-spørringen med en navngitt parameter
+        $stmt = $pdo->prepare('SELECT id, password FROM accounts WHERE username = :username');
+        
+        // Bind parameter (bruker navngitte parametere)
+        $stmt->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
+        $stmt->execute(); // Utfør spørringen
 
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $password);
-            $stmt->fetch();
+        // Sjekk om brukernavnet eksisterer
+        if ($stmt->rowCount() > 0) {
+            // Hent brukerens id og passord
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Konto eksisterer, verifiser passord
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            if (password_verify($_POST['password'], $password)) {
-                // Bruker verifisert og logget inn, lag session
+            // Verifiser passordet
+            if (password_verify($_POST['password'], $user['password'])) {
+                // Bruker verifisert, sett opp øktvariabler
                 $_SESSION['loggedin'] = TRUE;
                 $_SESSION['name'] = $_POST['username'];
-                $_SESSION['id'] = $id;
+                $_SESSION['id'] = $user['id'];
+                
+                // Omdiriger til hjemmesiden
                 header('Location: ../../www/phplogin/home.php');
                 exit();
             } else {
@@ -41,10 +42,10 @@
             header('Location: ../../phplogin/login.php?error=incorrect_username');
             exit();
         }
-        $stmt->close();
-    } else {
-        // Hvis spørringen mislykkes, returner en generell feilmelding
+
+    } catch (PDOException $e) {
+        // Håndter feil ved SQL-spørringen eller tilkobling
         header('Location: ../../phplogin/login.php?error=query_failed');
         exit();
     }
-?> 
+?>
