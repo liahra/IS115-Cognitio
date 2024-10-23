@@ -1,6 +1,6 @@
 <?php
 // DB-tilkobling: Inkluderer en ekstern fil som setter opp PDO-tilkoblingen
-include_once '../../private/inc/db.inc.php';
+include_once './inc/db.inc.php';
 
 // Sjekk om de nødvendige dataene fra skjemaet eksisterer i POST-forespørselen
 if (!isset($_POST['username'], $_POST['password'], $_POST['email'])) {
@@ -58,6 +58,9 @@ try {
 
         // Gi brukeren en melding om at registreringen var vellykket
         echo 'Du er blitt registrert. Du kan nå logge inn!';
+
+        // TODO
+        // Videresend til loginside?
     }
 } catch (PDOException $e) {
     // Hvis en feil oppstår under SQL-spørringene eller tilkoblingen, vis en feilmelding

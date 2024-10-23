@@ -7,10 +7,10 @@
     <title>Cognitio</title>
 </head>
 <body>
-    <img src="./img/cognitio_logo_sort.png" alt="" height="25"><br><br>
+    <img src="../resources/img/cognitio_logo_sort.png" alt="" height="25"><br><br>
 
-    <a href="phplogin/login.php">Logg inn</a>
-    <a href="phplogin/register.html">Registrer</a>
+    <a href="./login.php">Logg inn</a>
+    <a href="./register.html">Registrer</a>
 
 </body>
 </html>

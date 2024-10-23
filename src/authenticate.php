@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'db.inc.php'; 
+    include './inc/db.inc.php'; 
 
     // Sjekk om skjemaet er sendt
     if (!isset($_POST['username'], $_POST['password'])) {
@@ -30,16 +30,16 @@
                 $_SESSION['id'] = $user['id'];
                 
                 // Omdiriger til hjemmesiden
-                header('Location: ../../www/phplogin/home.php');
+                header('Location: ../public/home.php');
                 exit();
             } else {
                 // Feil passord, returner til innlogging
-                header('Location: ../../phplogin/login.php?error=incorrect_password');
+                header('Location: ../public/login.php?error=incorrect_password');
                 exit();
             }
         } else {
             // Feil brukernavn, returner til innlogging
-            header('Location: ../../phplogin/login.php?error=incorrect_username');
+            header('Location: ../public/login.php?error=incorrect_username');
             exit();
         }
 

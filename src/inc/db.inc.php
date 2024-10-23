@@ -10,7 +10,7 @@
     try {
         $pdo = new PDO($dkn, DB_USER, DB_PASS);
         echo 'Tilkobling til databasen var vellykket! <br>';
-    } catch (PDOExeption $e) {
+    } catch (PDOException $e) {
         echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
     }
 

@@ -9,10 +9,10 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 // Db-tilkobling
-include_once '../../private/inc/db.inc.php';
+include_once '../src/inc/db.inc.php';
 
 // Hent passord og epost fra db.
-include_once '../../private/inc/get_user_info.inc.php';
+include_once '../src/inc/get_user_info.inc.php';
 
 $user_info = get_user_info($con, $_SESSION['id']);
 $password = $user_info('password');
