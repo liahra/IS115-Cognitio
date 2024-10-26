@@ -14,9 +14,9 @@ include_once '../src/inc/db.inc.php';
 // Hent passord og epost fra db.
 include_once '../src/inc/get_user_info.inc.php';
 
-$user_info = get_user_info($con, $_SESSION['id']);
-$password = $user_info('password');
-$email = $user_info('email');
+$user_info = get_user_info($pdo, $_SESSION['id']);
+$password = $user_info['password'];
+$email = $user_info['email'];
 ?>
 
 <!DOCTYPE html>

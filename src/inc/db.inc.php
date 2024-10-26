@@ -13,5 +13,4 @@
     } catch (PDOException $e) {
         echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
     }
-
 ?>
