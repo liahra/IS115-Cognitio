@@ -31,3 +31,4 @@ if ($user_info) {
     echo 'Ingen bruker funnet med ID ' . $user_id;
 }
 ?>
+
