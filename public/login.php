@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../resources/css/styles.css">
+    <link rel="stylesheet" href="./resources/css/styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <title>Logg inn</title>
 </head>
 
 <body>
-    <img src="../resources/img/cognitio_logo_sort.png" alt="" height="35">
+    <img src="./resources/img/cognitio_logo_sort.png" alt="" height="35">
     <div class="login">
         <h1>Logg inn</h1>
         <form action="../src/authenticate.php" method="post">
