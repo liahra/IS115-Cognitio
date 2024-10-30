@@ -60,7 +60,10 @@ try {
         echo 'Du er blitt registrert. Du kan nå logge inn!';
 
         // TODO
-        // Videresend til loginside?
+        // Test om dette fungerer
+        header('Location: login.php');
+        exit();
+        
     }
 } catch (PDOException $e) {
     // Hvis en feil oppstår under SQL-spørringene eller tilkoblingen, vis en feilmelding
