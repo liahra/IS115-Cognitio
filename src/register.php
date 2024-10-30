@@ -61,7 +61,7 @@ try {
 
         // TODO
         // Test om dette fungerer
-        header('Location: login.php');
+        header('Location: ../public/login.php');
         exit();
         
     }
