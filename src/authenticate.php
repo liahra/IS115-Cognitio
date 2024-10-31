@@ -28,6 +28,7 @@
                 $_SESSION['loggedin'] = TRUE;
                 $_SESSION['name'] = $_POST['username'];
                 $_SESSION['id'] = $user['id'];
+                $_SESSION['user'] = $user;
                 
                 // Omdiriger til hjemmesiden
                 header('Location: ../public/home.php');

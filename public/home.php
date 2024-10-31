@@ -20,12 +20,14 @@ if (!isset($_SESSION['loggedin'])) {
 	<body>
 	<?php 
         include("./inc/sidebar.inc.php");
-
     ?>
+
 	<div class="content">
 		<h2>Dashbord</h2>
 		<p>Velkommen tilbake, <?=htmlspecialchars($_SESSION['name'], ENT_QUOTES)?>!</p>
-		<p><?php var_dump(__DIR__); ?></p>
+		<pre><?php print_r($_SESSION['user']); ?></pre>
+		
+		
 	</div>
 	</body>
 </html>

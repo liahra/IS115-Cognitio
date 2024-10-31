@@ -1,16 +1,34 @@
 <?php 
-    session_start();
+    class Database {
+        // Konfig-detaljer for db
+        private $host = 'localhost';
+        private $user = 'root';
+        private $pass = 'root';
+        private $dbname = 'phplogin';
+        private $pdo; // Variabel for PDO-tilkoblingen
 
-    define ('DB_HOST', 'localhost');
-    define ('DB_USER', 'root');
-    define ('DB_PASS', 'root');
-    define ('DB_NAME', 'phplogin');
-    $dkn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
+        // Konstruktør
+        public function __construct() {
+            // Bygger DSN-strengen (Data Source Name) for tilkoblingen
+            $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
 
-    try {
-        $pdo = new PDO($dkn, DB_USER, DB_PASS);
-        echo 'Tilkobling til databasen var vellykket! <br>';
-    } catch (PDOException $e) {
-        echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
+            try {
+                // Oppretter en ny PDO-tilkobling
+                $this->pdo = new PDO($dsn, $this->user, $this->pass);
+
+                // Setter PDO til å kaste unntak hvis en feil oppstår
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            } catch (PDOException $e) {
+                // Håndterer feil ved tilkobling og viser en melding
+                echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
+                exit;
+            }
+        }
+        // Getter-metode for å hente PDO-tilkoblingen
+        public function getConnection() {
+            return $this->pdo; // Returnerer PDO-objektet for å kunne bruke det i andre klasser
+        }
     }
+
 ?>
