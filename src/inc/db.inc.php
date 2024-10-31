@@ -1,7 +1,8 @@
 <?php 
     class Database {
         // Konfig-detaljer for db
-        private $host = 'localhost';
+        private $host = '127.0.0.1';
+        private $port = '8889';
         private $user = 'root';
         private $pass = 'root';
         private $dbname = 'phplogin';
@@ -10,7 +11,7 @@
         // Konstruktør
         public function __construct() {
             // Bygger DSN-strengen (Data Source Name) for tilkoblingen
-            $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
+            $dsn = 'mysql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->dbname;
 
             try {
                 // Oppretter en ny PDO-tilkobling
@@ -18,6 +19,7 @@
 
                 // Setter PDO til å kaste unntak hvis en feil oppstår
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                echo 'Tilkobling til databasen var vellykket! <br>';
 
             } catch (PDOException $e) {
                 // Håndterer feil ved tilkobling og viser en melding
