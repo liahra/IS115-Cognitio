@@ -1,7 +1,11 @@
 <?php
-    session_start();
-    include './inc/db.inc.php'; 
-
+    session_start(); 
+    require_once 'inc/db.inc.php';
+    require_once 'account.php';
+    
+    $db = new Database();
+    $pdo = $db->getConnection();
+    
     // Sjekk om skjemaet er sendt
     if (!isset($_POST['username'], $_POST['password'])) {
         // Kan ikke hente data, returner til innlogging med feilmelding
