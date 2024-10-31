@@ -5,7 +5,7 @@
     
     $db = new Database();
     $pdo = $db->getConnection();
-    
+
     // Sjekk om skjemaet er sendt
     if (!isset($_POST['username'], $_POST['password'])) {
         // Kan ikke hente data, returner til innlogging med feilmelding

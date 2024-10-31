@@ -25,8 +25,6 @@ if (!isset($_SESSION['loggedin'])) {
 	<div class="content">
 		<h2>Dashbord</h2>
 		<p>Velkommen tilbake, <?=htmlspecialchars($_SESSION['name'], ENT_QUOTES)?>!</p>
-		<pre><?php print_r($_SESSION['user']); ?></pre>
-		
 		
 	</div>
 	</body>
