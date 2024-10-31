@@ -2,38 +2,18 @@
 // Inkluderer nødvendige filer
 require_once 'inc/db.inc.php';
 require_once 'account.php';
+require_once 'validation.php';
 
 $db = new Database();
 $pdo = $db->getConnection();
+$validator = new Validation();
 
-// Sjekk om de nødvendige dataene fra skjemaet eksisterer i POST-forespørselen
-if (!isset($_POST['username'], $_POST['password'], $_POST['email'])) {
-    exit('Vennligst fullfør registreringsformen.'); 
-}
-
-// Sjekk om de nødvendige feltene ikke er tomme
-if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
-    exit('Vennligst fullfør registreringsformen.'); 
-}
-
-// Valider at e-posten har et gyldig format
-if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    exit('Ugyldig e-post.');
-}
-
-// Sjekk at brukernavnet kun inneholder bokstaver og tall
-if (!preg_match('/^[a-zA-Z0-9]+$/', $_POST['username'])) {
-    exit('Ugyldig brukernavn.');
-}
-
-// Sjekk at passordene samsvarer
-if ($_POST['password'] !== $_POST['confirm_password']) {
-    exit('Passordene samsvarer ikke.');
-}
-
-// Sjekk at passordet er innenfor de spesifiserte grensene for lengde
-if (strlen($_POST['password']) > 20 || strlen($_POST['password']) < 5) {
-    exit('Passord må være mellom 5 og 20 tegn!');
+if (!$validator->validateFormData($_POST)) {
+    // Hent og vis alle feilmeldingene hvis noen valideringer feiler
+    foreach ($validator->getErrors() as $error) {
+        echo $error . '<br>';
+    }
+    exit();
 }
 
 // Opprett en ny instans av Account-klassen
