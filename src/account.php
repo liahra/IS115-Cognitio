@@ -96,6 +96,22 @@ class Account {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Todos
+    public function addTodo($userId, $value) {
+        try {
+            $pdo = $this->getDbConnection();
+            $stmt = $pdo->prepare("INSERT INTO todo (user_id, value) VALUES (:user_id, :value)");
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':value', $value, PDO::PARAM_STR);
+            $stmt->execute();
+    
+            return true; // Success
+        } catch (PDOException $e) {
+            error_log("Error adding task: " . $e->getMessage());
+            return false; // Failure
+        }
+    }
+
     public function createAccount() {
         $pdo = $this->getDbConnection(); // Henter PDO-forbindfelsen
         

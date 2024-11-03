@@ -289,11 +289,17 @@ body.loggedin {
 }
 
 .content {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* En kolonne for oppgaver og en for gjøremål */
+  grid-template-rows: max-content;
+  row-gap: 2rem;
   flex: 1; /* Fyller opp resten av plassen */
   padding: 30px;
   background-color: var(--hover-clr); /* Endret for bedre kontrast */
   color: var(--text-clr);
 }
+
+
 
 .content h2 {
 	margin: 0;
@@ -322,6 +328,10 @@ body.loggedin {
 .content > div p {
 	padding: 5px;
 	margin: 0 0 10px 0;
+}
+
+.top-section{
+  grid-column: 1 / span 2;
 }
 
 .register {
@@ -379,4 +389,18 @@ body.loggedin {
 .register form input[type="submit"]:hover {
   background-color: #2868c7;
     transition: background-color 0.2s;
+}
+
+#add_todo_window{
+  margin: 0;
+  padding: 2rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#add_todo_window::backdrop{
+  background-color: black;
+  opacity: 0.8;
 }
