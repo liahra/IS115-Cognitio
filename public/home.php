@@ -15,6 +15,7 @@ require_once '../src/account.php';
 $account = new Account();
 $account->setId($_SESSION['user_id']); // Setter bruker-ID fra sesjonen
 $tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
+$todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke brukeren
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +67,17 @@ $tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke bru
         <section>
             <button id="add_todo">Legg til gjøremål</button>
             <h3>Gjøremål</h3>
+            <?php if (!empty($todos)): ?>
+                <ul>
+                    <?php foreach ($todos as $todo): ?>
+                        <li>
+                            <span><?= htmlspecialchars($todo['value'], ENT_QUOTES) ?></span><br>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>Ingen kommende gjøremål.</p>
+            <?php endif; ?>
         </section>
         
     </div>
