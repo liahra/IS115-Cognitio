@@ -19,7 +19,6 @@
 
                 // Setter PDO til å kaste unntak hvis en feil oppstår
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                echo 'Tilkobling til databasen var vellykket! <br>';
 
             } catch (PDOException $e) {
                 // Håndterer feil ved tilkobling og viser en melding

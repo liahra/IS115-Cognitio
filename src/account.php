@@ -1,6 +1,7 @@
 <?php 
 
 class Account {
+    protected $id;
     protected $fname;
     protected $lname;
     protected $username;
@@ -14,18 +15,15 @@ class Account {
         $db = new Database();
         $pdo = $db->getConnection();
         
-        // Debug
-        if ($pdo instanceof PDO) {
-            echo "PDO-tilkoblingen er opprettet korrekt.<br>";
-        } else {
-            echo "Feil: PDO-tilkoblingen ble ikke opprettet.<br>";
-        }
-
         return $pdo;
     }
 
-     // Setter-metode for hver egenskap
-     public function setFirstName($fname) {
+    // Setters
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setFirstName($fname) {
         $this->fname = $fname;
     }
 
@@ -53,6 +51,7 @@ class Account {
         $this->password = $password;
     }
 
+    // Sjekker om brukernavn allerede eksisterer
     public function usernameExists($username) {
         $pdo = $this->getDbConnection();
         $stmt = $pdo->prepare("SELECT id FROM accounts WHERE username = :username");
@@ -61,8 +60,43 @@ class Account {
         return $stmt->rowCount() > 0;
     }
 
+    // Getters
+    public function getId() {
+        return $this->id;
+    }
+
+    public function addTask($userId, $title, $description, $due_date) {
+        try {
+            $pdo = $this->getDbConnection();
+            $stmt = $pdo->prepare("INSERT INTO tasks (user_id, title, description, due_date) VALUES (:user_id, :title, :description, :due_date)");
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
+            $stmt->execute();
+    
+            return true; // Success
+        } catch (PDOException $e) {
+            error_log("Error adding task: " . $e->getMessage());
+            return false; // Failure
+        }
+    }
+
+    public function getUpcomingTasks() {
+        $pdo = $this->getDbConnection();
+        $stmt = $pdo->prepare("SELECT * FROM tasks WHERE user_id = :user_id 
+        AND status = 'pending' AND due_date >= CURDATE() 
+        ORDER BY due_date ASC");
+
+        $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT); 
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function createAccount() {
         $pdo = $this->getDbConnection(); // Henter PDO-forbindfelsen
+        
         $sql = "INSERT INTO accounts (fname, lname, username, email, password, role, regDate) 
             VALUES (:fname, :lname, :username, :email, :password, :role, :regDate)";
 

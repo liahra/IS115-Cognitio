@@ -1,31 +1,53 @@
-<?php 
+<?php
 session_start();
 
-// Hvis ikke bruker er logget inn, send til logg-inn side.
+// Sjekk om brukeren er logget inn
 if (!isset($_SESSION['loggedin'])) {
     header('Location: index.php');
     exit;
 }
+
+// Inkluder nødvendige filer og sett opp klasser
+require_once '../src/inc/db.inc.php';
+require_once '../src/account.php';
+
+// Opprett en instans av Account-klassen
+$account = new Account();
+$account->setId($_SESSION['user_id']); // Setter bruker-ID fra sesjonen
+$tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
 ?>
 
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Cognitio</title>
-		<link rel="stylesheet" href="./resources/css/style.css">
-	
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
-	</head>
-	<body>
-	<?php 
-        include("./inc/sidebar.inc.php");
-    ?>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cognitio - Dashboard</title>
+    <link rel="stylesheet" href="./resources/css/style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <?php include("./inc/sidebar.inc.php"); ?>
 
-	<div class="content">
-		<h2>Dashbord</h2>
-		<p>Velkommen tilbake, <?=htmlspecialchars($_SESSION['name'], ENT_QUOTES)?>!</p>
-		
-	</div>
-	</body>
+    <!-- Main Content -->
+    <div class="content">
+    <h2>Dashboard</h2>
+    <p>Velkommen tilbake, <?= htmlspecialchars($_SESSION['name'], ENT_QUOTES) ?>!</p>   
+    <button onclick="window.location.href='add_task.php'">Legg til ny oppgave</button>
+    
+        <h3>Kommende oppgaver</h3>
+        <?php if (!empty($tasks)): ?>
+            <ul>
+                <?php foreach ($tasks as $task): ?>
+                    <li>
+                        <strong><?= htmlspecialchars($task['title'], ENT_QUOTES) ?></strong><br>
+                        <span>Beskrivelse: <?= htmlspecialchars($task['description'], ENT_QUOTES) ?></span><br>
+                        <span>Forfallsdato: <?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>Ingen kommende oppgaver.</p>
+        <?php endif; ?>
+    </div>
+</body>
 </html>

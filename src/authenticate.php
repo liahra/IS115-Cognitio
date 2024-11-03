@@ -31,7 +31,7 @@
                 // Bruker verifisert, sett opp øktvariabler
                 $_SESSION['loggedin'] = TRUE;
                 $_SESSION['name'] = $_POST['username'];
-                $_SESSION['id'] = $user['id'];
+                $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user'] = $user;
                 
                 // Omdiriger til hjemmesiden
