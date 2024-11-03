@@ -41,7 +41,6 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 
         <section class="top-section">
             <h2>Dashboard</h2>
-            <p><?php print_r($todos) ?></p>
             <p>Velkommen tilbake, <?= htmlspecialchars($_SESSION['name'], ENT_QUOTES) ?>!</p>
         </section>
         <!-- Assignments section -->
