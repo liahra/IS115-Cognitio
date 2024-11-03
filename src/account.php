@@ -1,5 +1,7 @@
 <?php 
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/src/inc/db.inc.php';
+
 class Account {
     protected $id;
     protected $fname;

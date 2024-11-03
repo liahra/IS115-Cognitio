@@ -10,7 +10,6 @@
 </head>
 <body>
     <nav id="sidebar">
-        
         <ul>
             <li>
                 <span class="logo">Cognitio</span>

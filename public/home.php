@@ -8,7 +8,7 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 // Inkluder nødvendige filer og sett opp klasser
-require_once '../src/inc/db.inc.php';
+/* require_once '../src/inc/db.inc.php';  // Har lagt denne inn i account-klassen */
 require_once '../src/account.php';
 
 // Opprett en instans av Account-klassen
@@ -26,7 +26,7 @@ $tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke bru
 </head>
 <body>
     <!-- Sidebar -->
-    <?php include("./inc/sidebar.inc.php"); ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/public/inc/sidebar.inc.php"); ?>
 
     <!-- Main Content -->
     <div class="content">
