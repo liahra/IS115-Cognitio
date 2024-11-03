@@ -10,6 +10,7 @@
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 html{
   font-family: Poppins, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -170,6 +171,7 @@ main p{
     border: none;
     padding: 0;
   }
+
   #sidebar{
     height: 60px;
     width: 100%;
@@ -230,6 +232,7 @@ main p{
     }
   }
 }
+
 
 /* Login */
 .login {
@@ -391,7 +394,7 @@ body.loggedin {
     transition: background-color 0.2s;
 }
 
-#add_todo_window{
+dialog{
   margin: 0;
   padding: 2rem;
   position: absolute;
@@ -400,7 +403,45 @@ body.loggedin {
   transform: translate(-50%, -50%);
 }
 
-#add_todo_window::backdrop{
+dialog::backdrop{
   background-color: black;
   opacity: 0.8;
+}
+
+.no-style{
+  list-style: none;
+}
+
+.todo_item{
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todo_item span{
+  background-color: var(--line-clr);
+  padding: 0.5rem 1rem;
+}
+.todo_item .value{
+  width: calc(100% - 55px);
+}
+.todo_item .icon{
+  display: block;
+  width: 50px;
+  text-align: center;
+}
+
+.todo_item .icon:hover{
+  background-color: var(--accent-clr);
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px){
+  .content{
+    display: flex;
+    flex-direction: column;
+  }
+
 }

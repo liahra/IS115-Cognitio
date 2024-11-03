@@ -25,6 +25,7 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
     <meta charset="UTF-8">
     <title>Cognitio - Dashboard</title>
     <link rel="stylesheet" href="./resources/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 </head>
 
 <body>
@@ -37,9 +38,10 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 
     <!-- Main Content -->
     <div class="content">
-    
+
         <section class="top-section">
             <h2>Dashboard</h2>
+            <p><?php print_r($todos) ?></p>
             <p>Velkommen tilbake, <?= htmlspecialchars($_SESSION['name'], ENT_QUOTES) ?>!</p>
         </section>
         <!-- Assignments section -->
@@ -68,47 +70,80 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
             <button id="add_todo">Legg til gjøremål</button>
             <h3>Gjøremål</h3>
             <?php if (!empty($todos)): ?>
-                <ul>
-                    <?php foreach ($todos as $todo): ?>
-                        <li>
+                <ul class="no-style">
+                    <?php foreach ($todos as $todo) {
+                        $value = htmlspecialchars($todo['value'], ENT_QUOTES);
+                        $todo_id = htmlspecialchars($todo['id'], ENT_QUOTES);
+                        include './inc/todo_item.php';
+                    } ?>
+                    <!-- <li>
                             <span><?= htmlspecialchars($todo['value'], ENT_QUOTES) ?></span><br>
-                        </li>
-                    <?php endforeach; ?>
+                        </li> -->
+                    <?php //endforeach; 
+                    ?>
                 </ul>
             <?php else: ?>
                 <p>Ingen kommende gjøremål.</p>
             <?php endif; ?>
         </section>
-        
+
     </div>
 
+    <!-- Vindu for å legge til gjøremål -->
     <dialog id="add_todo_window">
-        <form action="../src/add_todo.php"; method="POST">
+        <form action="../src/add_todo.php" ; method="POST">
             <h4>Nytt gjøremål</h4>
-            <input type="text" name="todovalue" > 
+            <input type="text" name="todovalue">
             <div>
                 <button id="cancel_add_todo">Avbryt</button>
                 <button id="submit_todo" type="submit">Legg til</button>
             </div>
         </form>
     </dialog>
-    
+
+    <!-- Vindu for å bekrefte sletting av gjøremål -->
+    <dialog id="delete_todo_window">
+        <form action="">
+            <h4>Slett gjøremål?</h4>
+            <p>Er du sikker på at du vil slette dette gjøremålet?</p>
+            <div>
+                <button id="cancel_delete_todo">Avbryt</button>
+                <button id="submit_delete_todo" type="submit">Slett</button>
+            </div>
+        </form>
+    </dialog>
+
     <script>
         const add_todo = document.getElementById('add_todo');
-        const add_todo_tindow = document.getElementById('add_todo_window');
+        const add_todo_window = document.getElementById('add_todo_window');
         const cancel_add_todo = document.getElementById('cancel_add_todo');
+        const delete_todo_window = document.getElementById('delete_todo_window');
 
         // Open a modal dialog to add new task
-        add_todo.addEventListener("click", ()=>{
-            add_todo_tindow.showModal();
+        add_todo.addEventListener("click", () => {
+            add_todo_window.showModal();
         });
 
         // Close the modal window without submitting a new item
-        cancel_add_todo.addEventListener("click", (e)=>{
+        cancel_add_todo.addEventListener("click", (e) => {
             e.preventDefault();
-            add_todo_tindow.close();
-            
-        })
+            add_todo_window.close();
+
+        });
+
+        // Select all delete buttons
+        const delete_buttons = document.querySelectorAll('[id^=todo_]');
+        console.log(delete_buttons);
+        // Add eventlisteners to these
+        for(let delete_btn of delete_buttons){
+            delete_btn.addEventListener("click", ()=>{
+                // Get the id of the todo item.
+                const id = delete_btn.id.slice(5);
+                // TODO:
+                console.log("Send me to database to delete by opening a dialog to confirm or deny!");
+                delete_todo_window.showModal(); 
+            });
+        }
     </script>
 </body>
 
