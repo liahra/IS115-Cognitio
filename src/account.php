@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/inc/db.inc.php';
+require_once __DIR__ . '/inc/db.inc.php';
 
 class Account
 {
@@ -17,6 +17,7 @@ class Account
     protected function getDbConnection()
     {
         $db = new Database();
+
         $pdo = $db->getConnection();
 
         return $pdo;

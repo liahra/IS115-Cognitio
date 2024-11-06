@@ -33,7 +33,7 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 
     <?php
     // Tester inkludering med absolutt path
-    include($_SERVER['DOCUMENT_ROOT'] . "/public/inc/sidebar.inc.php");
+    include("./inc/sidebar.inc.php");
     ?>
 
     <!-- Main Content -->
@@ -118,25 +118,25 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
         const cancel_add_todo = document.getElementById('cancel_add_todo');
         const delete_todo_window = document.getElementById('delete_todo_window');
 
-        // Open a modal dialog to add new task
+        // Åpne et modalt vindu for å legge til nytt gjøremål
         add_todo.addEventListener("click", () => {
             add_todo_window.showModal();
         });
 
-        // Close the modal window without submitting a new item
+        // Lukk det modale vinduet for gjøremål uten å legge til nytt gjøremål
         cancel_add_todo.addEventListener("click", (e) => {
             e.preventDefault();
             add_todo_window.close();
 
         });
 
-        // Select all delete buttons
+        // Hent inn alle slett-knappene til gjøremål
         const delete_buttons = document.querySelectorAll('[id^=todo_]');
         console.log(delete_buttons);
-        // Add eventlisteners to these
+        // Legg på eventlistener på knappene for å kunne slette et gjøremål
         for(let delete_btn of delete_buttons){
             delete_btn.addEventListener("click", ()=>{
-                // Get the id of the todo item.
+                // Hent id til gjøremålet (som korresponderer til id i databasen)
                 const id = delete_btn.id.slice(5);
                 // TODO:
                 console.log("Send me to database to delete by opening a dialog to confirm or deny!");

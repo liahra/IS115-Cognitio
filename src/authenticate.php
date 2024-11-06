@@ -1,6 +1,6 @@
 <?php
     session_start(); 
-    require_once 'inc/db.inc.php';
+    /* require_once 'inc/db.inc.php'; */
     require_once 'account.php';
     
     $db = new Database();
