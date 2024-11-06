@@ -34,6 +34,7 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
     <?php
     // Tester inkludering med absolutt path
     include("./inc/sidebar.inc.php");
+    //phpinfo();
     ?>
 
     <!-- Main Content -->

@@ -1,10 +1,10 @@
 <?php
+
 class Database
 {
     // Konfig-detaljer for db
     private $host = '127.0.0.1';
-    private $port = array('8889', '3306'); // Liste over porter vi kan forsøke å koble til
-    private $portIndex = 0;
+    private $port;
     private $user = 'root';
     private $pass = 'root';
     private $dbname = 'phplogin';
@@ -12,7 +12,19 @@ class Database
     private $pdo; // Variabel for PDO-tilkoblingen
 
     // Konstruktør
-    public function __construct() {
+    public function __construct()
+    {
+        // Siden ulike system kan ha ulike porter, så kan vi ha andre portnummer i en egen fil
+        // Hvis denne filen eksisterer, så henter vi portnummeret fra der
+        if (file_exists(__DIR__ . '/portfile.php')) {
+            $portfile = require 'portfile.php';
+        } else {
+            // Hvis portfilen ikke eksisterer så bruker vi 8889 som default
+            $portfile = array(
+                'port' => '8889'
+            );
+        }
+        $this->port = $portfile['port'];
         $this->connectToDatabase();
     }
 
@@ -20,25 +32,21 @@ class Database
     public function connectToDatabase()
     {
         try {
+
             // Bygger DSN-strengen (Data Source Name) for tilkoblingen
-            $dsn = 'mysql:host=' . $this->host . ';port=' . $this->port[$this->portIndex] . ';dbname=' . $this->dbname;
+            $this->dsn = 'mysql:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->dbname;
 
             // Oppretter en ny PDO-tilkobling
-            $this->pdo = new PDO($dsn, $this->user, $this->pass);
+            $this->pdo = new PDO($this->dsn, $this->user, $this->pass);
 
             // Setter PDO til å kaste unntak hvis en feil oppstår
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            // En mulig feil kan være porten. MAMP bruker 8889, mens XAMPP bruker 3306.
-            // Vi prøver derfor å koble til med neste port i listen over porter hvis det er mulig
-            if ($this->portIndex < sizeof($this->port)) {
-                $this->portIndex++; // Går videre til neste port
-                $this->connectToDatabase();
-            } else {
-                // Håndterer feil ved tilkobling og viser en melding
-                echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
-                exit;
-            }
+
+            // Håndterer feil ved tilkobling og viser en melding
+
+            echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
+            exit;
         }
     }
 
