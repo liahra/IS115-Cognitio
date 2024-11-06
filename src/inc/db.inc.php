@@ -44,7 +44,6 @@ class Database
         } catch (PDOException $e) {
 
             // Håndterer feil ved tilkobling og viser en melding
-
             echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
             exit;
         }

@@ -1,6 +1,6 @@
 <?php
 // Inkluderer nødvendige filer
-require_once 'inc/db.inc.php';
+require_once 'inc/db.inc.php'; // Fjern?
 require_once 'account.php';
 require_once 'validation.php';
 
