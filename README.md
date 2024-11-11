@@ -23,6 +23,9 @@ CREATE TABLE IF NOT EXISTS tasks (
     description TEXT,
     due_date DATE,
     status ENUM('pending', 'completed') DEFAULT 'pending',
+    course_id VARCHAR(20), -- Felt for emnekode
+    collaboration BOOLEAN DEFAULT FALSE, -- Felt for samarbeid, satt til FALSE som standard
+    material_url VARCHAR(255), -- Felt for kursmateriell, lagrer filsti eller URL
     FOREIGN KEY (user_id) REFERENCES accounts(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
