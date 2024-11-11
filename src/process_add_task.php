@@ -54,4 +54,3 @@ if (addNewTask($account, $title, $course_code, $description, $due_date, $status,
 } else {
     echo "Det oppsto et problem med å legge til oppgaven. Vennligst prøv igjen."; // Feilmelding ved mislykket forsøk
 }
-?>

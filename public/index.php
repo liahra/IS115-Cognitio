@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cognitio</title>
 </head>
+
 <body>
     <img src="./resources/img/cognitio_logo_sort.png" alt="" height="25"><br><br>
 
@@ -12,4 +14,5 @@
     <a href="./register.html">Registrer</a>
 
 </body>
+
 </html>

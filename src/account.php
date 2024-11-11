@@ -2,8 +2,7 @@
 
 require_once __DIR__ . '/inc/db.inc.php';
 
-class Account
-{
+class Account {
     protected $id;
     protected $fname;
     protected $lname;
@@ -14,57 +13,47 @@ class Account
     protected $password;
 
     // Henter databaseforbindelsen fra Database-klassen
-    protected function getDbConnection()
-    {
+    protected function getDbConnection() {
         $db = new Database();
         $pdo = $db->getConnection();
         return $pdo;
     }
 
     // Setters
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
     }
 
-    public function setFirstName($fname)
-    {
+    public function setFirstName($fname) {
         $this->fname = $fname;
     }
 
-    public function setLastName($lname)
-    {
+    public function setLastName($lname) {
         $this->lname = $lname;
     }
 
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->username = $username;
     }
 
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
     }
 
-    public function setRole($role)
-    {
+    public function setRole($role) {
         $this->role = $role;
     }
 
-    public function setRegDate($regDate)
-    {
+    public function setRegDate($regDate) {
         $this->regDate = $regDate;
     }
 
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
     }
 
     // Sjekker om brukernavn allerede eksisterer
-    public function usernameExists($username)
-    {
+    public function usernameExists($username) {
         $pdo = $this->getDbConnection();
         $stmt = $pdo->prepare("SELECT id FROM accounts WHERE username = :username");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -73,45 +62,42 @@ class Account
     }
 
     // Getters
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
-    public function addTask($userId, $title, $course_code, $description, $due_date, $status, $materialUrl)
-{
-    try {
-        $pdo = $this->getDbConnection();
-        
-        // Oppdater SQL-spørringen til å inkludere de nye feltene
-        $stmt = $pdo->prepare("INSERT INTO tasks (user_id, title, course_code, description, due_date, status, material_url) 
+    public function addTask($userId, $title, $course_code, $description, $due_date, $status, $materialUrl) {
+        try {
+            $pdo = $this->getDbConnection();
+
+            // Oppdater SQL-spørringen til å inkludere de nye feltene
+            $stmt = $pdo->prepare("INSERT INTO tasks (user_id, title, course_code, description, due_date, status, material_url) 
                                VALUES (:user_id, :title, :course_code, :description, :due_date, :status, :material_url)");
 
-        // Bind parametere
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-        $stmt->bindParam(':course_code', $course_code, PDO::PARAM_STR);
-        $stmt->bindParam(':description', $description, PDO::PARAM_STR);
-        $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
-        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-        
-        // Bind material_url, og håndter tilfelle hvor $materialUrl kan være null
-        if ($materialUrl === null) {
-            $stmt->bindValue(':material_url', null, PDO::PARAM_NULL);
-        } else {
-            $stmt->bindParam(':material_url', $materialUrl, PDO::PARAM_STR);
+            // Bind parametere
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+            $stmt->bindParam(':course_code', $course_code, PDO::PARAM_STR);
+            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
+            $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+
+            // Bind material_url, og håndter tilfelle hvor $materialUrl kan være null
+            if ($materialUrl === null) {
+                $stmt->bindValue(':material_url', null, PDO::PARAM_NULL);
+            } else {
+                $stmt->bindParam(':material_url', $materialUrl, PDO::PARAM_STR);
+            }
+
+            $stmt->execute();
+            return true; // Suksess
+        } catch (PDOException $e) {
+            error_log("Error adding task: " . $e->getMessage());
+            return false; // Feil
         }
-
-        $stmt->execute();
-        return true; // Suksess
-    } catch (PDOException $e) {
-        error_log("Error adding task: " . $e->getMessage());
-        return false; // Feil
     }
-}
 
-    public function getUpcomingTasks()
-    {
+    public function getUpcomingTasks() {
         $pdo = $this->getDbConnection();
         $stmt = $pdo->prepare("SELECT * FROM tasks WHERE user_id = :user_id 
         AND status = 'pending' AND due_date >= CURDATE() 
@@ -124,8 +110,7 @@ class Account
     }
 
     // Todos
-    public function addTodo($userId, $value)
-    {
+    public function addTodo($userId, $value) {
         try {
             $pdo = $this->getDbConnection();
             $stmt = $pdo->prepare("INSERT INTO todo (user_id, value) VALUES (:user_id, :value)");
@@ -140,8 +125,7 @@ class Account
         }
     }
 
-    public function getUnfinishedTodos()
-    {
+    public function getUnfinishedTodos() {
         $pdo = $this->getDbConnection();
         $stmt = $pdo->prepare("SELECT * FROM todo WHERE user_id = :user_id 
         AND status = 'pending'");
@@ -152,8 +136,7 @@ class Account
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function createAccount()
-    {
+    public function createAccount() {
         $pdo = $this->getDbConnection(); // Henter PDO-forbindfelsen
 
         $sql = "INSERT INTO accounts (fname, lname, username, email, password, role, regDate) 

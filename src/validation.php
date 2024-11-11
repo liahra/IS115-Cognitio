@@ -1,4 +1,4 @@
-<?php 
+<?php
 class Validation {
     private $errors = [];
 
@@ -19,8 +19,10 @@ class Validation {
         }
 
         // Sjekk at passordene samsvarer
-        if (!empty($data['password']) && isset($data['confirm_password']) &&
-            !$this->passwordsMatch($data['password'], $data['confirm_password'])) {
+        if (
+            !empty($data['password']) && isset($data['confirm_password']) &&
+            !$this->passwordsMatch($data['password'], $data['confirm_password'])
+        ) {
             $this->errors[] = 'Passordene samsvarer ikke.';
         }
 
@@ -33,8 +35,7 @@ class Validation {
         return empty($this->errors);
     }
 
-    private function requiredFieldsExist(array $fields, array $data): bool
-    {
+    private function requiredFieldsExist(array $fields, array $data): bool {
         foreach ($fields as $field) {
             if (!isset($data[$field]) || empty($data[$field])) {
                 return false;
@@ -43,30 +44,24 @@ class Validation {
         return true;
     }
 
-    private function isValidEmail(string $email): bool
-    {
+    private function isValidEmail(string $email): bool {
         return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
     }
 
-    private function isAlphanumeric(string $username): bool
-    {
+    private function isAlphanumeric(string $username): bool {
         return preg_match('/^[a-zA-Z0-9]+$/', $username);
     }
 
-    private function passwordsMatch(string $password, string $confirmPassword): bool
-    {
+    private function passwordsMatch(string $password, string $confirmPassword): bool {
         return $password === $confirmPassword;
     }
 
-    private function isPasswordLengthValid(string $password, int $min = 5, int $max = 20): bool
-    {
+    private function isPasswordLengthValid(string $password, int $min = 5, int $max = 20): bool {
         $length = strlen($password);
         return $length >= $min && $length <= $max;
     }
 
-    public function getErrors(): array
-    {
+    public function getErrors(): array {
         return $this->errors;
     }
 }
-?>

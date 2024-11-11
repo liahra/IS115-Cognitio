@@ -32,7 +32,7 @@ try {
         $account->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT)); // Hashet passord
         $account->setRole('student'); // Setter standard rolle som 'student'
         $account->setRegDate(date('Y-m-d'));
-        
+
         $account->createAccount();
 
         // Bekreft at registreringen var vellykket
@@ -40,7 +40,6 @@ try {
         header('Location: ../public/login.php');
         exit();
     }
-
 } catch (PDOException $e) {
     exit('Noe gikk galt: ' . $e->getMessage());
 }

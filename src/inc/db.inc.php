@@ -1,7 +1,6 @@
 <?php
 
-class Database
-{
+class Database {
     // Konfig-detaljer for db
     private $host = '127.0.0.1';
     private $port;
@@ -12,8 +11,7 @@ class Database
     private $pdo; // Variabel for PDO-tilkoblingen
 
     // Konstruktør
-    public function __construct()
-    {
+    public function __construct() {
         // Siden ulike system kan ha ulike porter, så kan vi ha andre portnummer i en egen fil
         // Hvis denne filen eksisterer, så henter vi portnummeret fra der
         if (file_exists(__DIR__ . '/portfile.php')) {
@@ -29,8 +27,7 @@ class Database
     }
 
     // Metode for å prøve å koble seg til databasen
-    public function connectToDatabase()
-    {
+    public function connectToDatabase() {
         try {
 
             // Bygger DSN-strengen (Data Source Name) for tilkoblingen
@@ -50,8 +47,7 @@ class Database
     }
 
     // Getter-metode for å hente PDO-tilkoblingen
-    public function getConnection()
-    {
+    public function getConnection() {
         return $this->pdo; // Returnerer PDO-objektet for å kunne bruke det i andre klasser
     }
 }
