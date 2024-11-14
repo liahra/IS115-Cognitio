@@ -66,8 +66,17 @@ class Account {
         return $this->id;
     }
 
-    public function addTask($userId, $title, $course_code, $description, $due_date, $status, $materialUrl)
-{
+    public function getTaskById($taskId) {
+        $pdo = $this->getDbConnection();
+        $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = :task_id AND user_id = :user_id");
+        $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
+        $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function addTask($userId, $title, $course_code, $description, $due_date, $status, $materialUrl) {
     try {
         $pdo = $this->getDbConnection();
         
@@ -110,6 +119,25 @@ class Account {
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateTask($taskId, $title, $description, $due_date, $status) {
+        try {
+            $pdo = $this->getDbConnection();
+            $stmt = $pdo->prepare("UPDATE tasks SET title = :title, description = :description, due_date = :due_date, status = :status WHERE id = :task_id AND user_id = :user_id");
+            
+            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
+            $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+            $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT);
+
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Error updating task: " . $e->getMessage());
+            return false;
+        }
     }
 
     // Todos

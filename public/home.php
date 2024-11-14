@@ -38,32 +38,33 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 
     <!-- Main Content -->
     <div class="content">
-
         <section class="top-section">
-            <h2>Dashboard</h2>
-            <p>Velkommen tilbake, <?= htmlspecialchars($_SESSION['name'], ENT_QUOTES) ?>!</p>
+            <h2>Dashboard</h2><br />
+            <br/><p>Velkommen tilbake, <?= htmlspecialchars($_SESSION['name'], ENT_QUOTES) ?>!</p><br/><br/>
         </section>
+
         <!-- Assignments section -->
-
         <section>
-            <button onclick="window.location.href='add_task.php'">Legg til ny oppgave</button>
+    <button onclick="window.location.href='add_task.php'">Legg til ny oppgave</button>
 
-            <h3>Kommende oppgaver</h3>
-            <?php if (!empty($tasks)): ?>
-                <ul>
-                    <?php foreach ($tasks as $task): ?>
-                        <li>
-                            <strong><?= htmlspecialchars($task['title'], ENT_QUOTES) ?></strong><br>
-                            <span>Beskrivelse: <?= htmlspecialchars($task['description'], ENT_QUOTES) ?></span><br>
-                            <span>Forfallsdato: <?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></span>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>Ingen kommende oppgaver.</p>
-            <?php endif; ?>
-
-        </section>
+    <h3>Kommende oppgaver</h3>
+    <?php if (!empty($tasks)): ?>
+        <ul>
+            <?php foreach ($tasks as $task): ?>
+                <li>
+                    <strong><?= htmlspecialchars($task['title'], ENT_QUOTES) ?></strong><br>
+                    <span>Beskrivelse: <?= htmlspecialchars($task['description'], ENT_QUOTES) ?></span><br>
+                    <span>Forfallsdato: <?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></span><br>
+                    
+                    <!-- Rediger-knapp -->
+                    <a href="edit_task.php?id=<?= $task['id'] ?>" class="edit-button">Rediger</a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p>Ingen kommende oppgaver.</p>
+    <?php endif; ?>
+    </section>
         <!-- Todo section -->
         <section>
             <button id="add_todo">Legg til gjøremål</button>
