@@ -66,42 +66,45 @@ class Account {
         return $this->id;
     }
 
-    public function addTask($userId, $title, $course_code, $description, $due_date, $status, $materialUrl) {
-        try {
-            $pdo = $this->getDbConnection();
-
-            // Oppdater SQL-spørringen til å inkludere de nye feltene
-            $stmt = $pdo->prepare("INSERT INTO tasks (user_id, title, course_code, description, due_date, status, material_url) 
+    public function addTask($userId, $title, $course_code, $description, $due_date, $status, $materialUrl)
+{
+    try {
+        $pdo = $this->getDbConnection();
+        
+        // Oppdater SQL-spørringen til å inkludere de nye feltene
+        $stmt = $pdo->prepare("INSERT INTO tasks (user_id, title, course_code, description, due_date, status, material_url) 
                                VALUES (:user_id, :title, :course_code, :description, :due_date, :status, :material_url)");
 
-            // Bind parametere
-            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            $stmt->bindParam(':course_code', $course_code, PDO::PARAM_STR);
-            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
-            $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
-            $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        // Bind parametere
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+        $stmt->bindParam(':course_code', $course_code, PDO::PARAM_STR);
+        $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+        $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
 
-            // Bind material_url, og håndter tilfelle hvor $materialUrl kan være null
-            if ($materialUrl === null) {
-                $stmt->bindValue(':material_url', null, PDO::PARAM_NULL);
-            } else {
-                $stmt->bindParam(':material_url', $materialUrl, PDO::PARAM_STR);
-            }
-
-            $stmt->execute();
-            return true; // Suksess
-        } catch (PDOException $e) {
-            error_log("Error adding task: " . $e->getMessage());
-            return false; // Feil
+        // Håndter tilfelle hvor $materialUrl kan være null
+        if ($materialUrl === null) {
+            $stmt->bindValue(':material_url', null, PDO::PARAM_NULL);
+        } else {
+            $stmt->bindParam(':material_url', $materialUrl, PDO::PARAM_STR);
         }
+
+        $stmt->execute();
+        return true;
+    } catch (PDOException $e) {
+        echo "Feil ved lagring av oppgave: " . $e->getMessage(); // Detaljert feilmelding for feilsøking
+        return false;
     }
+}
 
     public function getUpcomingTasks() {
         $pdo = $this->getDbConnection();
-        $stmt = $pdo->prepare("SELECT * FROM tasks WHERE user_id = :user_id 
-        AND status = 'pending' AND due_date >= CURDATE() 
-        ORDER BY due_date ASC");
+        $stmt = $pdo->prepare("SELECT * FROM tasks 
+                            WHERE user_id = :user_id 
+                            AND status IN ('pending', 'not-started') 
+                            AND due_date >= CURDATE() 
+                            ORDER BY due_date ASC");
 
         $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT);
         $stmt->execute();
