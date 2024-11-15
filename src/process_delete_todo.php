@@ -13,11 +13,11 @@ $account->setId($_SESSION['user_id']);
 
 $todoId = $_POST['id'];
 echo $todoId;
-/*
-if ($account->updateTask($taskId)) {
+
+if ($account->deactivateTodo($todoId)) {
     header('Location: ../public/home.php'); // Omdiriger til dashbordet ved suksess
     exit();
 } else {
     echo "Det oppsto et problem med å slette gjøremålet. Vennligst prøv igjen.";
-} */
+}
 ?>

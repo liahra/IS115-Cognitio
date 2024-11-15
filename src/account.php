@@ -167,6 +167,25 @@ class Account {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Slett gjøremål (altså sett dem til finished i databasen)
+    public function deactivateTodo($id){
+        echo "Ey";
+        try{
+            $pdo = $this->getDbConnection();
+            $stmt = $pdo->prepare("UPDATE todo SET status = 'completed' WHERE id = :id");
+
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return true; 
+        } catch (PDOException $e){
+            error_log("Error deactivating todo: " . $e->getMessage());
+            return false;
+        }
+        
+
+    }
+
+    // Opprett konto
     public function createAccount() {
         $pdo = $this->getDbConnection(); // Henter PDO-forbindfelsen
 
