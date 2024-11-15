@@ -29,7 +29,7 @@ if (!$task) {
 <body>
 
 <h2>Rediger Oppgave</h2>
-<form action="process_edit_task.php" method="post">
+<form action="../src/process_edit_task.php" method="post">
     <input type="hidden" name="task_id" value="<?= htmlspecialchars($task['id']) ?>">
     
     <label for="title">Tittel:</label>
