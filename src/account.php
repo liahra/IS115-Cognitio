@@ -169,7 +169,6 @@ class Account {
 
     // Slett gjøremål (altså sett dem til finished i databasen)
     public function deactivateTodo($id){
-        echo "Ey";
         try{
             $pdo = $this->getDbConnection();
             $stmt = $pdo->prepare("UPDATE todo SET status = 'completed' WHERE id = :id");
@@ -181,8 +180,22 @@ class Account {
             error_log("Error deactivating todo: " . $e->getMessage());
             return false;
         }
-        
+    }
 
+    // Oppdater gjøremål
+    public function updateTodo($id, $updated_description){
+        try{
+            $pdo = $this->getDbConnection();
+            $stmt = $pdo->prepare("UPDATE todo SET value = :updated_description WHERE id = :id");
+
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':updated_description', $updated_description, PDO::PARAM_STR);
+            $stmt->execute();
+            return true;
+        } catch(PDOException $e){
+            error_log("Error deactivating todo: " . $e->getMessage());
+            return false;
+        }
     }
 
     // Opprett konto

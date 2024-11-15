@@ -106,17 +106,34 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
         <div>
             <h4>Slett gjøremål?</h4>
             <p>Er du sikker på at du vil slette dette gjøremålet?</p>
-            <p>Dette gjøremålet har id=</p>
             <form action="../src/process_delete_todo.php", method="POST">
                 <div>
-                    <input type="hidden" name="id">
+                    <input type="hidden" name="id" >
                     <button id="cancel_delete_todo">Avbryt</button>
                     <button id="submit_delete_todo" type="submit">Slett</button>
                 </div>
             </form>
         </div>
-
     </dialog>
+
+    <!-- Vindu for å redigere gjøremål -->
+     <dialog id="update_todo_window">
+        <div>
+            <h4>Oppdater gjøremål</h4>
+            <form action="../src/process_update_todo.php" method="post">
+                <input type="hidden" name="id">
+                <input type="hidden" name="original_description">
+                <input type="text" name="updated_description" id="update_todo_content">
+                <div>
+                    <button id="cancel_update_todo">Avbryt</button>
+                    <button id="submit_update_todo" type="submit">Oppdater</button>
+                </div>
+            </form>
+        </div>
+     </dialog>
+
+
+
     <script src="./resources/js/app.js"></script>
 </body>
 

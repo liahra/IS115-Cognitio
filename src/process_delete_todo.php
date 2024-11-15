@@ -12,7 +12,7 @@ $account = new Account();
 $account->setId($_SESSION['user_id']);
 
 $todoId = $_POST['id'];
-echo $todoId;
+
 
 if ($account->deactivateTodo($todoId)) {
     header('Location: ../public/home.php'); // Omdiriger til dashbordet ved suksess

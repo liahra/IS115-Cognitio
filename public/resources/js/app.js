@@ -15,11 +15,9 @@ function setupDeleteHandlers(deleteButtons, confirmDialog) {
   for (let deleteBtn of deleteButtons) {
     deleteBtn.addEventListener("click", () => {
       const id = deleteBtn.id.slice(5); // Henter ID fra knappen
-      console.log(`Klargjør for sletting av gjøremål med id: ${id}`);
 
-      // Sett urlen til dialogboksen slik at den inneholder iden til dette todo-elementet.
-      console.log(confirmDialog.querySelector("form"));
-      confirmDialog.querySelector("input").setAttribute("value",id);
+      // Sett verdien i det skjulte input-feltet til iden til dette todo-elementet.
+      confirmDialog.querySelector("input").setAttribute("value", id);
 
       confirmDialog.showModal();
 
@@ -39,6 +37,43 @@ function setupDeleteHandlers(deleteButtons, confirmDialog) {
   }
 }
 
+// Håndter oppdatering av gjøremål med dialog
+function setupUpdateHandlers(todos, updateWindow) {
+  // Legg eventlistener på hvert todo-element
+  for (let todo of todos) {
+    // Hent id fra todo
+    const id = todo.id.slice(10);
+    // Hent textinnholdet til dette todo itemet
+    const desc = todo.innerText;
+
+    // Legg på eventlistener som åpner dialogboksen for å oppdatere innholdet
+    todo.addEventListener("click", () => {
+      // Legg textinnholdet i det synlige input feltet.
+      document.getElementById("update_todo_content").value = desc;
+
+      // Legg textinnholdet i et usynlig input felt for å sammenligne med en eventuell oppdatering
+      updateWindow.querySelector("input[name='original_description']").value = desc;
+
+      // Legg id'en til dette todoelementet i det skjule inputfeltet
+      updateWindow.querySelector("input[name='id']").value = id;
+
+      // Vis oppdateringsvinduet
+      updateWindow.showModal();
+
+      // Hent avbryt-knappen
+      const cancelUpdateTodo = document.getElementById("cancel_update_todo");
+      // Legg på eventlistener for å lukke vinduet uten av siden lastes på nytt
+      cancelUpdateTodo.addEventListener("click", (e)=>{
+        e.preventDefault();
+        updateWindow.close();
+      });
+
+
+
+    });
+  }
+}
+
 // Initialiser funksjoner når DOM er lastet inn
 document.addEventListener("DOMContentLoaded", () => {
   const toggleButton = document.getElementById("toggle-btn");
@@ -48,6 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancel_add_todo = document.getElementById("cancel_add_todo");
   const delete_buttons = document.querySelectorAll("[id^=todo_]");
   const delete_todo_window = document.getElementById("delete_todo_window");
+  const update_todos = document.querySelectorAll("[id^=desc_todo");
+  const update_todo_window = document.getElementById("update_todo_window");
 
   // Sett opp sidebar-toggle
   toggleButton.addEventListener("click", () => {
@@ -60,4 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Sett opp slettingshåndtering for gjøremål
   setupDeleteHandlers(delete_buttons, delete_todo_window);
+
+  // Sett opp oppdateringshåndtering for gjøremål
+  setupUpdateHandlers(update_todos, update_todo_window);
 });
