@@ -16,15 +16,24 @@ function setupDeleteHandlers(deleteButtons, confirmDialog) {
     deleteBtn.addEventListener("click", () => {
       const id = deleteBtn.id.slice(5); // Henter ID fra knappen
       console.log(`Klargjør for sletting av gjøremål med id: ${id}`);
+
+      // Sett urlen til dialogboksen slik at den inneholder iden til dette todo-elementet.
+      console.log(confirmDialog.querySelector("form"));
+      confirmDialog.querySelector("input").setAttribute("value",id);
+
       confirmDialog.showModal();
 
+      // Hent avbryt-knappen
+      const cancelBtn = document.getElementById("cancel_delete_todo");
+      // Legg på eventlistener som hindrer at siden lastes på nytt hvis skjemaet ikke skal sendes inn, men bare lukker dialogboksen.
+      cancelBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        confirmDialog.close();
+      });
+
+      // Hva skjer hvis dialogboksen lukkes?
       confirmDialog.addEventListener("close", () => {
-        if (confirmDialog.returnValue === "confirm") {
-          console.log(`Bekreftet sletting av gjøremål med id: ${id}`);
-          // TODO
-        } else {
-          console.log(`Avbrutt sletting av gjøremål med id: ${id}`);
-        }
+        console.log(`Avbrutt sletting av gjøremål med id: ${id}`);
       });
     });
   }

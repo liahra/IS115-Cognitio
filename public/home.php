@@ -40,31 +40,32 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
     <div class="content">
         <section class="top-section">
             <h2>Dashboard</h2><br />
-            <br/><p>Velkommen tilbake, <?= htmlspecialchars($_SESSION['name'], ENT_QUOTES) ?>!</p><br/><br/>
+            <br />
+            <p>Velkommen tilbake, <?= htmlspecialchars($_SESSION['name'], ENT_QUOTES) ?>!</p><br /><br />
         </section>
 
         <!-- Assignments section -->
         <section>
-    <button onclick="window.location.href='add_task.php'">Legg til ny oppgave</button>
+            <button onclick="window.location.href='add_task.php'">Legg til ny oppgave</button>
 
-    <h3>Kommende oppgaver</h3>
-    <?php if (!empty($tasks)): ?>
-        <ul>
-            <?php foreach ($tasks as $task): ?>
-                <li>
-                    <strong><?= htmlspecialchars($task['title'], ENT_QUOTES) ?></strong><br>
-                    <span>Beskrivelse: <?= htmlspecialchars($task['description'], ENT_QUOTES) ?></span><br>
-                    <span>Forfallsdato: <?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></span><br>
-                    
-                    <!-- Rediger-knapp -->
-                    <a href="edit_task.php?id=<?= $task['id'] ?>" class="edit-button">Rediger</a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else: ?>
-        <p>Ingen kommende oppgaver.</p>
-    <?php endif; ?>
-    </section>
+            <h3>Kommende oppgaver</h3>
+            <?php if (!empty($tasks)): ?>
+                <ul>
+                    <?php foreach ($tasks as $task): ?>
+                        <li>
+                            <strong><?= htmlspecialchars($task['title'], ENT_QUOTES) ?></strong><br>
+                            <span>Beskrivelse: <?= htmlspecialchars($task['description'], ENT_QUOTES) ?></span><br>
+                            <span>Forfallsdato: <?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></span><br>
+
+                            <!-- Rediger-knapp -->
+                            <a href="edit_task.php?id=<?= $task['id'] ?>" class="edit-button">Rediger</a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>Ingen kommende oppgaver.</p>
+            <?php endif; ?>
+        </section>
         <!-- Todo section -->
         <section>
             <button id="add_todo">Legg til gjøremål</button>
@@ -72,13 +73,12 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
             <?php if (!empty($todos)): ?>
                 <ul class="no-style">
                     <?php foreach ($todos as $todo) {
+                        // Verdier som skal legges inn i dette todo-itemet
                         $value = htmlspecialchars($todo['value'], ENT_QUOTES);
                         $todo_id = htmlspecialchars($todo['id'], ENT_QUOTES);
+                        // Legg til todo-itemet
                         include './inc/todo_item.php';
                     } ?>
-                    <!-- <li>
-                            <span><?= htmlspecialchars($todo['value'], ENT_QUOTES) ?></span><br>
-                        </li> -->
                     <?php //endforeach; 
                     ?>
                 </ul>
@@ -103,14 +103,19 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 
     <!-- Vindu for å bekrefte sletting av gjøremål -->
     <dialog id="delete_todo_window">
-        <form action="">
+        <div>
             <h4>Slett gjøremål?</h4>
             <p>Er du sikker på at du vil slette dette gjøremålet?</p>
-            <div>
-                <button id="cancel_delete_todo">Avbryt</button>
-                <button id="submit_delete_todo" type="submit">Slett</button>
-            </div>
-        </form>
+            <p>Dette gjøremålet har id=</p>
+            <form action="../src/process_delete_todo.php", method="POST">
+                <div>
+                    <input type="hidden" name="id">
+                    <button id="cancel_delete_todo">Avbryt</button>
+                    <button id="submit_delete_todo" type="submit">Slett</button>
+                </div>
+            </form>
+        </div>
+
     </dialog>
     <script src="./resources/js/app.js"></script>
 </body>
