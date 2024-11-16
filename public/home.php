@@ -12,8 +12,9 @@ if (!isset($_SESSION['loggedin'])) {
 require_once '../src/account.php';
 
 // Opprett en instans av Account-klassen
-$account = new Account();
-$account->setId($_SESSION['user_id']); // Setter bruker-ID fra sesjonen
+//$account = new Account();
+$account = unserialize($_SESSION['account']);
+//$account->setId($_SESSION['user_id']); // Setter bruker-ID fra sesjonen
 $tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
 $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke brukeren
 ?>
@@ -41,7 +42,7 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
         <section class="top-section">
             <h2>Dashboard</h2><br />
             <br />
-            <p>Velkommen tilbake, <?= htmlspecialchars($_SESSION['name'], ENT_QUOTES) ?>!</p><br /><br />
+            <p>Velkommen tilbake, <?= htmlspecialchars($account->getFirstName(), ENT_QUOTES)?><?= $account->getRole()==="admin" ? "<sup>*</sup>" : "" ?>!</p><br /><br />
         </section>
 
         <!-- Assignments section -->

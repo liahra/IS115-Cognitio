@@ -66,6 +66,14 @@ class Account {
         return $this->id;
     }
 
+    public function getFirstName() {
+        return $this->fname;
+    }
+
+    public function getRole() {
+        return $this->role;
+    }
+
     public function getTaskById($taskId) {
         $pdo = $this->getDbConnection();
         $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = :task_id AND user_id = :user_id");
@@ -81,7 +89,8 @@ class Account {
         $pdo = $this->getDbConnection();
         
         // Oppdater SQL-spørringen til å inkludere de nye feltene
-        $stmt = $pdo->prepare("INSERT INTO tasks (user_id, title, course_code, description, due_date, status, material_url) 
+        // OBS! Skal det hete course_code i databasen også?
+        $stmt = $pdo->prepare("INSERT INTO tasks (user_id, title, course_id, description, due_date, status, material_url) 
                                VALUES (:user_id, :title, :course_code, :description, :due_date, :status, :material_url)");
 
         // Bind parametere

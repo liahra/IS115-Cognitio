@@ -5,6 +5,8 @@ require_once 'account.php';
 
 $db = new Database();
 $pdo = $db->getConnection();
+$account = new Account();
+
 
 // Sjekk om skjemaet er sendt
 if (!isset($_POST['username'], $_POST['password'])) {
@@ -15,7 +17,8 @@ if (!isset($_POST['username'], $_POST['password'])) {
 
 try {
     // Forbered SQL-spørringen med en navngitt parameter
-    $stmt = $pdo->prepare('SELECT id, password FROM accounts WHERE username = :username');
+    //$stmt = $pdo->prepare('SELECT id, password FROM accounts WHERE username = :username');
+    $stmt = $pdo->prepare('SELECT * FROM accounts WHERE username = :username');
 
     // Bind parameter (bruker navngitte parametere)
     $stmt->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
@@ -26,6 +29,7 @@ try {
         // Hent brukerens id og passord
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
         // Verifiser passordet
         if (password_verify($_POST['password'], $user['password'])) {
             // Bruker verifisert, sett opp øktvariabler
@@ -33,6 +37,21 @@ try {
             $_SESSION['name'] = $_POST['username'];
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user'] = $user;
+            echo "<pre>";
+            print_r($user);
+            echo "</pre>";
+
+            /*** Setter opp account-objectet med all informasjon om bruker, unntatt passord ***/
+            $account->setId($user['id']);
+            $account->setFirstName($user['fname']);
+            $account->setLastName($user['lname']);
+            $account->setUsername($user['username']);
+            $account->setEmail($user['email']);
+            $account->setRole($user['role']);
+            // Lagre account i session-variabelen
+            $_SESSION['account'] = serialize($account);
+
+
 
             // Omdiriger til hjemmesiden
             header('Location: ../public/home.php');
