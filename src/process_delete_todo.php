@@ -7,14 +7,15 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 require_once 'account.php';
+$account =unserialize($_SESSION['account']);
 
-$account = new Account();
-$account->setId($_SESSION['user_id']);
+require_once './inc/db.inc.php';
+$db = new Database();
 
 $todoId = $_POST['id'];
 
 
-if ($account->deactivateTodo($todoId)) {
+if ($db->deactivateTodo($todoId)) {
     header('Location: ../public/home.php'); // Omdiriger til dashbordet ved suksess
     exit();
 } else {

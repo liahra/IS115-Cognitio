@@ -7,12 +7,13 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 require_once '../src/account.php';
-$account = new Account();
-$account->setId($_SESSION['user_id']); 
+require_once '../src/inc/db.inc.php';
+$account = unserialize($_SESSION['account']);
+$db = new Database();
 
 // Hent oppgave-ID fra URL
 $taskId = $_GET['id'];
-$task = $account->getTaskById($taskId);
+$task = $db->getTaskById($taskId, $account->getId());
 
 if (!$task) {
     echo "Oppgaven ble ikke funnet.";

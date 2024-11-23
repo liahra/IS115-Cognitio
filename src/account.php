@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/inc/db.inc.php';
-
+/* require_once __DIR__ . '/inc/db.inc.php';
+ */
 class Account {
     protected $id;
     protected $fname;
@@ -13,11 +13,11 @@ class Account {
     protected $password;
 
     // Henter databaseforbindelsen fra Database-klassen
-    protected function getDbConnection() {
+    /* protected function getDbConnection() {
         $db = new Database();
         $pdo = $db->getConnection();
         return $pdo;
-    }
+    } */
 
     // Setters
     public function setId($id) {
@@ -65,7 +65,7 @@ class Account {
         return $this->lname;
     }
 
-    
+
     public function getUserName() {
         return $this->username;
     }
@@ -84,139 +84,6 @@ class Account {
 
     public function getRegDate() {
         return $this->regDate;
-    }
-
-    public function getTaskById($taskId) {
-        $pdo = $this->getDbConnection();
-        $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = :task_id AND user_id = :user_id");
-        $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
-        $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function addTask($userId, $title, $course_code, $description, $due_date, $status, $materialUrl) {
-    try {
-        $pdo = $this->getDbConnection();
-        
-        // Oppdater SQL-spørringen til å inkludere de nye feltene
-        // OBS! Skal det hete course_code i databasen også?
-        $stmt = $pdo->prepare("INSERT INTO tasks (user_id, title, course_id, description, due_date, status, material_url) 
-                               VALUES (:user_id, :title, :course_code, :description, :due_date, :status, :material_url)");
-
-        // Bind parametere
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-        $stmt->bindParam(':course_code', $course_code, PDO::PARAM_STR);
-        $stmt->bindParam(':description', $description, PDO::PARAM_STR);
-        $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
-        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-
-        // Håndter tilfelle hvor $materialUrl kan være null
-        if ($materialUrl === null) {
-            $stmt->bindValue(':material_url', null, PDO::PARAM_NULL);
-        } else {
-            $stmt->bindParam(':material_url', $materialUrl, PDO::PARAM_STR);
-        }
-
-        $stmt->execute();
-        return true;
-    } catch (PDOException $e) {
-        echo "Feil ved lagring av oppgave: " . $e->getMessage(); // Detaljert feilmelding for feilsøking
-        return false;
-    }
-}
-
-    public function getUpcomingTasks() {
-        $pdo = $this->getDbConnection();
-        $stmt = $pdo->prepare("SELECT * FROM tasks 
-                            WHERE user_id = :user_id 
-                            AND status IN ('pending', 'not-started') 
-                            AND due_date >= CURDATE() 
-                            ORDER BY due_date ASC");
-
-        $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function updateTask($taskId, $title, $description, $due_date, $status) {
-        try {
-            $pdo = $this->getDbConnection();
-            $stmt = $pdo->prepare("UPDATE tasks SET title = :title, description = :description, due_date = :due_date, status = :status WHERE id = :task_id AND user_id = :user_id");
-            
-            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
-            $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
-            $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-            $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
-            $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT);
-
-            return $stmt->execute();
-        } catch (PDOException $e) {
-            error_log("Error updating task: " . $e->getMessage());
-            return false;
-        }
-    }
-
-    // Todos
-    public function addTodo($userId, $value) {
-        try {
-            $pdo = $this->getDbConnection();
-            $stmt = $pdo->prepare("INSERT INTO todo (user_id, value) VALUES (:user_id, :value)");
-            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-            $stmt->bindParam(':value', $value, PDO::PARAM_STR);
-            $stmt->execute();
-
-            return true; // Success
-        } catch (PDOException $e) {
-            error_log("Error adding task: " . $e->getMessage());
-            return false; // Failure
-        }
-    }
-
-    public function getUnfinishedTodos() {
-        $pdo = $this->getDbConnection();
-        $stmt = $pdo->prepare("SELECT * FROM todo WHERE user_id = :user_id 
-        AND status = 'pending'");
-
-        $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // Slett gjøremål (altså sett dem til finished i databasen)
-    public function deactivateTodo($id){
-        try{
-            $pdo = $this->getDbConnection();
-            $stmt = $pdo->prepare("UPDATE todo SET status = 'completed' WHERE id = :id");
-
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
-            return true; 
-        } catch (PDOException $e){
-            error_log("Error deactivating todo: " . $e->getMessage());
-            return false;
-        }
-    }
-
-    // Oppdater gjøremål
-    public function updateTodo($id, $updated_description){
-        try{
-            $pdo = $this->getDbConnection();
-            $stmt = $pdo->prepare("UPDATE todo SET value = :updated_description WHERE id = :id");
-
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->bindParam(':updated_description', $updated_description, PDO::PARAM_STR);
-            $stmt->execute();
-            return true;
-        } catch(PDOException $e){
-            error_log("Error deactivating todo: " . $e->getMessage());
-            return false;
-        }
     }
 
 }

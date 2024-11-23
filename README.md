@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS tasks (
     title VARCHAR(100) NOT NULL,
     description TEXT,
     due_date DATE,
-    status ENUM('pending', 'completed') DEFAULT 'pending',
-    course_id VARCHAR(20), -- Felt for emnekode
+    status ENUM('not-started', 'pending', 'completed'),
+    course_code VARCHAR(20), -- Felt for emnekode
     collaboration BOOLEAN DEFAULT FALSE, -- Felt for samarbeid, satt til FALSE som standard
     material_url VARCHAR(255), -- Felt for kursmateriell, lagrer filsti eller URL
     FOREIGN KEY (user_id) REFERENCES accounts(id) ON DELETE CASCADE

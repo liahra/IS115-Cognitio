@@ -6,10 +6,11 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
-require_once 'account.php';
+require_once './account.php';
+require_once './inc/db.inc.php';
+$db = new Database();
 
-$account = new Account();
-$account->setId($_SESSION['user_id']);
+$account = unserialize($_SESSION['account']);
 
 $taskId = $_POST['task_id'];
 $title = $_POST['title'];
@@ -17,7 +18,7 @@ $description = $_POST['description'];
 $due_date = $_POST['due_date'];
 $status = $_POST['status'];
 
-if ($account->updateTask($taskId, $title, $description, $due_date, $status)) {
+if ($db->updateTask($account->getId(), $taskId, $title, $description, $due_date, $status)) {
     header('Location: ../public/home.php'); // Omdiriger til dashbordet ved suksess
     exit();
 } else {

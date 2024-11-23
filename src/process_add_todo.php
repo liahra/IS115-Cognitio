@@ -11,10 +11,11 @@ if (!isset($_SESSION['loggedin'])) {
 // Inkluder nødvendige filer
 
 require_once 'account.php';
-
 // Opprett en instans av Account-klassen og sett bruker-ID
-$account = new Account();
-$account->setId($_SESSION['user_id']); // Setter bruker-ID
+$account = unserialize($_SESSION['account']);
+
+require_once './inc/db.inc.php';
+$db = new Database();
 
 // Hent oppgaveinformasjon fra skjema
 $value = $_POST['todovalue'];
@@ -24,9 +25,8 @@ if ($value === "") {
     header("Location: /../public/home.php?todo=empty");
     exit();
 } else {
-    print_r($_POST);
     // Bruk addTodo-metoden til å legge til oppgaven
-    if ($account->addTodo($_SESSION['user_id'], $value)) {
+    if ($db->addTodo($account->getId(), $value)) {
         header('Location: ../public/home.php?todo=success'); // Omdirigerer til hjem-siden ved suksess
         exit();
     } else {

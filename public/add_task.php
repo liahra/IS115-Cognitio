@@ -95,7 +95,7 @@
         <input type="date" id="due_date" name="due_date">
 
         <label for="status">Status:</label>
-        <select id="status" name="status">
+        <select id="status" name="status" required>
             <option value="">Velg status</option>
             <option value="not-started">Ikke startet</option>
             <option value="pending">Pågående</option>

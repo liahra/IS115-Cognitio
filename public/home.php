@@ -10,13 +10,16 @@ if (!isset($_SESSION['loggedin'])) {
 // Inkluder nødvendige filer og sett opp klasser
 /* require_once '../src/inc/db.inc.php';  // Har lagt denne inn i account-klassen */
 require_once '../src/account.php';
+require_once '../src/inc/db.inc.php';
+
+$db = new Database();
 
 // Opprett en instans av Account-klassen
 //$account = new Account();
 $account = unserialize($_SESSION['account']);
 //$account->setId($_SESSION['user_id']); // Setter bruker-ID fra sesjonen
-$tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
-$todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke brukeren
+$tasks = $db->getUpcomingTasks($account->getId()); // Henter oppgaver for den spesifikke brukeren
+$todos = $db->getUnfinishedTodos($account->getId()); // Henter gjøremål for den spesifikke brukeren
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +95,7 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 
     <!-- Vindu for å legge til gjøremål -->
     <dialog id="add_todo_window">
-        <form action="../src/add_todo.php" ; method="POST">
+        <form action="../src/process_add_todo.php" ; method="POST">
             <h4>Nytt gjøremål</h4>
             <input type="text" name="todovalue">
             <div>

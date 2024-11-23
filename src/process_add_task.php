@@ -11,6 +11,8 @@ if (!isset($_SESSION['loggedin'])) {
 require_once 'inc/db.inc.php';
 require_once 'account.php';
 
+$db = new Database();
+
 // Funksjon for å håndtere filopplasting
 function handleFileUpload($file) {
     if (isset($file) && $file['error'] == UPLOAD_ERR_OK) {
@@ -29,8 +31,10 @@ function handleFileUpload($file) {
 }
 
 // Opprett en instans av Account-klassen og sett bruker-ID
-$account = new Account();
-$account->setId($_SESSION['user_id']); // Setter bruker-ID
+//$account = new Account();
+$account = unserialize($_SESSION['account']);
+
+//$account->setId($_SESSION['user_id']); // Setter bruker-ID
 
 // Hent oppgaveinformasjon fra skjema og håndter evt. manglende data
 $title = isset($_POST['title']) ? $_POST['title'] : '';
@@ -39,16 +43,17 @@ $description = isset($_POST['description']) ? $_POST['description'] : '';
 $due_date = isset($_POST['due_date']) ? $_POST['due_date'] : '';
 $status = isset($_POST['status']) ? $_POST['status'] : 'pending';
 
+
 // Håndter filopplastning og få filsti
 $materialUrl = handleFileUpload($_FILES['material']);
 
 // Funksjon for å legge til oppgave
-function addNewTask($account, $title, $course_code, $description, $due_date, $status, $materialUrl) {
+/* function addNewTask($account, $title, $course_code, $description, $due_date, $status, $materialUrl) {
     return $account->addTask($_SESSION['user_id'], $title, $course_code, $description, $due_date, $status, $materialUrl);
-}
+} */
 
 // Legg til oppgave i databasen
-if (addNewTask($account, $title, $course_code, $description, $due_date, $status, $materialUrl)) {
+if ($db->addNewTask($account, $title, $course_code, $description, $due_date, $status, $materialUrl)) {
     header('Location: ../public/home.php'); // Omdirigerer til hjem-siden ved suksess
     exit();
 } else {
