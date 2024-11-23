@@ -446,9 +446,13 @@ dialog::backdrop {
   padding: 0.5rem 1rem;
 }
 
-.todo_item .value:hover, .todo_item .icon:hover {
+.todo_item .value:hover {
   background-color: var(--accent-clr);
   cursor: pointer;
+}
+
+.todo_item .icon:hover{
+  background-color: #EB625F;
 }
 
 @media screen and (max-width: 800px) {
