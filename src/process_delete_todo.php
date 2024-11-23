@@ -9,13 +9,10 @@ if (!isset($_SESSION['loggedin'])) {
 require_once 'account.php';
 $account =unserialize($_SESSION['account']);
 
-require_once './inc/db.inc.php';
-$db = new Database();
-
 $todoId = $_POST['id'];
 
 
-if ($db->deactivateTodo($todoId)) {
+if ($account->deactivateTodo($todoId)) {
     header('Location: ../public/home.php'); // Omdiriger til dashbordet ved suksess
     exit();
 } else {

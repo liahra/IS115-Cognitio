@@ -8,10 +8,7 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 // Inkluder nødvendige filer
-require_once 'inc/db.inc.php';
 require_once 'account.php';
-
-$db = new Database();
 
 // Funksjon for å håndtere filopplasting
 function handleFileUpload($file) {
@@ -53,7 +50,7 @@ $materialUrl = handleFileUpload($_FILES['material']);
 } */
 
 // Legg til oppgave i databasen
-if ($db->addNewTask($account, $title, $course_code, $description, $due_date, $status, $materialUrl)) {
+if ($account->addNewTask($title, $course_code, $description, $due_date, $status, $materialUrl)) {
     header('Location: ../public/home.php'); // Omdirigerer til hjem-siden ved suksess
     exit();
 } else {

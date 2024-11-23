@@ -14,8 +14,6 @@ require_once 'account.php';
 // Opprett en instans av Account-klassen og sett bruker-ID
 $account = unserialize($_SESSION['account']);
 
-require_once './inc/db.inc.php';
-$db = new Database();
 
 // Hent oppgaveinformasjon fra skjema
 $value = $_POST['todovalue'];
@@ -26,7 +24,7 @@ if ($value === "") {
     exit();
 } else {
     // Bruk addTodo-metoden til å legge til oppgaven
-    if ($db->addTodo($account->getId(), $value)) {
+    if ($account->addTodo($value)) {
         header('Location: ../public/home.php?todo=success'); // Omdirigerer til hjem-siden ved suksess
         exit();
     } else {

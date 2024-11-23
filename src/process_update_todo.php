@@ -9,8 +9,6 @@ if (!isset($_SESSION['loggedin'])) {
 
 require_once 'account.php';
 $account = unserialize($_SESSION['account']);
-require_once './inc/db.inc.php';
-$db = new Database();
 
 $todoId = $_POST['id'];
 $updated_description = $_POST['updated_description'];
@@ -21,8 +19,7 @@ if($_POST["original_description"] === $_POST["updated_description"]){
     header('Location: ../public/home.php'); // Omdiriger til dashbordet dersom ingenting er endret
     exit();
 } else {
-    echo "Oppdatering detected";
-    if ($db->updateTodo($todoId, $updated_description)) {
+    if ($account->updateTodo($todoId, $updated_description)) {
         header('Location: ../public/home.php'); // Omdiriger til dashbordet ved suksess
         exit();
     } else {

@@ -1,7 +1,7 @@
 <?php
 
-/* require_once __DIR__ . '/inc/db.inc.php';
- */
+require_once __DIR__ . '/inc/db.inc.php';
+
 class Account {
     protected $id;
     protected $fname;
@@ -86,4 +86,40 @@ class Account {
         return $this->regDate;
     }
 
+    // Tasks
+    public function addNewTask($title, $course_code, $description, $due_date, $status, $materialUrl) {
+        $db = new Database();
+        return $db->addNewTask($this->id, $title, $course_code, $description, $due_date, $status, $materialUrl);
+    }
+
+    public function updateTask($taskId, $title, $description, $due_date, $status){
+        $db = new Database();
+        return $db->updateTask($this->id, $taskId, $title, $description, $due_date, $status);
+    }
+
+    public function getUpcomingTasks(){
+        $db = new Database();
+        return $db->getUpcomingTasks($this->id);
+    }
+
+    // TODO
+    public function addTodo($value){
+        $db = new Database();
+        return $db->addTodo($this->id, $value);
+    }
+
+    public function deactivateTodo($todoId){
+        $db = new Database();
+        return $db->deactivateTodo($todoId);
+    }
+
+    public function updateTodo($todoId, $updated_description){
+        $db = new Database();
+        return $db->updateTodo($todoId, $updated_description);
+    }
+
+    public function getUnfinishedTodos(){
+        $db = new Database();
+        return $db->getUnfinishedTodos($this->id);
+    }
 }

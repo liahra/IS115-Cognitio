@@ -7,9 +7,6 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 require_once './account.php';
-require_once './inc/db.inc.php';
-$db = new Database();
-
 $account = unserialize($_SESSION['account']);
 
 $taskId = $_POST['task_id'];
@@ -18,7 +15,7 @@ $description = $_POST['description'];
 $due_date = $_POST['due_date'];
 $status = $_POST['status'];
 
-if ($db->updateTask($account->getId(), $taskId, $title, $description, $due_date, $status)) {
+if ($account->updateTask($taskId, $title, $description, $due_date, $status)) {
     header('Location: ../public/home.php'); // Omdiriger til dashbordet ved suksess
     exit();
 } else {

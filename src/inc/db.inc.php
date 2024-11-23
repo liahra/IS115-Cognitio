@@ -70,7 +70,6 @@ class Database {
         } else {
             return false;
         }
-        
     }
 
     // Opprett konto
@@ -98,7 +97,7 @@ class Database {
     }
 
     // TASKS
-    public function addNewTask($account, $title, $course_code, $description, $due_date, $status, $materialUrl) {
+    public function addNewTask($userId, $title, $course_code, $description, $due_date, $status, $materialUrl) {
         try {
             
             // Oppdater SQL-spørringen til å inkludere de nye feltene
@@ -106,7 +105,7 @@ class Database {
                                    VALUES (:user_id, :title, :course_code, :description, :due_date, :status, :material_url)");
     
             // Bind parametere
-            $stmt->bindParam(':user_id', $account->getId(), PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
             $stmt->bindParam(':course_code', $course_code, PDO::PARAM_STR);
             $stmt->bindParam(':description', $description, PDO::PARAM_STR);
@@ -161,7 +160,8 @@ class Database {
             $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
             $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
 
-            return $stmt->execute();
+            $stmt->execute();
+            return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
             error_log("Error updating task: " . $e->getMessage());
             return false;
