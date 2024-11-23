@@ -50,4 +50,37 @@ class Database {
     public function getConnection() {
         return $this->pdo; // Returnerer PDO-objektet for å kunne bruke det i andre klasser
     }
+
+    // Sjekker om brukernavn allerede eksisterer
+    public function usernameExists($username) {
+        //$pdo = $this->getDbConnection();
+        $stmt = $this->pdo->prepare("SELECT id FROM accounts WHERE username = :username");
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
+
+    // Opprett konto
+    public function createAccount($account) {
+        //$pdo = $this->getDbConnection(); // Henter PDO-forbindfelsen
+
+        $sql = "INSERT INTO accounts (fname, lname, username, email, password, role, regDate) 
+            VALUES (:fname, :lname, :username, :email, :password, :role, :regDate)";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        // Binder verdier til navngitte parametere.
+        $stmt->bindParam(':fname', $account->getFirstName());
+        $stmt->bindParam(':lname', $account->getLastName());
+        $stmt->bindParam(':username', $account->getUserName());
+        $stmt->bindParam(':email', $account->getEmail());
+        $stmt->bindParam(':password', $account->getPassword());
+        $stmt->bindParam(':role', $account->getRole());
+        $stmt->bindParam(':regDate', $account->getRegDate());
+
+        // Utfører spørringen
+        $stmt->execute();
+
+        echo "Konto opprettet!";
+    }
 }

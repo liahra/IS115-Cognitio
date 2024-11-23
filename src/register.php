@@ -21,7 +21,7 @@ $account = new Account();
 
 try {
     // Sjekk om brukernavnet allerede finnes
-    if ($account->usernameExists($_POST['username'])) {
+    if ($db->usernameExists($_POST['username'])) {
         exit('Brukernavn eksisterer allerede. Velg et annet.');
     } else {
         // Sett brukerdetaljene i Account-instansen
@@ -33,7 +33,7 @@ try {
         $account->setRole('student'); // Setter standard rolle som 'student'
         $account->setRegDate(date('Y-m-d'));
 
-        $account->createAccount();
+        $db->createAccount($account);
 
         // Bekreft at registreringen var vellykket
         echo 'Du er blitt registrert. Du kan nå logge inn!';

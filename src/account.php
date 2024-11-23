@@ -52,15 +52,6 @@ class Account {
         $this->password = $password;
     }
 
-    // Sjekker om brukernavn allerede eksisterer
-    public function usernameExists($username) {
-        $pdo = $this->getDbConnection();
-        $stmt = $pdo->prepare("SELECT id FROM accounts WHERE username = :username");
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->rowCount() > 0;
-    }
-
     // Getters
     public function getId() {
         return $this->id;
@@ -70,8 +61,29 @@ class Account {
         return $this->fname;
     }
 
+    public function getLastName() {
+        return $this->lname;
+    }
+
+    
+    public function getUserName() {
+        return $this->username;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
     public function getRole() {
         return $this->role;
+    }
+
+    public function getRegDate() {
+        return $this->regDate;
     }
 
     public function getTaskById($taskId) {
@@ -207,27 +219,4 @@ class Account {
         }
     }
 
-    // Opprett konto
-    public function createAccount() {
-        $pdo = $this->getDbConnection(); // Henter PDO-forbindfelsen
-
-        $sql = "INSERT INTO accounts (fname, lname, username, email, password, role, regDate) 
-            VALUES (:fname, :lname, :username, :email, :password, :role, :regDate)";
-
-        $stmt = $pdo->prepare($sql);
-
-        // Binder verdier til navngitte parametere.
-        $stmt->bindParam(':fname', $this->fname);
-        $stmt->bindParam(':lname', $this->lname);
-        $stmt->bindParam(':username', $this->username);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':password', $this->password);
-        $stmt->bindParam(':role', $this->role);
-        $stmt->bindParam(':regDate', $this->regDate);
-
-        // Utfører spørringen
-        $stmt->execute();
-
-        echo "Konto opprettet!";
-    }
 }
