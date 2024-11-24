@@ -2,13 +2,13 @@
 
 require_once __DIR__ . '/inc/db.inc.php';
 
-class Account {
+class User {
     protected $id;
     protected $fname;
     protected $lname;
     protected $username;
     protected $email;
-    protected $role;
+    /* protected $role; */
     protected $regDate;
     protected $password;
 
@@ -40,9 +40,9 @@ class Account {
         $this->email = $email;
     }
 
-    public function setRole($role) {
+    /* public function setRole($role) {
         $this->role = $role;
-    }
+    } */
 
     public function setRegDate($regDate) {
         $this->regDate = $regDate;
@@ -76,10 +76,6 @@ class Account {
 
     public function getPassword() {
         return $this->password;
-    }
-
-    public function getRole() {
-        return $this->role;
     }
 
     public function getRegDate() {
@@ -121,5 +117,21 @@ class Account {
     public function getUnfinishedTodos(){
         $db = new Database();
         return $db->getUnfinishedTodos($this->id);
+    }
+}
+
+class Admin extends User{
+    protected $role = 'admin';
+
+    public function getRole() {
+        return $this->role;
+    }
+}
+
+class Student extends User{
+    protected $role = 'student';
+
+    public function getRole() {
+        return $this->role;
     }
 }

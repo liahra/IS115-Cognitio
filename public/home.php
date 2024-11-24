@@ -11,10 +11,8 @@ if (!isset($_SESSION['loggedin'])) {
 /* require_once '../src/inc/db.inc.php';  // Har lagt denne inn i account-klassen */
 require_once '../src/account.php';
 
-// Opprett en instans av Account-klassen
-//$account = new Account();
 $account = unserialize($_SESSION['account']);
-//$account->setId($_SESSION['user_id']); // Setter bruker-ID fra sesjonen
+
 $tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
 $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke brukeren
 
@@ -33,7 +31,7 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 <body>
     <!-- Sidebar -->
     <?php
-    // Tester inkludering med absolutt path
+    $page = 'home';
     include("./inc/sidebar.inc.php");
     //phpinfo();
     ?>

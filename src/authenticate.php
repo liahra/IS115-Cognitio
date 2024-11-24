@@ -1,19 +1,17 @@
 <?php
-session_start();
-require_once 'inc/db.inc.php';
-require_once 'account.php';
-
-$db = new Database();
-$pdo = $db->getConnection();
-$account = new Account();
-
-
 // Sjekk om skjemaet er sendt
 if (!isset($_POST['username'], $_POST['password'])) {
     // Kan ikke hente data, returner til innlogging med feilmelding
     header('Location: login.php?error=empty_fields');
     exit();
 }
+
+session_start();
+require_once 'inc/db.inc.php';
+require_once 'account.php';
+
+$db = new Database();
+$pdo = $db->getConnection();
 
 try {
 
@@ -23,14 +21,18 @@ try {
         if (password_verify($_POST['password'], $user['password'])) {
             // Bruker verifisert, sett opp øktvariabler
             $_SESSION['loggedin'] = TRUE;
-
+            // Er dette en admin eller student?
+            if($user['role'] === 'student'){
+                $account = new Student();
+            } else {
+                $account = new Admin();
+            }
             /*** Setter opp account-objectet med all informasjon om bruker, unntatt passord ***/
             $account->setId($user['id']);
             $account->setFirstName($user['fname']);
             $account->setLastName($user['lname']);
             $account->setUsername($user['username']);
             $account->setEmail($user['email']);
-            $account->setRole($user['role']);
             // Lagre account i session-variabelen
             $_SESSION['account'] = serialize($account);
 
