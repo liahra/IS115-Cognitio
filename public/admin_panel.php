@@ -10,6 +10,10 @@
         exit();
     }
 
+    // Hent alle studentbrukere
+    $students = $account->getStudents();
+    //print_r($students);
+    
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +22,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./resources/css/style.css">
+    <link rel="stylesheet" href="./resources/css/admin_table.css">
     <title>Document</title>
 </head>
 <body>
@@ -33,7 +38,31 @@
                 <p>Administrer brukere.</p>
         </section>
         <section>
-            <h1>Registrerte studentbrukere</h1>
+            <h1>Studentbrukere</h1>
+            <div><?php
+
+                if(sizeof($students) === 0){
+                    echo "<p>Ingen registrerte studenter.</p>";
+                } else{
+                    echo "<table>
+                    <thead>
+                        <tr>
+                            <th >ID</th>
+                            <th >Fornavn</th>
+                            <th >Etternavn</th>
+                            <th >E-post</th>
+                            <th >Registreringsdato</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+                    foreach($students as $student){
+                        include './inc/student_item.php';
+
+                    }
+                    echo "</tbody></table>";
+                }
+
+            ?></div>
         </section>
     
     </div>

@@ -17,7 +17,7 @@ if (!$validator->validateFormData($_POST)) {
 }
 
 // Opprett en ny instans av Account-klassen
-$account = new Account();
+$account = new Student();
 
 try {
     // Sjekk om brukernavnet allerede finnes
@@ -30,7 +30,6 @@ try {
         $account->setUsername($_POST['username']);
         $account->setEmail($_POST['email']);
         $account->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT)); // Hashet passord
-        $account->setRole('student'); // Setter standard rolle som 'student'
         $account->setRegDate(date('Y-m-d'));
 
         $db->createAccount($account);

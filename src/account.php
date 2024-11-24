@@ -126,6 +126,11 @@ class Admin extends User{
     public function getRole() {
         return $this->role;
     }
+
+    public function getStudents(){
+        $db = new Database();
+        return $db->getStudents();
+    }
 }
 
 class Student extends User{

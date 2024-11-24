@@ -218,4 +218,20 @@ class Database {
             return false;
         }
     }
+
+    // ADMIN
+    public function getStudents(){
+        try{
+             $stmt = $this->pdo->prepare("SELECT id, fname, lname, username, email, regDate  FROM accounts WHERE role='student'");
+             $stmt->execute();
+             if($stmt->rowCount() > 0){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+             } else {
+                echo "No students found";
+                exit();
+             }
+        } catch(PDOException $e){
+            echo "Error getting students";
+        }
+    }
 }
