@@ -82,6 +82,7 @@ class User {
         return $this->regDate;
     }
 
+
     // Tasks
     public function addNewTask($title, $course_code, $description, $due_date, $status, $materialUrl) {
         $db = new Database();
@@ -131,6 +132,12 @@ class Admin extends User{
         $db = new Database();
         return $db->getStudents();
     }
+
+    // Opprett ny konto i databasen
+    public function createAccount(){
+        $db = new Database();
+        $db->createAccount($this);
+    }
 }
 
 class Student extends User{
@@ -138,5 +145,11 @@ class Student extends User{
 
     public function getRole() {
         return $this->role;
+    }
+
+    // Opprett ny konto i databasen
+    public function createAccount(){
+        $db = new Database();
+        $db->createAccount($this);
     }
 }

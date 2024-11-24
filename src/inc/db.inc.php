@@ -75,7 +75,7 @@ class Database {
     // Opprett konto
     public function createAccount($account) {
         //$pdo = $this->getDbConnection(); // Henter PDO-forbindfelsen
-
+        print_r($account);
         $sql = "INSERT INTO accounts (fname, lname, username, email, password, role, regDate) 
             VALUES (:fname, :lname, :username, :email, :password, :role, :regDate)";
 

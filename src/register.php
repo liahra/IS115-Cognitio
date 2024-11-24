@@ -1,11 +1,11 @@
 <?php
 // Inkluderer nødvendige filer
-require_once 'inc/db.inc.php'; // Fjern?
+require_once 'inc/db.inc.php';
 require_once 'account.php';
 require_once 'validation.php';
 
 $db = new Database();
-$pdo = $db->getConnection();
+
 $validator = new Validation();
 
 if (!$validator->validateFormData($_POST)) {

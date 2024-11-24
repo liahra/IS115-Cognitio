@@ -3,25 +3,13 @@
 session_start();
 
 // Er bruker innlogget?
-if ($_SESSION['loggedin']) {
-	header('Location: index.html');
+if (!$_SESSION['loggedin']) {
+	header('Location: ./index.php');
 	exit;
 }
 
-/* // Db-tilkobling
-include_once '../src/inc/db.inc.php';
-
-// Hent passord og epost fra db.
-include_once '../src/inc/get_user_info.inc.php';
-
-$user_info = get_user_info($pdo, $_SESSION['id']);
-$password = $user_info['password'];
-$email = $user_info['email']; */
-
 require_once '../src/account.php';
 $account = unserialize($_SESSION['account']);
-
-
 
 ?>
 
