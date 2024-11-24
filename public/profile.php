@@ -3,7 +3,7 @@
 session_start();
 
 // Er bruker innlogget?
-if (!isset($_SESSION['loggedin'])) {
+if ($_SESSION['loggedin']) {
 	header('Location: index.html');
 	exit;
 }
@@ -48,13 +48,17 @@ $account = unserialize($_SESSION['account']);
         <div>
             <table>
                 <tr>
+                    <td>Fornavn:</td>
+                    <td><?=htmlspecialchars($account->getFirstName() , ENT_QUOTES)?></td>
+                </tr>
+                <tr>
+                    <td>Etternavn:</td>
+                    <td><?=htmlspecialchars($account->getLastName() , ENT_QUOTES)?></td>
+                </tr>
+                <tr>
                     <td>Brukernavn:</td>
                     <td><?=htmlspecialchars($account->getUsername() , ENT_QUOTES)?></td>
                 </tr>
-              <!--   <tr>
-                    <td>Passord:</td>
-                    <td><?=htmlspecialchars($password, ENT_QUOTES)?></td>
-                </tr> -->
                 <tr>
                     <td>E-post:</td>
                     <td><?=htmlspecialchars($account->getEmail(), ENT_QUOTES)?></td>

@@ -20,7 +20,7 @@ try {
         // Verifiser passordet
         if (password_verify($_POST['password'], $user['password'])) {
             // Bruker verifisert, sett opp øktvariabler
-            $_SESSION['loggedin'] = TRUE;
+            $_SESSION['loggedin'] = true;
             // Er dette en admin eller student?
             if($user['role'] === 'student'){
                 $account = new Student();

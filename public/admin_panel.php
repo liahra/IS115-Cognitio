@@ -1,6 +1,15 @@
 <?php
     session_start();
     require_once '../src/account.php';
+
+    // Sjekk om innlogget OG admin-bruker
+    $account = unserialize($_SESSION['account']);
+
+    if(!($_SESSION['loggedin'] && $account->getRole() === 'admin')){
+        header ('Location: home.php');
+        exit();
+    }
+
 ?>
 
 <!DOCTYPE html>
