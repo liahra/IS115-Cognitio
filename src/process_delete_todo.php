@@ -7,6 +7,10 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 require_once 'account.php';
+require_once './inc/logger.inc.php';
+
+$logger = new Logger();
+
 $account =unserialize($_SESSION['account']);
 
 $todoId = $_POST['id'];
@@ -17,5 +21,6 @@ if ($account->deactivateTodo($todoId)) {
     exit();
 } else {
     echo "Det oppsto et problem med å slette gjøremålet. Vennligst prøv igjen.";
+    $logger->logError("Kunne ikke slette gjøremål.");
 }
 ?>

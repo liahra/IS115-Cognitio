@@ -1,0 +1,8 @@
+25.11.2024 kl. 10:31:16: [process_add_todo.php:35] Kunne ikke legge til gjøremål.
+25.11.2024 kl. 10:30:54: [process_add_todo.php:35] [process_add_todo.php] Kunne ikke legge til gjøremål.
+25.11.2024 kl. 10:30:09: [process_delete_todo.php:24] [process_delete_todo.php] Kunne ikke slette gjøremål.
+25.11.2024 kl. 10:29:30: [C:\xampp\htdocs\IS-115-Prosjekt\IS115-Cognitio\src\process_delete_todo.php:24] [process_delete_todo.php] Kunne ikke slette gjøremål.
+25.11.2024 kl. 10:25:27: [process_delete_todo.php] Kunne ikke slette gjøremål.
+25.11.2024 kl. 10:19:08: Kunne ikke legge til gjøremål.
+25.11.2024 kl. 10:18:54: Kunne ikke legge til gjøremål.
+25.11.2024 kl. 10:18:34: Kunne ikke legge til gjøremål.

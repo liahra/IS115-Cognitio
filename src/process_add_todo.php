@@ -9,8 +9,12 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 // Inkluder nødvendige filer
-
 require_once 'account.php';
+require_once './inc/logger.inc.php';
+
+// Logging
+$logger = new Logger();
+
 // Opprett en instans av Account-klassen og sett bruker-ID
 $account = unserialize($_SESSION['account']);
 
@@ -28,7 +32,7 @@ if ($value === "") {
         header('Location: ../public/home.php?todo=success'); // Omdirigerer til hjem-siden ved suksess
         exit();
     } else {
-        //echo "Det oppsto et problem med å legge til oppgaven. Vennligst prøv igjen."; // Feilmelding ved mislykket forsøk
+        $logger->logError("Kunne ikke legge til gjøremål.");
         header('Location: ../public/home.php?todo=failed'); // Omdirigerer til hjem-siden ved suksess
         exit();
     }
