@@ -1,6 +1,8 @@
 <?php
+include dirname(__FILE__) . "/logger.inc.php";
 
 class Database {
+
     // Konfig-detaljer for db
     private $host = '127.0.0.1';
     private $port;
@@ -9,21 +11,19 @@ class Database {
     private $dbname = 'phplogin';
     private $dsn; // Tilkoblingsstrengen
     private $pdo; // Variabel for PDO-tilkoblingen
+    private $logger;
 
     // Konstruktør
     public function __construct() {
-        // Siden ulike system kan ha ulike porter, så kan vi ha andre portnummer i en egen fil
-        // Hvis denne filen eksisterer, så henter vi portnummeret fra der
-        if (file_exists(__DIR__ . '/portfile.php')) {
-            $portfile = require 'portfile.php';
+        $this->logger = new Logger();
+
+        if (file_exists(dirname(__FILE__) . '/portfile.php')) {
+            $this->port =  require dirname(__FILE__) . '/portfile.php';
         } else {
-            // Hvis portfilen ikke eksisterer så bruker vi 8889 som default
-            $portfile = array(
-                'port' => '8889'
-            );
+            $this->port = '8889';
         }
-        $this->port = $portfile['port'];
         $this->connectToDatabase();
+        
     }
 
     // Metode for å prøve å koble seg til databasen
@@ -41,8 +41,10 @@ class Database {
         } catch (PDOException $e) {
 
             // Håndterer feil ved tilkobling og viser en melding
-            echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
-            exit;
+            //echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
+            $this->logger->logError($e->getMessage() . '\n' . $this->port);
+            header("Location: ../public/login.php?status=500");
+            exit();
         }
     }
 

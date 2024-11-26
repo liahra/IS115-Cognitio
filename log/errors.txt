@@ -1,3 +1,30 @@
+26.11.2024 kl. 15:21:17: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:20:32: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:20:08: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:19:07: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:18:31: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:17:15: [db.inc.php:46] SQLSTATE[HY000] [2002] Connection refused\n8889
+26.11.2024 kl. 15:16:54: [db.inc.php:46] SQLSTATE[HY000] [2002] Connection refused\n8889
+26.11.2024 kl. 15:16:26: [db.inc.php:46] SQLSTATE[HY000] [2002] Connection refused\n8889
+26.11.2024 kl. 15:15:55: [db.inc.php:46] SQLSTATE[HY000] [2002] Connection refused\n8889
+26.11.2024 kl. 15:15:54: [db.inc.php:46] SQLSTATE[HY000] [2002] Connection refused\n8889
+26.11.2024 kl. 15:15:52: [db.inc.php:46] SQLSTATE[HY000] [2002] Connection refused\n8889
+26.11.2024 kl. 15:15:46: [db.inc.php:46] SQLSTATE[HY000] [2002] Connection refused\n8889
+26.11.2024 kl. 15:15:32: [db.inc.php:46] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:13:22: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:12:49: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:12:47: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:12:30: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:12:15: [db.inc.php:45] SQLSTATE[HY000] [2002] Connection refused\n8889
+26.11.2024 kl. 15:09:35: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:08:42: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)\n3306
+26.11.2024 kl. 15:08:19: [db.inc.php:45] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+26.11.2024 kl. 14:49:40: [db.inc.php:39] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+26.11.2024 kl. 14:49:04: [db.inc.php:39] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+26.11.2024 kl. 14:48:53: [db.inc.php:39] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+26.11.2024 kl. 14:47:12: [db.inc.php:39] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+26.11.2024 kl. 14:46:42: [db.inc.php:39] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+26.11.2024 kl. 14:46:17: [db.inc.php:39] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
 25.11.2024 kl. 10:31:16: [process_add_todo.php:35] Kunne ikke legge til gjøremål.
 25.11.2024 kl. 10:30:54: [process_add_todo.php:35] [process_add_todo.php] Kunne ikke legge til gjøremål.
 25.11.2024 kl. 10:30:09: [process_delete_todo.php:24] [process_delete_todo.php] Kunne ikke slette gjøremål.

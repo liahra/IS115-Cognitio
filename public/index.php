@@ -12,7 +12,7 @@
 
     <a href="./login.php">Logg inn</a>
     <a href="./register.html">Registrer</a>
-
+    
 </body>
 
 </html>

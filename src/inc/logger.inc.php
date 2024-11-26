@@ -2,7 +2,6 @@
 
 class Logger {
     function logError($e) {
-        echo "Logger";
         // Mappe med log-filer
         $folder = "../log/";
         $filename = "errors.txt";
@@ -15,7 +14,6 @@ class Logger {
 
         // Hent eksisterende innhold
         $oldContent = file_get_contents($folder . $filename);
-        echo $oldContent;
 
         // Vi vil gjerne vite hvilken fil som kalte på denne funksjonen
         $backfiles = debug_backtrace();
