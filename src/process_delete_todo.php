@@ -10,9 +10,7 @@ require_once 'account.php';
 require_once './inc/logger.inc.php';
 
 $logger = new Logger();
-
-$account =unserialize($_SESSION['account']);
-
+$account = unserialize($_SESSION['account']);
 $todoId = $_POST['id'];
 
 

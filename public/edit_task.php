@@ -8,6 +8,7 @@ if (!isset($_SESSION['loggedin'])) {
 
 require_once '../src/account.php';
 require_once '../src/inc/db.inc.php';
+
 $account = unserialize($_SESSION['account']);
 $db = new Database();
 

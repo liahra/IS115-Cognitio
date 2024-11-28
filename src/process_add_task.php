@@ -9,7 +9,11 @@ if (!isset($_SESSION['loggedin'])) {
 
 // Inkluder nødvendige filer
 require_once 'account.php';
+require_once './inc/logger.inc.php';
 
+$logger = new Logger();
+
+$account =unserialize($_SESSION['account']);
 // Funksjon for å håndtere filopplasting
 function handleFileUpload($file) {
     if (isset($file) && $file['error'] == UPLOAD_ERR_OK) {
@@ -28,10 +32,7 @@ function handleFileUpload($file) {
 }
 
 // Opprett en instans av Account-klassen og sett bruker-ID
-//$account = new Account();
 $account = unserialize($_SESSION['account']);
-
-//$account->setId($_SESSION['user_id']); // Setter bruker-ID
 
 // Hent oppgaveinformasjon fra skjema og håndter evt. manglende data
 $title = isset($_POST['title']) ? $_POST['title'] : '';
@@ -43,11 +44,6 @@ $status = isset($_POST['status']) ? $_POST['status'] : 'pending';
 
 // Håndter filopplastning og få filsti
 $materialUrl = handleFileUpload($_FILES['material']);
-
-// Funksjon for å legge til oppgave
-/* function addNewTask($account, $title, $course_code, $description, $due_date, $status, $materialUrl) {
-    return $account->addTask($_SESSION['user_id'], $title, $course_code, $description, $due_date, $status, $materialUrl);
-} */
 
 // Legg til oppgave i databasen
 if ($account->addNewTask($title, $course_code, $description, $due_date, $status, $materialUrl)) {

@@ -59,7 +59,9 @@ class Database {
         $stmt = $this->pdo->prepare("SELECT id FROM accounts WHERE username = :username");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
+        
         return $stmt->rowCount() > 0;
+
     }
 
     // Hent bruker hvis den eksisterer
@@ -76,8 +78,6 @@ class Database {
 
     // Opprett konto
     public function createAccount($account) {
-        //$pdo = $this->getDbConnection(); // Henter PDO-forbindfelsen
-        print_r($account);
         $sql = "INSERT INTO accounts (fname, lname, username, email, password, role, regDate) 
             VALUES (:fname, :lname, :username, :email, :password, :role, :regDate)";
 
@@ -122,33 +122,51 @@ class Database {
             }
     
             $stmt->execute();
+
             return $stmt->rowCount() > 0;
+
         } catch (PDOException $e) {
-            echo "Feil ved lagring av oppgave: " . $e->getMessage(); // Detaljert feilmelding for feilsøking
+            $this->logger->logError("Feil ved lagring av oppgave: " . $e->getMessage()); 
             return false;
         }
     }
 
     public function getUpcomingTasks($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM tasks 
-                            WHERE user_id = :user_id 
-                            AND status IN ('pending', 'not-started') 
-                            AND due_date >= CURDATE() 
-                            ORDER BY due_date ASC");
+        try {
+            $stmt = $this->pdo->prepare("SELECT * FROM tasks 
+                                        WHERE user_id = :user_id 
+                                        AND status IN ('pending', 'not-started') 
+                                        AND due_date >= CURDATE() 
+                                        ORDER BY due_date ASC");
+    
+            $stmt->bindParam(':user_id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $stmt->bindParam(':user_id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->logger->logError("Database error in getUpcomingTasks: " . $e->getMessage());
+    
+            // Returner en tom array for å unngå at koden som kaller dette feiler
+            return [];
+        }
     }
 
     public function getTaskById($taskId, $userId) {
-        $stmt = $this->pdo->prepare("SELECT * FROM tasks WHERE id = :task_id AND user_id = :user_id");
-        $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->execute();
+        try {
+            $stmt = $this->pdo->prepare("SELECT * FROM tasks WHERE id = :task_id AND user_id = :user_id");
+            $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            return $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->logger->logError("Database error in getTaskById: " . $e->getMessage());
+    
+            // Returner null for å indikere at noe gikk galt
+            return null;
+        }
     }
 
     public function updateTask($userId, $taskId, $title, $description, $due_date, $status) {
@@ -161,11 +179,27 @@ class Database {
             $stmt->bindParam(':status', $status, PDO::PARAM_STR);
             $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
             $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-
             $stmt->execute();
+
             return $stmt->rowCount() > 0;
+
         } catch (PDOException $e) {
-            error_log("Error updating task: " . $e->getMessage());
+            $this->logger->logError("Error updating task: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function deactivateTask($userId, $taskId) {
+        try {
+            
+            $query = "UPDATE tasks SET status = 'inactive' WHERE id = :task_id AND user_id = :user_id";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $result = $stmt->execute();
+            return $result;
+        } catch (PDOException $e) {
+            $this->logger->logError("Database error in deactivateTask: " . $e->getMessage());
             return false;
         }
     }
@@ -179,7 +213,7 @@ class Database {
             $stmt->execute();
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
-            error_log("Error adding task: " . $e->getMessage());
+            $this->logger->logError("Error adding task: " . $e->getMessage());
             return false; // Failure
         }
     }
@@ -197,13 +231,14 @@ class Database {
     public function updateTodo($id, $updated_description) {
         try {
             $stmt = $this->pdo->prepare("UPDATE todo SET value = :updated_description WHERE id = :id");
-
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->bindParam(':updated_description', $updated_description, PDO::PARAM_STR);
             $stmt->execute();
+
             return true;
+
         } catch (PDOException $e) {
-            error_log("Error deactivating todo: " . $e->getMessage());
+            $this->logger->logError("Error deactivating todo: " . $e->getMessage());
             return false;
         }
     }
@@ -211,12 +246,13 @@ class Database {
     public function deactivateTodo($id) {
         try {
             $stmt = $this->pdo->prepare("UPDATE todo SET status = 'completed' WHERE id = :id");
-
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
+
             return true;
+
         } catch (PDOException $e) {
-            error_log("Error deactivating todo: " . $e->getMessage());
+            $this->logger->logError("Error deactivating todo: " . $e->getMessage());
             return false;
         }
     }
@@ -227,13 +263,15 @@ class Database {
              $stmt = $this->pdo->prepare("SELECT id, fname, lname, username, email, regDate  FROM accounts WHERE role='student'");
              $stmt->execute();
              if($stmt->rowCount() > 0){
+
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
              } else {
                 echo "No students found";
                 exit();
              }
         } catch(PDOException $e){
-            echo "Error getting students";
+            $this->logger->logError("Error getting students: " . $e->getMessage());
         }
     }
 }

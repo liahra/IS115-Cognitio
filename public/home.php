@@ -44,28 +44,36 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
             <p>Velkommen tilbake, <?= htmlspecialchars($account->getFirstName(), ENT_QUOTES)?><?= $account->getRole()==="admin" ? "<sup>*</sup>" : "" ?>!</p><br /><br />
         </section>
 
-        <!-- Assignments section -->
         <section>
-            <button onclick="window.location.href='add_task.php'">Legg til ny oppgave</button>
+    <button onclick="window.location.href='add_task.php'">Legg til ny oppgave</button>
 
-            <h3>Kommende oppgaver</h3>
-            <?php if (!empty($tasks)): ?>
-                <ul>
-                    <?php foreach ($tasks as $task): ?>
-                        <li>
-                            <strong><?= htmlspecialchars($task['title'], ENT_QUOTES) ?></strong><br>
-                            <span>Beskrivelse: <?= htmlspecialchars($task['description'], ENT_QUOTES) ?></span><br>
-                            <span>Forfallsdato: <?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></span><br>
+    <h3>Kommende oppgaver</h3>
+    <?php if (!empty($tasks)): ?>
+        <ul>
+            <?php foreach ($tasks as $task): ?>
+                <li>
+                    <strong><?= htmlspecialchars($task['title'], ENT_QUOTES) ?></strong><br>
+                    <span>Beskrivelse: <?= htmlspecialchars($task['description'], ENT_QUOTES) ?></span><br>
+                    <span>Forfallsdato: <?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></span><br>
 
-                            <!-- Rediger-knapp -->
-                            <a href="edit_task.php?id=<?= $task['id'] ?>" class="edit-button">Rediger</a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>Ingen kommende oppgaver.</p>
-            <?php endif; ?>
-        </section>
+                    <!-- Rediger-knapp -->
+                    <form action="edit_task.php" method="GET" style="display:inline;">
+                        <input type="hidden" name="id" value="<?= $task['id'] ?>">
+                        <button type="submit" class="edit-button">Rediger</button>
+                    </form>
+                    
+                    <!-- Slett-knapp -->
+                    <form action="../src/process_delete_task.php" method="POST" onsubmit="return confirmDeletion();" style="display:inline;">
+                        <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                        <button type="submit" class="delete-button">Slett</button>
+                    </form>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p>Ingen kommende oppgaver.</p>
+    <?php endif; ?>
+</section>
         <!-- Todo section -->
         <section>
             <button id="add_todo">Legg til gjøremål</button>
@@ -133,8 +141,14 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
      </dialog>
 
 
+     <script>
+        function confirmDeletion() {
+            return confirm("Er du sikker på at du vil slette denne oppgaven?");
+        }
+    </script>
 
     <script src="./resources/js/app.js"></script>
+    
 </body>
 
 </html>

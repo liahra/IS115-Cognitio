@@ -8,16 +8,8 @@ class User {
     protected $lname;
     protected $username;
     protected $email;
-    /* protected $role; */
     protected $regDate;
     protected $password;
-
-    // Henter databaseforbindelsen fra Database-klassen
-    /* protected function getDbConnection() {
-        $db = new Database();
-        $pdo = $db->getConnection();
-        return $pdo;
-    } */
 
     // Setters
     public function setId($id) {
@@ -39,10 +31,6 @@ class User {
     public function setEmail($email) {
         $this->email = $email;
     }
-
-    /* public function setRole($role) {
-        $this->role = $role;
-    } */
 
     public function setRegDate($regDate) {
         $this->regDate = $regDate;
@@ -97,6 +85,11 @@ class User {
     public function getUpcomingTasks(){
         $db = new Database();
         return $db->getUpcomingTasks($this->id);
+    }
+
+    public function deactivateTask($taskId) {
+        $db = new Database();
+        return $db->deactivateTask($this->id, $taskId);
     }
 
     // TODO

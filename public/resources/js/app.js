@@ -74,6 +74,10 @@ function setupUpdateHandlers(todos, updateWindow) {
   }
 }
 
+function confirmDeletion() {
+  return confirm("Er du sikker på at du vil slette denne oppgaven?");
+}
+
 // Initialiser funksjoner når DOM er lastet inn
 document.addEventListener("DOMContentLoaded", () => {
   const toggleButton = document.getElementById("toggle-btn");

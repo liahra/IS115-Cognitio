@@ -21,7 +21,7 @@ $account = new Student();
 
 try {
     // Sjekk om brukernavnet allerede finnes
-    if ($db->usernameExists($_POST['username'])) {
+    if ($db->usernameExists($_POST['username'])) { // Legge til for e-post også?
         exit('Brukernavn eksisterer allerede. Velg et annet.');
     } else {
         // Sett brukerdetaljene i Account-instansen
