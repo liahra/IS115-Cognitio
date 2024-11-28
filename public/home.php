@@ -61,13 +61,6 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
                         <input type="hidden" name="id" value="<?= $task['id'] ?>">
                         <button type="submit" class="edit-button">Rediger</button>
                     </form>
-                    
-                    <!-- Slett-knapp -->
-                    <form action="../src/process_delete_task.php" method="POST" onsubmit="return confirmDeletion();" style="display:inline;">
-                        <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
-                        <button type="submit" class="delete-button">Slett</button>
-                    </form>
-                </li>
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
@@ -140,15 +133,7 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
         </div>
      </dialog>
 
-
-     <script>
-        function confirmDeletion() {
-            return confirm("Er du sikker på at du vil slette denne oppgaven?");
-        }
-    </script>
-
-    <script src="./resources/js/app.js"></script>
-    
+    <script src="./resources/js/app.js"></script>  
 </body>
 
 </html>
