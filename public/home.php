@@ -84,7 +84,7 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 }
 
 .task-card h3 {
-    font-size: 18px;
+    font-size: 16px;
     color: #333;
 }
 
@@ -114,14 +114,13 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 }
 
 .task-link {
-    text-decoration: none; /* Fjerner understrek */
-    color: #007BFF; /* Farge for lenken */
-    font-weight: bold; /* Gjør teksten tydeligere */
+    text-decoration: none; /* Fjerner understrek */ 
+    font-weight: 600; /* Gjør teksten tydeligere */
+    color: black;
 }
 
 .task-link:hover {
-    text-decoration: underline; /* Understrek ved hover */
-    color: #0056b3; /* Mørkere farge ved hover */
+    color: #45a049; /* Mørkere farge ved hover */
 }
 
 input[type="submit"],
