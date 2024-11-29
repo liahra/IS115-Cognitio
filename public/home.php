@@ -27,6 +27,145 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
     <link rel="stylesheet" href="./resources/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    body {
+    font-family: "Open Sans", sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5;
+}
+
+.task-section {
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+}
+
+.task-container {
+    width: 90%;
+    max-width: 800px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Sørger for at elementene legges oppå hverandre */
+    gap: 10px; /* Avstand mellom oppgavene */
+    height: auto; /* Dynamisk høyde */
+}
+
+.task-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: #333;
+}
+
+.task-card {
+    padding-top: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.task-card:last-child {
+    border-bottom: none; /* Fjern linje for siste oppgave */
+}
+
+.task-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.task-icon {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.task-card h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+.task-card p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.task-details {
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+    font-size: 14px; 
+    font-weight: 400; 
+    padding-bottom: 18px;
+}
+
+.task-details .separator {
+    margin: 0 10px; 
+    font-weight: 300; 
+}
+
+.task-details div {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.task-link {
+    text-decoration: none; /* Fjerner understrek */
+    color: #007BFF; /* Farge for lenken */
+    font-weight: bold; /* Gjør teksten tydeligere */
+}
+
+.task-link:hover {
+    text-decoration: underline; /* Understrek ved hover */
+    color: #0056b3; /* Mørkere farge ved hover */
+}
+
+input[type="submit"],
+.add-task-button {
+    background-color: #83BF73;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    margin-top:48px;
+}
+
+input[type="submit"]:hover,
+.add-task-button:hover {
+    background-color: #45a049;
+}
+
+/* Fjern det opprinnelige filopplastingsfeltet */
+.file-input {
+    display: none;
+}
+
+/* Style for tilpasset knapp */
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #83BF73;
+    color: white;
+    border-radius: 4px;
+    font-weight: 100;
+}
+
+/* Style for visning av filnavnet */
+.file-name {
+    margin-left: 10px;
+    font-style: italic;
+    color: #555;
+}
+</style>
 
 <body>
     <!-- Sidebar -->
@@ -44,29 +183,41 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
             <p>Velkommen tilbake, <?= htmlspecialchars($account->getFirstName(), ENT_QUOTES)?><?= $account->getRole()==="admin" ? "<sup>*</sup>" : "" ?>!</p><br /><br />
         </section>
 
-        <section>
-    <button onclick="window.location.href='add_task.php'">Legg til ny oppgave</button>
+        <section class="task-section">
+            <div class="task-container">
+                <h2>Kommende innleveringer</h2>
+                <?php 
+                // Begrens oppgavene til de fem nærmeste
+                $upcomingTasks = array_slice($tasks, 0, 5); 
+                ?>
+                <?php if (!empty($upcomingTasks)): ?>
+                    <?php foreach ($upcomingTasks as $task): ?>
+                        <div class="task-card">
+                            <h3>
+                                <a href="task_details.php?task_id=<?= urlencode($task['id']) ?>" class="task-link">
+                                    📝 <?= htmlspecialchars($task['title'], ENT_QUOTES) ?>
+                                </a>
+                            </h3>
+                            <div class="task-details">
+                                <div><strong>Emne:</strong> <?= htmlspecialchars($task['course_code'], ENT_QUOTES) ?></div>
+                                <span class="separator">|</span>
+                                <div><strong>Forfallsdato:</strong> <?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></div>
+                                <span class="separator">|</span>
+                                <div><strong>Status:</strong> <?= htmlspecialchars($task['status'], ENT_QUOTES) ?></div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>Ingen kommende innleveringer.</p>
+                <?php endif; ?>
 
-    <h3>Kommende oppgaver</h3>
-    <?php if (!empty($tasks)): ?>
-        <ul>
-            <?php foreach ($tasks as $task): ?>
-                <li>
-                    <strong><?= htmlspecialchars($task['title'], ENT_QUOTES) ?></strong><br>
-                    <span>Beskrivelse: <?= htmlspecialchars($task['description'], ENT_QUOTES) ?></span><br>
-                    <span>Forfallsdato: <?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></span><br>
+                <!-- Knappen nederst -->
+                <form action="add_task.php" method="GET">
+                    <input type="submit" class="add-task-button" value="Legg til ny oppgave">
+                </form>
+            </div>
+        </section>
 
-                    <!-- Rediger-knapp -->
-                    <form action="edit_task.php" method="GET" style="display:inline;">
-                        <input type="hidden" name="id" value="<?= $task['id'] ?>">
-                        <button type="submit" class="edit-button">Rediger</button>
-                    </form>
-            <?php endforeach; ?>
-        </ul>
-    <?php else: ?>
-        <p>Ingen kommende oppgaver.</p>
-    <?php endif; ?>
-</section>
         <!-- Todo section -->
         <section>
             <button id="add_todo">Legg til gjøremål</button>
