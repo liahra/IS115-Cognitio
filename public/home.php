@@ -16,6 +16,26 @@ $account = unserialize($_SESSION['account']);
 $tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
 $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke brukeren
 
+// Gjør forfallsdato og klokkeslett om til noe leselig
+function readableDate($unreadableDate){
+    return date('d.m.Y',strtotime($unreadableDate));
+}
+
+function readableClock($unreadableClock){
+    return date('H:i',strtotime($unreadableClock));
+}   
+
+// Gjør status om til norsk
+function getStatus($status){
+    return match($status){
+        'not-started' => "Ikke startet",
+        'pending' => "Pågår",
+        'completed' => "Fullført",
+        'inactive' => "Slettet"
+    };
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -199,9 +219,11 @@ input[type="submit"]:hover,
                             <div class="task-details">
                                 <div><strong>Emne:</strong> <?= htmlspecialchars($task['course_code'], ENT_QUOTES) ?></div>
                                 <span class="separator">|</span>
-                                <div><strong>Forfallsdato:</strong> <?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></div>
+                                <div><strong>Forfall:</strong> <?= htmlspecialchars(readableDate($task['due_date']), ENT_QUOTES) ?></div>
                                 <span class="separator">|</span>
-                                <div><strong>Status:</strong> <?= htmlspecialchars($task['status'], ENT_QUOTES) ?></div>
+                                <div><strong>Klokke:</strong> <?= htmlspecialchars(readableClock($task['due_date']), ENT_QUOTES) ?></div>
+                                <span class="separator">|</span>
+                                <div><strong>Status:</strong> <?= htmlspecialchars(getStatus($task['status']), ENT_QUOTES) ?></div>
                             </div>
                         </div>
                     <?php endforeach; ?>
