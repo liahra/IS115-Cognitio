@@ -186,7 +186,8 @@ $account = unserialize($_SESSION['account']);
             uploadProfileImage.showModal();
         });
 
-        cancel.addEventListener("click", () => {
+        cancel.addEventListener("click", (e) => {
+            e.preventDefault();
             uploadProfileImage.close();
         });
 
