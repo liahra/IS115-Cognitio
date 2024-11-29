@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     user_id INT NOT NULL,
     title VARCHAR(100) NOT NULL,
     description TEXT,
-    due_date DATE,
+    due_date DATETIME,
     status ENUM('not-started', 'pending', 'completed', 'inactive'),
     course_code VARCHAR(20), -- Felt for emnekode
     collaboration BOOLEAN DEFAULT FALSE, -- Felt for samarbeid, satt til FALSE som standard

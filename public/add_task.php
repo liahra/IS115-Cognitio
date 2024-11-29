@@ -38,6 +38,9 @@
             border-radius: 4px;
             font-size: 14px;
         }
+        .time{
+            width: 6ch;
+        }
         textarea {
             resize: vertical;
             height: 80px;
@@ -92,7 +95,36 @@
         <textarea id="description" name="description" placeholder="Skriv inn beskrivelse"></textarea>
 
         <label for="due_date">Forfallsdato:</label>
-        <input type="date" id="due_date" name="due_date">
+        <input type="date" id="due_date" name="due_date" required>
+
+        <label for="due_time">Klokkeslett:</label>
+        <div>
+        <select name="due_hour" id="due_hour" class="time">
+            <?php 
+                for($i = 0; $i < 24; $i++){
+                    if($i < 10){
+                        $h = "0" . $i;
+                    } else {
+                        $h = $i;
+                    }
+                   echo  "<option value=\"$h\">$h</option>";
+                }
+            ?>
+        </select> : 
+        <select name="due_minute" id="due_minute" class="time">
+            <?php 
+                for($i = 0; $i < 60; $i++){
+                    if($i < 10){
+                        $m = "0" . $i;
+                    } else {
+                        $m = $i;
+                    }
+                   echo  "<option value=\"$m\">$m</option>";
+                }
+            ?>
+        </select>
+        
+        </div>
 
         <label for="status">Status:</label>
         <select id="status" name="status" required>
@@ -119,6 +151,7 @@
         const fileName = document.getElementById('file-name');
         fileName.textContent = input.files.length > 0 ? input.files[0].name : "Ingen fil valgt";
     }
+
 </script>
 </body>
 </html>
