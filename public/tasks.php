@@ -10,6 +10,8 @@ if (!isset($_SESSION['loggedin'])) {
 // Inkluder nødvendige filer og sett opp klasser
 require_once '../src/account.php';
 require_once '../src/inc/db.inc.php';
+require "../src/inc/utilities.inc.php";
+
 
 
 $account = unserialize($_SESSION['account']);
@@ -130,8 +132,11 @@ function getSortIcon($field, $currentSortField, $currentSortOrder) {
                             <td><?= htmlspecialchars($task['title'], ENT_QUOTES) ?></td>
                             <td><?= htmlspecialchars($task['description'], ENT_QUOTES) ?></td>
                             <td><?= htmlspecialchars($task['course_code'], ENT_QUOTES) ?></td>
-                            <td><?= htmlspecialchars($task['due_date'], ENT_QUOTES) ?></td>
-                            <td><?= htmlspecialchars($task['status'], ENT_QUOTES) ?></td>
+                            <td><?= htmlspecialchars(readableDate($task['due_date']), ENT_QUOTES) ?>
+                                <br>
+                                <?= "Kl. " . htmlspecialchars(readableClock($task['due_date']), ENT_QUOTES) ?>
+                            </td>
+                            <td> <?=htmlspecialchars(getStatus($task['status']), ENT_QUOTES) ?></td>
                             <td>
                                 <?php if (!empty($task['material_url'])): ?>
                                     <a href="<?= htmlspecialchars($task['material_url'], ENT_QUOTES) ?>" target="_blank">

@@ -16,25 +16,7 @@ $account = unserialize($_SESSION['account']);
 $tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
 $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke brukeren
 
-// Gjør forfallsdato og klokkeslett om til noe leselig
-function readableDate($unreadableDate) {
-    return date('d.m.Y', strtotime($unreadableDate));
-}
-
-function readableClock($unreadableClock) {
-    return date('H:i', strtotime($unreadableClock));
-}
-
-// Gjør status om til norsk
-function getStatus($status) {
-    return match ($status) {
-        'not-started' => "Ikke startet",
-        'pending' => "Pågår",
-        'completed' => "Fullført",
-        'inactive' => "Slettet"
-    };
-}
-
+require "../src/inc/utilities.inc.php";
 
 ?>
 
@@ -188,6 +170,33 @@ function getStatus($status) {
         font-style: italic;
         color: #555;
     }
+
+    .bottombuttons{
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .bottombuttons>a{
+        background-color: #83BF73;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        display: block;
+        text-align: center;
+        margin-top: 48px;
+        text-decoration: none;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .bottombuttons>a:hover{
+        background-color: #45a049;
+    }
 </style>
 
 <body>
@@ -234,10 +243,13 @@ function getStatus($status) {
                     <p>Ingen kommende innleveringer.</p>
                 <?php endif; ?>
 
-                <!-- Knappen nederst -->
+                <!-- Knappene nederst -->
+                 <div class="bottombuttons">
                 <form action="add_task.php" method="GET">
                     <input type="submit" class="add-task-button" value="Legg til ny oppgave">
                 </form>
+                <a href="./tasks.php">Se alle oppgaver</a>
+                </div>
             </div>
         </section>
 
