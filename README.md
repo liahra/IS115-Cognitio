@@ -10,8 +10,15 @@ CREATE TABLE IF NOT EXISTS accounts (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('student', 'admin') DEFAULT 'student',
-    regDate DATETIME DEFAULT CURRENT_TIMESTAMP
+    regDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    profileUrl VARCHAR(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+### For å oppdatere brukertabellen med en kolonne for url til profilbilde
+```sql
+ALTER TABLE accounts
+ADD COLUMN profileUrl VARCHAR(255) DEFAULT NULL;
 ```
 
 ## Oppgaver / tasks

@@ -10,6 +10,7 @@ class User {
     protected $email;
     protected $regDate;
     protected $password;
+    protected $profileUrl;
 
     // Setters
     public function setId($id) {
@@ -40,6 +41,22 @@ class User {
         $this->password = $password;
     }
 
+    public function setProfileUrl($newUrl){
+        $this->profileUrl = $newUrl;
+    }
+
+    public function addProfileUrl($newUrl){
+        $this->profileUrl = $newUrl;
+
+        // Oppdater database
+        $db = new Database();
+        if($db->setProfileUrl($newUrl, $this->id)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // Getters
     public function getId() {
         return $this->id;
@@ -68,6 +85,10 @@ class User {
 
     public function getRegDate() {
         return $this->regDate;
+    }
+
+    public function getProfileUrl(){
+        return $this->profileUrl;
     }
 
 

@@ -98,6 +98,27 @@ class Database {
         echo "Konto opprettet!";
     }
 
+    // Legg til profilbilde-url
+    public function setProfileUrl($url, $id){
+        try{
+            $sql = "UPDATE accounts SET profileUrl = :url WHERE id = :id";
+
+            $stmt = $this->pdo->prepare($sql);
+
+            // Binder verdier
+            $stmt->bindParam(':url', $url, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+            $stmt->execute();
+            return $stmt->rowCount() > 0;
+
+        } catch(PDOException $e){
+            $this->logger->logError($e->getMessage());
+        }
+        
+
+    }
+
     // TASKS
     public function addNewTask($userId, $title, $course_code, $description, $due_date, $status, $materialUrl) {
         try {

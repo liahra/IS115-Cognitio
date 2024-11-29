@@ -25,7 +25,8 @@
                 </button>
             </li>
             <li>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="" class="profile_picture">
+                
+                <img src=<?php if($account->getProfileUrl()){ echo "../src/" . $account->getProfileUrl() . " ";} else { echo "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png";} ?> alt="" class="profile_picture">
                 <?php
 
                 if (isset($account)) {

@@ -71,11 +71,13 @@ body {
   padding: 0.85rem;
   width: max-content;
 
-  .profile_picture{
-    width: 64px;
-    height: 64px;
-    border-radius: 999999px;
-  }
+  
+}
+
+.profile_picture{
+  width: 64px;
+  height: 64px;
+  border-radius: 999999px;
 }
 
 #sidebar ul li.active a {

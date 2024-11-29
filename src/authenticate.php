@@ -33,6 +33,7 @@ try {
             $account->setLastName($user['lname']);
             $account->setUsername($user['username']);
             $account->setEmail($user['email']);
+            $account->setProfileUrl($user['profileUrl']);
             // Lagre bruker-ID og account i session-variabelen
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['account'] = serialize($account);
