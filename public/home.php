@@ -84,7 +84,7 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 }
 
 .task-card h3 {
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
 }
 
@@ -97,19 +97,20 @@ $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke
 .task-details {
     display: flex; 
     align-items: center; 
-    gap: 20px; 
-    font-size: 14px; 
+    gap: 4px; 
+    font-size: 15px; 
     font-weight: 400; 
-    padding-bottom: 18px;
+    padding-bottom: 12px;
 }
 
 .task-details .separator {
     margin: 0 10px; 
+    font-size: 10px;
     font-weight: 300; 
 }
 
 .task-details div {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 300;
 }
 

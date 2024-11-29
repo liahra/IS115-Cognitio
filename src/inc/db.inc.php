@@ -189,6 +189,31 @@ class Database {
         }
     }
 
+    public function getAllTasksByUserId($userId)
+    {
+        $query = "SELECT id, title, course_code, description, due_date, status, material_url 
+                  FROM tasks 
+                  WHERE user_id = :userId 
+                  ORDER BY due_date ASC";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getActiveTasksByUserIdSorted($userId, $sortField, $sortOrder)
+    {
+        $query = "SELECT id, title, description, course_code, due_date, status, material_url 
+                  FROM tasks 
+                  WHERE user_id = :userId 
+                  AND status != 'inactive' -- Ekskluder inaktive oppgaver
+                  ORDER BY $sortField $sortOrder";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function deactivateTask($userId, $taskId) {
         try {
             
@@ -265,7 +290,7 @@ class Database {
              if($stmt->rowCount() > 0){
 
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
-                
+
              } else {
                 echo "No students found";
                 exit();

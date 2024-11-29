@@ -87,6 +87,7 @@ class User {
         return $db->getUpcomingTasks($this->id);
     }
 
+
     public function deactivateTask($taskId) {
         $db = new Database();
         return $db->deactivateTask($this->id, $taskId);
