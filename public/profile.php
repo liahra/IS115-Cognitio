@@ -51,8 +51,6 @@ $account = unserialize($_SESSION['account']);
 
         .profile_picture {
             justify-self: center;
-            object-fit: cover;
-            min-width: 64px;
         }
 
         #edit_profile_image {

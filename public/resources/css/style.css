@@ -78,6 +78,8 @@ body {
   width: 64px;
   height: 64px;
   border-radius: 999999px;
+  object-fit: cover;
+
 }
 
 #sidebar ul li.active a {
@@ -469,6 +471,7 @@ dialog::backdrop {
   width: 50px;
   text-align: center;
   background-color: var(--line-clr);
+  color: var(--text-clr);
   padding: 0.5rem 1rem;
 }
 

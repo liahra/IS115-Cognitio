@@ -11,7 +11,9 @@ require_once './inc/logger.inc.php';
 
 $logger = new Logger();
 $account = unserialize($_SESSION['account']);
-$todoId = $_POST['id'];
+$todoId = $_GET['todo'];
+echo $todoId;
+
 
 
 if ($account->deactivateTodo($todoId)) {

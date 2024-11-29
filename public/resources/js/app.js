@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupModalHandlers(add_todo, cancel_add_todo, add_todo_window);
 
   // Sett opp slettingshåndtering for gjøremål
-  setupDeleteHandlers(delete_buttons, delete_todo_window);
+  //setupDeleteHandlers(delete_buttons, delete_todo_window);
 
   // Sett opp oppdateringshåndtering for gjøremål
   setupUpdateHandlers(update_todos, update_todo_window);

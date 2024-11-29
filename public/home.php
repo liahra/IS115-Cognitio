@@ -17,17 +17,17 @@ $tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke bru
 $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke brukeren
 
 // Gjør forfallsdato og klokkeslett om til noe leselig
-function readableDate($unreadableDate){
-    return date('d.m.Y',strtotime($unreadableDate));
+function readableDate($unreadableDate) {
+    return date('d.m.Y', strtotime($unreadableDate));
 }
 
-function readableClock($unreadableClock){
-    return date('H:i',strtotime($unreadableClock));
-}   
+function readableClock($unreadableClock) {
+    return date('H:i', strtotime($unreadableClock));
+}
 
 // Gjør status om til norsk
-function getStatus($status){
-    return match($status){
+function getStatus($status) {
+    return match ($status) {
         'not-started' => "Ikke startet",
         'pending' => "Pågår",
         'completed' => "Fullført",
@@ -48,141 +48,146 @@ function getStatus($status){
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 </head>
 <style>
+    .task-section {
+        display: flex;
+        justify-content: left;
+        margin-top: 20px;
+    }
 
+    .task-container {
+        width: 90%;
+        max-width: 800px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        /* Sørger for at elementene legges oppå hverandre */
+        gap: 10px;
+        /* Avstand mellom oppgavene */
+        height: auto;
+        /* Dynamisk høyde */
+    }
 
-.task-section {
-    display: flex;
-    justify-content: left;
-    margin-top: 20px;
-}
+    .task-container h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: left;
+        color: #333;
+    }
 
-.task-container {
-    width: 90%;
-    max-width: 800px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column; /* Sørger for at elementene legges oppå hverandre */
-    gap: 10px; /* Avstand mellom oppgavene */
-    height: auto; /* Dynamisk høyde */
-}
+    .task-card {
+        padding-top: 10px;
+        border-bottom: 1px solid #e0e0e0;
+    }
 
-.task-container h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: left;
-    color: #333;
-}
+    .task-card:last-child {
+        border-bottom: none;
+        /* Fjern linje for siste oppgave */
+    }
 
-.task-card {
-    padding-top: 10px;
-    border-bottom: 1px solid #e0e0e0;
-}
+    .task-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
 
-.task-card:last-child {
-    border-bottom: none; /* Fjern linje for siste oppgave */
-}
+    .task-icon {
+        font-size: 20px;
+        margin-right: 10px;
+    }
 
-.task-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
+    .task-card h3 {
+        font-size: 14px;
+        color: #333;
+    }
 
-.task-icon {
-    font-size: 20px;
-    margin-right: 10px;
-}
+    .task-card p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #555;
+    }
 
-.task-card h3 {
-    font-size: 14px;
-    color: #333;
-}
+    .task-details {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 15px;
+        font-weight: 400;
+        padding-bottom: 12px;
+    }
 
-.task-card p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #555;
-}
+    .task-details .separator {
+        margin: 0 10px;
+        font-size: 10px;
+        font-weight: 300;
+    }
 
-.task-details {
-    display: flex; 
-    align-items: center; 
-    gap: 4px; 
-    font-size: 15px; 
-    font-weight: 400; 
-    padding-bottom: 12px;
-}
+    .task-details div {
+        font-size: 10px;
+        font-weight: 300;
+    }
 
-.task-details .separator {
-    margin: 0 10px; 
-    font-size: 10px;
-    font-weight: 300; 
-}
+    .task-link {
+        text-decoration: none;
+        /* Fjerner understrek */
+        font-weight: 600;
+        /* Gjør teksten tydeligere */
+        color: black;
+    }
 
-.task-details div {
-    font-size: 10px;
-    font-weight: 300;
-}
+    .task-link:hover {
+        color: #45a049;
+        /* Mørkere farge ved hover */
+    }
 
-.task-link {
-    text-decoration: none; /* Fjerner understrek */ 
-    font-weight: 600; /* Gjør teksten tydeligere */
-    color: black;
-}
+    input[type="submit"],
+    .add-task-button {
+        background-color: #83BF73;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        display: block;
+        text-align: center;
+        margin-top: 48px;
+    }
 
-.task-link:hover {
-    color: #45a049; /* Mørkere farge ved hover */
-}
+    #add_todo {
+        margin-top: 0;
+    }
 
-input[type="submit"],
-.add-task-button {
-    background-color: #83BF73;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    display: block;
-    text-align: center;
-    margin-top:48px;
-}
+    input[type="submit"]:hover,
+    .add-task-button:hover {
+        background-color: #45a049;
+    }
 
-#add_todo{
-    margin-top: 0;
-}
+    /* Fjern det opprinnelige filopplastingsfeltet */
+    .file-input {
+        display: none;
+    }
 
-input[type="submit"]:hover,
-.add-task-button:hover {
-    background-color: #45a049;
-}
+    /* Style for tilpasset knapp */
+    .custom-file-upload {
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+        background-color: #83BF73;
+        color: white;
+        border-radius: 4px;
+        font-weight: 100;
+    }
 
-/* Fjern det opprinnelige filopplastingsfeltet */
-.file-input {
-    display: none;
-}
-
-/* Style for tilpasset knapp */
-.custom-file-upload {
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-    background-color: #83BF73;
-    color: white;
-    border-radius: 4px;
-    font-weight: 100;
-}
-
-/* Style for visning av filnavnet */
-.file-name {
-    margin-left: 10px;
-    font-style: italic;
-    color: #555;
-}
+    /* Style for visning av filnavnet */
+    .file-name {
+        margin-left: 10px;
+        font-style: italic;
+        color: #555;
+    }
 </style>
 
 <body>
@@ -196,17 +201,15 @@ input[type="submit"]:hover,
     <!-- Main Content -->
     <div class="content">
         <section class="top-section">
-            <h2>Dashboard</h2><br />
-            <br />
-            <p>Velkommen tilbake, <?= htmlspecialchars($account->getFirstName(), ENT_QUOTES)?><?= $account->getRole()==="admin" ? "<sup>*</sup>" : "" ?>!</p><br /><br />
+            <h2>Dashboard</h2>
         </section>
 
         <section class="task-section">
             <div class="task-container">
                 <h2>Kommende innleveringer</h2>
-                <?php 
+                <?php
                 // Begrens oppgavene til de fem nærmeste
-                $upcomingTasks = array_slice($tasks, 0, 5); 
+                $upcomingTasks = array_slice($tasks, 0, 5);
                 ?>
                 <?php if (!empty($upcomingTasks)): ?>
                     <?php foreach ($upcomingTasks as $task): ?>
@@ -241,24 +244,24 @@ input[type="submit"]:hover,
         <!-- Todo section -->
         <section class="task-section">
             <div class="task-container">
-            <h2>Gjøremål</h2>
-            <button id="add_todo" class="add-task-button">Legg til gjøremål</button>
+                <h2>Gjøremål</h2>
+                <button id="add_todo" class="add-task-button">Legg til gjøremål</button>
 
-            <?php if (!empty($todos)): ?>
-                <ul class="no-style">
-                    <?php foreach ($todos as $todo) {
-                        // Verdier som skal legges inn i dette todo-itemet
-                        $value = htmlspecialchars($todo['value'], ENT_QUOTES);
-                        $todo_id = htmlspecialchars($todo['id'], ENT_QUOTES);
-                        // Legg til todo-itemet
-                        include './inc/todo_item.php';
-                    } ?>
-                    <?php //endforeach; 
-                    ?>
-                </ul>
-            <?php else: ?>
-                <p>Ingen kommende gjøremål.</p>
-            <?php endif; ?>
+                <?php if (!empty($todos)): ?>
+                    <ul class="no-style">
+                        <?php foreach ($todos as $todo) {
+                            // Verdier som skal legges inn i dette todo-itemet
+                            $value = htmlspecialchars($todo['value'], ENT_QUOTES);
+                            $todo_id = htmlspecialchars($todo['id'], ENT_QUOTES);
+                            // Legg til todo-itemet
+                            include './inc/todo_item.php';
+                        } ?>
+                        <?php //endforeach; 
+                        ?>
+                    </ul>
+                <?php else: ?>
+                    <p>Ingen kommende gjøremål.</p>
+                <?php endif; ?>
             </div>
         </section>
 
@@ -281,9 +284,9 @@ input[type="submit"]:hover,
         <div>
             <h4>Slett gjøremål?</h4>
             <p>Er du sikker på at du vil slette dette gjøremålet?</p>
-            <form action="../src/process_delete_todo.php", method="POST">
+            <form action="../src/process_delete_todo.php" , method="POST">
                 <div>
-                    <input type="hidden" name="id" >
+                    <input type="hidden" name="id">
                     <button id="cancel_delete_todo">Avbryt</button>
                     <button id="submit_delete_todo" type="submit">Slett</button>
                 </div>
@@ -292,7 +295,7 @@ input[type="submit"]:hover,
     </dialog>
 
     <!-- Vindu for å redigere gjøremål -->
-     <dialog id="update_todo_window">
+    <dialog id="update_todo_window">
         <div>
             <h4>Oppdater gjøremål</h4>
             <form action="../src/process_update_todo.php" method="post">
@@ -305,9 +308,9 @@ input[type="submit"]:hover,
                 </div>
             </form>
         </div>
-     </dialog>
+    </dialog>
 
-    <script src="./resources/js/app.js"></script>  
+    <script src="./resources/js/app.js"></script>
 </body>
 
 </html>
