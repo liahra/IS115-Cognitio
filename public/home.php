@@ -132,6 +132,10 @@ input[type="submit"],
     margin-top:48px;
 }
 
+#add_todo{
+    margin-top: 0;
+}
+
 input[type="submit"]:hover,
 .add-task-button:hover {
     background-color: #45a049;
@@ -213,9 +217,11 @@ input[type="submit"]:hover,
         </section>
 
         <!-- Todo section -->
-        <section>
-            <button id="add_todo">Legg til gjøremål</button>
-            <h3>Gjøremål</h3>
+        <section class="task-section">
+            <div class="task-container">
+            <h2>Gjøremål</h2>
+            <button id="add_todo" class="add-task-button">Legg til gjøremål</button>
+
             <?php if (!empty($todos)): ?>
                 <ul class="no-style">
                     <?php foreach ($todos as $todo) {
@@ -231,6 +237,7 @@ input[type="submit"]:hover,
             <?php else: ?>
                 <p>Ingen kommende gjøremål.</p>
             <?php endif; ?>
+            </div>
         </section>
 
     </div>
