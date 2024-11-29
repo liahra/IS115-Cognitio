@@ -12,16 +12,27 @@
 
 <body>
     <nav id="sidebar">
+
         <ul>
             <li>
-            <a href="home.php" class="logo-link">
-                <span class="logo">Cognitio</span>
-            </a>
+                <a href="home.php" class="logo-link">
+                    <span class="logo">Cognitio</span>
+                </a>
                 <button onclick=toggleSidebar() id="toggle-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                         <path d="m313-480 155 156q11 11 11.5 27.5T468-268q-11 11-28 11t-28-11L228-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T468-692q11 11 11 28t-11 28L313-480Zm264 0 155 156q11 11 11.5 27.5T732-268q-11 11-28 11t-28-11L492-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T732-692q11 11 11 28t-11 28L577-480Z" />
                     </svg>
                 </button>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="" class="profile_picture">
+                <?php
+
+                if (isset($account)) {
+                    echo "<p>" . $account->getFirstName() . " " . $account->getLastName() . "</p>";
+                }
+
+                ?>
             </li>
             <li <?php echo $page === 'home' ? ' class="active"' : '' ?>>
                 <a href="home.php">
@@ -33,7 +44,9 @@
             </li>
             <li <?php echo $page === 'tasks' ? ' class="active"' : '' ?>>
                 <a href="tasks.php">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Zm-80 400q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <path d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Zm-80 400q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z" />
+                    </svg>
                     <span>Oppgaver</span>
                 </a>
             </li>
@@ -46,25 +59,27 @@
                 </a>
             </li>
             <?php
-                $account = unserialize($_SESSION['account']);
-                if($account->getRole() === 'admin'){
-                    echo "<li" . ($page === 'admin_panel' ? ' class="active"' : '') . ">
+            $account = unserialize($_SESSION['account']);
+            if ($account->getRole() === 'admin') {
+                echo "<li" . ($page === 'admin_panel' ? ' class="active"' : '') . ">
                 <a href='admin_panel.php'>
                 <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#e8eaed'><path d='M680-280q25 0 42.5-17.5T740-340q0-25-17.5-42.5T680-400q-25 0-42.5 17.5T620-340q0 25 17.5 42.5T680-280Zm0 120q31 0 57-14.5t42-38.5q-22-13-47-20t-52-7q-27 0-52 7t-47 20q16 24 42 38.5t57 14.5ZM480-80q-139-35-229.5-159.5T160-516v-244l320-120 320 120v227q-19-8-39-14.5t-41-9.5v-147l-240-90-240 90v188q0 47 12.5 94t35 89.5Q310-290 342-254t71 60q11 32 29 61t41 52q-1 0-1.5.5t-1.5.5Zm200 0q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80ZM480-494Z'/></svg>    
                     <span>Admin</span>
                 </a>
             </li>
                     ";
-                }
-            
+            }
+
             ?>
             <li>
                 <a href="logout.php">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+                    </svg>
                     <span>Logg ut</span>
                 </a>
             </li>
-            
+
         </ul>
     </nav>
 

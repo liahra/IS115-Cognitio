@@ -35,7 +35,6 @@
     <div class="content">
         <section class="top-section">
                 <h2>Admin Panel</h2><br />
-                <p>Administrer brukere.</p>
         </section>
         <section>
             <h1>Studentbrukere</h1>

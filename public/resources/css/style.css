@@ -51,14 +51,30 @@ body {
 
 #sidebar ul {
   list-style: none;
+  margin-left: 0;
 }
 
 #sidebar > ul > li:first-child {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   .logo {
     font-weight: 600;
+  }
+}
+
+#sidebar > ul > li:nth-child(2){
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 0.85rem;
+  width: max-content;
+
+  .profile_picture{
+    width: 64px;
+    height: 64px;
+    border-radius: 999999px;
   }
 }
 
