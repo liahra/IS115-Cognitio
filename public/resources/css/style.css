@@ -100,6 +100,11 @@ body {
   flex-grow: 1;
 }
 
+#sidebar a span{
+  overflow: none;
+  white-space: nowrap;
+}
+
 #sidebar a:hover,
 #sidebar .dropdown-btn:hover {
   background-color: var(--hover-clr);

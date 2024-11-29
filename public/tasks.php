@@ -154,6 +154,7 @@ function getSortIcon($field, $currentSortField, $currentSortOrder) {
             <p>Ingen oppgaver funnet.</p>
         <?php endif; ?>
     </div>
+    <script src="./resources/js/app.js"></script>  
 
 </body>
 

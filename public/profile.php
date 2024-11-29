@@ -54,5 +54,7 @@ $account = unserialize($_SESSION['account']);
             </table>
         </div>
     </div>   
+    <script src="./resources/js/app.js"></script>  
+
 </body>
 </html>
