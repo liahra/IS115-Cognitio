@@ -190,7 +190,7 @@ class Database {
         }
     }
 
-    public function updateTask($taskId, $title, $description, $due_date_time, $status) {
+    public function updateTask($userId, $taskId, $title, $description, $due_date_time, $status) {
         try {
             $query = "UPDATE tasks 
                       SET title = :title, 
@@ -199,13 +199,13 @@ class Database {
                           status = :status 
                       WHERE id = :task_id AND user_id = :user_id";
     
-            $stmt = $this->db->pdo->prepare($query);
+            $stmt = $this->pdo->prepare($query);
             $stmt->bindParam(':title', $title);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':due_date', $due_date_time);
             $stmt->bindParam(':status', $status);
             $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
-            $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
     
             return $stmt->execute();
         } catch (PDOException $e) {

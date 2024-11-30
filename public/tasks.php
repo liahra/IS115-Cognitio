@@ -149,7 +149,7 @@ function getSortIcon($field, $currentSortField, $currentSortOrder) {
                             <td>
                                 <a href="task_details.php?task_id=<?= urlencode($task['id']) ?>">Vis</a>
                                 <a href="edit_task.php?task_id=<?= urlencode($task['id']) ?>">Rediger</a>
-                                <a href="delete_task.php?task_id=<?= urlencode($task['id']) ?>" onclick="return confirm('Er du sikker på at du vil slette denne oppgaven?')">Slett</a>
+                                <a href="../src/process_delete_task.php?task_id=<?= urlencode($task['id']) ?>" onclick="return confirm('Er du sikker på at du vil slette denne oppgaven?')">Slett</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
