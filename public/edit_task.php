@@ -150,10 +150,7 @@ if (!$task) {
             <div class="button-group">
                 
                 <!-- Sletteskjema -->
-                <form action="../src/process_delete_task.php" method="POST" onsubmit="return confirm('Er du sikker på at du vil slette denne oppgaven?');" style="margin: 0;">
-                    <input type="hidden" name="task_id" value="<?= htmlspecialchars($task['id'], ENT_QUOTES) ?>">
-                    <button type="submit" class="delete-button">Slett oppgave</button>
-                </form>
+                <a href="../src/process_delete_task.php?task_id=<?= urlencode($task['id']) ?>" class="delete-button" style="text-decoration: none"; onclick="return confirm('Er du sikker på at du vil slette denne oppgaven?')">Slett oppgave</a>
                 <input type="submit" value="Oppdater oppgave">
             </div>
         </form>
