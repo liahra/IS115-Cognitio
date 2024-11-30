@@ -259,6 +259,9 @@ require "../src/inc/utilities.inc.php";
                     <input type="submit" class="add-task-button" value="Legg til ny oppgave">
                 </form>
                 <a href="./tasks.php">Se alle oppgaver</a>
+                <form action="generate_pdf.php" method="get">
+                    <button type="submit" class="add-task-button">Last ned PDF</button>
+                </form>
                 </div>
             </div>
         </section>
