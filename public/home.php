@@ -7,12 +7,9 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
-// Inkluder nødvendige filer og sett opp klasser
-/* require_once '../src/inc/db.inc.php';  // Har lagt denne inn i account-klassen */
 require_once '../src/account.php';
 
 $account = unserialize($_SESSION['account']);
-
 $tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
 $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke brukeren
 

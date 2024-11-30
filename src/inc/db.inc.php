@@ -190,22 +190,26 @@ class Database {
         }
     }
 
-    public function updateTask($userId, $taskId, $title, $description, $due_date, $status) {
+    public function updateTask($taskId, $title, $description, $due_date_time, $status) {
         try {
-            $stmt = $this->pdo->prepare("UPDATE tasks SET title = :title, description = :description, due_date = :due_date, status = :status WHERE id = :task_id AND user_id = :user_id");
-
-            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
-            $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
-            $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+            $query = "UPDATE tasks 
+                      SET title = :title, 
+                          description = :description, 
+                          due_date = :due_date, 
+                          status = :status 
+                      WHERE id = :task_id AND user_id = :user_id";
+    
+            $stmt = $this->db->pdo->prepare($query);
+            $stmt->bindParam(':title', $title);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':due_date', $due_date_time);
+            $stmt->bindParam(':status', $status);
             $stmt->bindParam(':task_id', $taskId, PDO::PARAM_INT);
-            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-            $stmt->execute();
-
-            return $stmt->rowCount() > 0;
-
+            $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT);
+    
+            return $stmt->execute();
         } catch (PDOException $e) {
-            $this->logger->logError("Error updating task: " . $e->getMessage());
+            $this->logger->logError("Feil under oppdatering: " . $e->getMessage());
             return false;
         }
     }

@@ -123,7 +123,6 @@
                 }
             ?>
         </select>
-        
         </div>
 
         <label for="status">Status:</label>
