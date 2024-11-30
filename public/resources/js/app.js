@@ -37,6 +37,26 @@ function setupDeleteHandlers(deleteButtons, confirmDialog) {
   }
 }
 
+// Håndterer fullføring av gjøremål
+function setupCompleteHandlers(complete_todos){
+  for(let complete of complete_todos){
+    complete.addEventListener("input", ()=>{
+      let id = complete.id.slice(-1);
+      let todo = document.getElementById("desc_todo_" + id);
+    
+      if(complete.checked){
+        console.log(todo.innerHTML);
+        todo.innerHTML = "<s>" + todo.innerHTML + "</s>";
+
+      } else {
+        console.log(todo.innerHTML);
+        todo.innerHTML =  todo.innerText;
+  
+      }
+    })
+  }
+}
+
 // Håndter oppdatering av gjøremål med dialog
 function setupUpdateHandlers(todos, updateWindow) {
   // Legg eventlistener på hvert todo-element
@@ -67,9 +87,6 @@ function setupUpdateHandlers(todos, updateWindow) {
         e.preventDefault();
         updateWindow.close();
       });
-
-
-
     });
   }
 }
@@ -89,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const delete_todo_window = document.getElementById("delete_todo_window");
   const update_todos = document.querySelectorAll("[id^=desc_todo");
   const update_todo_window = document.getElementById("update_todo_window");
+  const complete_todos = document.querySelectorAll("[id^=todo_check]");
 
   // Sett opp sidebar-toggle
   toggleButton.addEventListener("click", () => {
@@ -97,11 +115,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Sett opp modalhåndtering for å legge til gjøremål
-  setupModalHandlers(add_todo, cancel_add_todo, add_todo_window);
+  //setupModalHandlers(add_todo, cancel_add_todo, add_todo_window);
 
   // Sett opp slettingshåndtering for gjøremål
   //setupDeleteHandlers(delete_buttons, delete_todo_window);
 
   // Sett opp oppdateringshåndtering for gjøremål
   setupUpdateHandlers(update_todos, update_todo_window);
+
+  setupCompleteHandlers(complete_todos);
 });

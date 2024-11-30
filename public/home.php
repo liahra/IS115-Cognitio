@@ -140,6 +140,12 @@ require "../src/inc/utilities.inc.php";
         margin-top: 0;
     }
 
+    .todo_input{
+        height: 3rem;
+        padding: 0 0.5rem;
+        font-size: 1rem;
+    }
+
     input[type="submit"]:hover,
     .add-task-button:hover {
         background-color: #45a049;
@@ -193,6 +199,13 @@ require "../src/inc/utilities.inc.php";
     }
     .bottombuttons>a:hover{
         background-color: #45a049;
+    }
+
+    .todo_complete{
+        margin-right: 1rem;
+    }
+    s{
+        text-decoration-thickness: 1px;
     }
 </style>
 
@@ -254,16 +267,20 @@ require "../src/inc/utilities.inc.php";
         <section class="task-section">
             <div class="task-container">
                 <h2>Gjøremål</h2>
-                <button id="add_todo" class="add-task-button">Legg til gjøremål</button>
+                <!-- <button id="add_todo" class="add-task-button">Legg til gjøremål</button> -->
 
+                <div>
                 <?php if (!empty($todos)): ?>
                     <ul class="no-style">
                         <?php foreach ($todos as $todo) {
                             // Verdier som skal legges inn i dette todo-itemet
-                            $value = htmlspecialchars($todo['value'], ENT_QUOTES);
-                            $todo_id = htmlspecialchars($todo['id'], ENT_QUOTES);
-                            // Legg til todo-itemet
-                            include './inc/todo_item.php';
+                            if($todo['value']){
+                               $value = htmlspecialchars($todo['value'], ENT_QUOTES);
+                                $todo_id = htmlspecialchars($todo['id'], ENT_QUOTES);
+                                // Legg til todo-itemet
+                                include './inc/todo_item.php'; 
+                            }
+                            
                         } ?>
                         <?php //endforeach; 
                         ?>
@@ -271,6 +288,11 @@ require "../src/inc/utilities.inc.php";
                 <?php else: ?>
                     <p>Ingen kommende gjøremål.</p>
                 <?php endif; ?>
+                </div>
+                <form action="../src/process_add_todo.php" method="post">
+                    <input type="text" placeholder="Legg til gjøremål" name="todovalue" class="todo_input">
+                </form>
+                
             </div>
         </section>
 
