@@ -241,9 +241,7 @@ require "../src/inc/utilities.inc.php";
                             <div class="task-details">
                                 <div><strong>Emne:</strong> <?= htmlspecialchars($task['course_code'], ENT_QUOTES) ?></div>
                                 <span class="separator">|</span>
-                                <div><strong>Forfall:</strong> <?= htmlspecialchars(readableDate($task['due_date']), ENT_QUOTES) ?></div>
-                                <span class="separator">|</span>
-                                <div><strong>Klokke:</strong> <?= htmlspecialchars(readableClock($task['due_date']), ENT_QUOTES) ?></div>
+                                <div><strong>Forfall:</strong> <?= htmlspecialchars(formatNorwegianDateTime($task['due_date']), ENT_QUOTES) ?></div>
                                 <span class="separator">|</span>
                                 <div><strong>Status:</strong> <?= htmlspecialchars(getStatus($task['status']), ENT_QUOTES) ?></div>
                             </div>

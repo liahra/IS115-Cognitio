@@ -40,18 +40,7 @@ function translateStatus($status) {
 }
 
 // Funksjon for å formatere dato og tid på norsk
-function formatNorwegianDateTime($dateTimeString) {
-    $dateTime = date_create($dateTimeString);
-    $norwegianMonths = [
-        'jan.', 'feb.', 'mars', 'apr.', 'mai', 'juni',
-        'juli', 'aug.', 'sep.', 'okt.', 'nov.', 'des.'
-    ];
-    $day = date_format($dateTime, 'j');
-    $monthIndex = (int)date_format($dateTime, 'n') - 1;
-    $year = date_format($dateTime, 'Y');
-    $time = date_format($dateTime, 'H:i');
-    return "$day. {$norwegianMonths[$monthIndex]} $year kl. $time";
-}
+require('../src/inc/utilities.inc.php');
 ?>
 <!DOCTYPE html>
 <html lang="no">
