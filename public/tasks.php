@@ -55,7 +55,7 @@ function getSortIcon($field, $currentSortField, $currentSortOrder) {
 
     <div class="content">
         <section class="top-section">
-            <h2>Oversikt over Oppgaver</h2>
+            <h2>Dine oppgaver</h2>
         </section>
 
         <?php if (!empty($tasks)): ?>
@@ -63,7 +63,6 @@ function getSortIcon($field, $currentSortField, $currentSortOrder) {
                 <thead>
                     <tr>
                         <th><a href="tasks.php?sort=title&order=<?= $nextOrder ?>">Tittel <span class="sort-icon"><?= getSortIcon('title', $sortField, $sortOrder) ?></span></a></th>
-                        <th><a href="tasks.php?sort=description&order=<?= $nextOrder ?>">Beskrivelse <span class="sort-icon"><?= getSortIcon('description', $sortField, $sortOrder) ?></span></a></th>
                         <th><a href="tasks.php?sort=course_code&order=<?= $nextOrder ?>">Emne <span class="sort-icon"><?= getSortIcon('course_code', $sortField, $sortOrder) ?></span></a></th>
                         <th><a href="tasks.php?sort=due_date&order=<?= $nextOrder ?>">Forfallsdato <span class="sort-icon"><?= getSortIcon('due_date', $sortField, $sortOrder) ?></span></a></th>
                         <th><a href="tasks.php?sort=status&order=<?= $nextOrder ?>">Status <span class="sort-icon"><?= getSortIcon('status', $sortField, $sortOrder) ?></span></a></th>
@@ -75,11 +74,8 @@ function getSortIcon($field, $currentSortField, $currentSortOrder) {
                     <?php foreach ($tasks as $task): ?>
                         <tr>
                             <td><?= htmlspecialchars($task['title'], ENT_QUOTES) ?></td>
-                            <td><?= htmlspecialchars($task['description'], ENT_QUOTES) ?></td>
                             <td><?= htmlspecialchars($task['course_code'], ENT_QUOTES) ?></td>
-                            <td><?= htmlspecialchars(readableDate($task['due_date']), ENT_QUOTES) ?>
-                                <br>
-                                <?= "Kl. " . htmlspecialchars(readableClock($task['due_date']), ENT_QUOTES) ?>
+                            <td><?= htmlspecialchars(formatNorwegianDateTime($task['due_date']), ENT_QUOTES) ?>
                             </td>
                             <td> <?=htmlspecialchars(getStatus($task['status']), ENT_QUOTES) ?></td>
                             <td>

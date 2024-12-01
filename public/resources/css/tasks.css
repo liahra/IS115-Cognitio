@@ -1,15 +1,20 @@
 table {
-    width: 100%;
+    width: 200%;
     border-collapse: collapse;
     margin: 20px 0;
     font-size: 16px;
     text-align: left;
+    max-height: 200px; /* Begrenser høyden på tabellen */
+    overflow-y: auto; /* Legger til rullefelt hvis høyden overskrides */
+    display: block; /* Viktig for å aktivere max-height og overflow */
 }
 
 table th,
 table td {
     border: 1px solid #ddd;
     padding: 8px;
+    height: 50px; /* Setter en spesifikk høyde for cellene */
+    width: 250px;
 }
 
 table th {
