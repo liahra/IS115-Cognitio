@@ -40,7 +40,7 @@ require "../src/inc/utilities.inc.php";
     <!-- Main Content -->
     <div class="content">
         <section class="top-section">
-            <h2>Dashboard</h2>
+            <h2>Dustbord</h2>
         </section>
 
         <section class="task-section">
