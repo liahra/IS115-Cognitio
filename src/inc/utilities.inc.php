@@ -44,7 +44,7 @@ function isPastDueDate($due){
 function isLate($due, $status){
     $pastDueDate = isPastDueDate($due);
 
-    // Er aktiviteten ikke fullført?
+    // Er aktiviteten ikke fullført?    
     $active = $status === "not-started" || $status === "pending";
 
     return $pastDueDate && $active;

@@ -28,22 +28,6 @@ require "../src/inc/utilities.inc.php";
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="./resources/css/home.css">
 
-    <style>
-        .ongoing, .late{
-            width: fit-content;
-            padding: 0.25rem .5rem;
-            border-radius: 10000px;
-            font-size: 0.85rem;
-        }
-        .ongoing{
-            background-color: lightgreen;
-            color: white;
-        }
-        .late{
-            background-color: red;
-            color: white;
-        }
-    </style>
 </head>
 
 
@@ -52,13 +36,12 @@ require "../src/inc/utilities.inc.php";
     <?php
     $page = 'home';
     include("./inc/sidebar.inc.php");
-    //phpinfo();
     ?>
 
     <!-- Main Content -->
     <div class="content">
         <section class="top-section">
-            <h2>Dustbord</h2>
+            <h2>Dashboard</h2>
         </section>
 
         <section class="task-section">
