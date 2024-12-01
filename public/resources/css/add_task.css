@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5;
+}
+h2 {
+    font-size: 24px;
+    color: #333;
+}
+form {
+    background-color: #fff;
+    padding: 56px;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+input[type="text"],
+input[type="date"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.time{
+    width: 6ch;
+}
+textarea {
+    resize: vertical;
+    height: 80px;
+}
+input[type="submit"] {
+    background-color: #83BF73;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Skjul det opprinnelige filopplastingsfeltet */
+    .file-input {
+    display: none;
+}
+
+/* Style for tilpasset knapp */
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #83BF73;
+    color: white;
+    border-radius: 4px;
+    font-weight: 100;
+}
+
+/* Style for visning av filnavnet */
+.file-name {
+    margin-left: 10px;
+    font-style: italic;
+    color: #555;
+}

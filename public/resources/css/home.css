@@ -1,0 +1,180 @@
+.task-section {
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+}
+
+.task-container {
+    width: 90%;
+    max-width: 800px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    /* Sørger for at elementene legges oppå hverandre */
+    gap: 10px;
+    /* Avstand mellom oppgavene */
+    height: auto;
+    /* Dynamisk høyde */
+}
+
+.task-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: #333;
+}
+
+.task-card {
+    padding-top: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.task-card:last-child {
+    border-bottom: none;
+    /* Fjern linje for siste oppgave */
+}
+
+.task-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.task-icon {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.task-card h3 {
+    font-size: 14px;
+    color: #333;
+}
+
+.task-card p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.task-details {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 15px;
+    font-weight: 400;
+    padding-bottom: 12px;
+}
+
+.task-details .separator {
+    margin: 0 10px;
+    font-size: 10px;
+    font-weight: 300;
+}
+
+.task-details div {
+    font-size: 10px;
+    font-weight: 300;
+}
+
+.task-link {
+    text-decoration: none;
+    /* Fjerner understrek */
+    font-weight: 600;
+    /* Gjør teksten tydeligere */
+    color: black;
+}
+
+.task-link:hover {
+    color: #45a049;
+    /* Mørkere farge ved hover */
+}
+
+input[type="submit"],
+.add-task-button {
+    background-color: #83BF73;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    margin-top: 48px;
+}
+
+#add_todo {
+    margin-top: 0;
+}
+
+.todo_input{
+    height: 3rem;
+    padding: 0 0.5rem;
+    font-size: 1rem;
+}
+
+input[type="submit"]:hover,
+.add-task-button:hover {
+    background-color: #45a049;
+}
+
+/* Fjern det opprinnelige filopplastingsfeltet */
+.file-input {
+    display: none;
+}
+
+/* Style for tilpasset knapp */
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #83BF73;
+    color: white;
+    border-radius: 4px;
+    font-weight: 100;
+}
+
+/* Style for visning av filnavnet */
+.file-name {
+    margin-left: 10px;
+    font-style: italic;
+    color: #555;
+}
+
+.bottombuttons{
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    width: 100%;
+}
+.bottombuttons>a{
+    background-color: #83BF73;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    margin-top: 48px;
+    text-decoration: none;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bottombuttons>a:hover{
+    background-color: #45a049;
+}
+
+.todo_complete{
+    margin-right: 1rem;
+}
+s{
+    text-decoration-thickness: 1px;
+}

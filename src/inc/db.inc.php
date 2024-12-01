@@ -84,13 +84,31 @@ class Database {
         $stmt = $this->pdo->prepare($sql);
 
         // Binder verdier til navngitte parametere.
-        $stmt->bindParam(':fname', $account->getFirstName());
-        $stmt->bindParam(':lname', $account->getLastName());
-        $stmt->bindParam(':username', $account->getUserName());
-        $stmt->bindParam(':email', $account->getEmail());
-        $stmt->bindParam(':password', $account->getPassword());
-        $stmt->bindParam(':role', $account->getRole());
-        $stmt->bindParam(':regDate', $account->getRegDate());
+        // Kommentar: Denne fungerer men gir feilmeldingen "Only variables should be passed by reference..."
+        // Dette er grunnen til at vi først henter ut verdiene i variabler
+        /* $stmt->bindParam(':fname', $account->getFirstName(), PDO::PARAM_STR);
+        $stmt->bindParam(':lname', $account->getLastName(), PDO::PARAM_STR);
+        $stmt->bindParam(':username', $account->getUserName(), PDO::PARAM_STR);
+        $stmt->bindParam(':email', $account->getEmail(), PDO::PARAM_STR);
+        $stmt->bindParam(':password', $account->getPassword(), PDO::PARAM_STR);
+        $stmt->bindParam(':role', $account->getRole(), PDO::PARAM_STR);
+        $stmt->bindParam(':regDate', $account->getRegDate(), PDO::PARAM_STR); */
+
+        $fname = $account->getFirstName();
+        $lname = $account->getLastName();
+        $username = $account->getUserName();
+        $email = $account->getEmail();
+        $password = $account->getPassword();
+        $role = $account->getRole();
+        $regDate = $account->getRegDate();      
+
+        $stmt->bindParam(':fname', $fname, PDO::PARAM_STR);
+        $stmt->bindParam(':lname', $lname, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt->bindParam(':role', $role, PDO::PARAM_STR);
+        $stmt->bindParam(':regDate', $regDate, PDO::PARAM_STR);
 
         // Utfører spørringen
         $stmt->execute();

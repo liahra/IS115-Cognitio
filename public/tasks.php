@@ -43,62 +43,7 @@ function getSortIcon($field, $currentSortField, $currentSortOrder) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dine Oppgaver</title>
     <link rel="stylesheet" href="./resources/css/style.css">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 16px;
-            text-align: left;
-        }
-
-        table th,
-        table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        table th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-            position: relative;
-            cursor: pointer;
-        }
-
-        table th a {
-            text-decoration: none;
-            color: #333;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        table th a:hover {
-            color: #007BFF;
-        }
-
-        table th a .sort-icon {
-            font-size: 12px;
-            margin-left: 5px;
-        }
-
-        table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        table tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .action-links a {
-            margin-right: 10px;
-            color: #007BFF;
-            text-decoration: none;
-        }
-
-        .action-links a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="./resources/css/tasks.css">
 </head>
 
 <body>

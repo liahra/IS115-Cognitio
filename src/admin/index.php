@@ -14,20 +14,17 @@ if (!empty($_POST)) {
     }
 
     // Opprett en ny instans av Account-klassen
-    $account = new Account();
+    $account = new Admin();
 
     try {
         // Sjekk om brukernavnet allerede finnes
-        if ($account->usernameExists($_POST['username'])) {
-            exit('Brukernavn eksisterer allerede. Velg et annet.');
-        } else {
+       
             // Sett brukerdetaljene i Account-instansen
             $account->setFirstName($_POST['fname']);
             $account->setLastName($_POST['lname']);
             $account->setUsername($_POST['username']);
             $account->setEmail($_POST['email']);
             $account->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT)); // Hashet passord
-            $account->setRole('admin'); // Setter standard rolle som 'admin'
             $account->setRegDate(date('Y-m-d'));
 
             $account->createAccount();
@@ -35,9 +32,10 @@ if (!empty($_POST)) {
             // Bekreft at registreringen var vellykket
             echo 'Du er blitt registrert. Du kan nå logge inn!';
             exit();
-        }
+        
     } catch (PDOException $e) {
-        exit('Noe gikk galt: ' . $e->getMessage());
+        $logger->logError($e->getMessage());
+        exit('Noe gikk galt: ');
     }
 }
 
