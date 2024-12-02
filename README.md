@@ -21,7 +21,7 @@ ALTER TABLE accounts
 ADD COLUMN profileUrl VARCHAR(255) DEFAULT NULL;
 ```
 
-### Innloggingsforsøk / login attempts
+## Innloggingsforsøk / login attempts
 ```sql
 CREATE TABLE login_attempts (
     id INT AUTO_INCREMENT PRIMARY KEY,
