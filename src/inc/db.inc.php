@@ -68,6 +68,49 @@ class Database {
         return $stmt->fetchColumn() > 0;
     }
 
+    public function logLoginAttempt(string $username): void {
+        try {
+            $stmt = $this->pdo->prepare('INSERT INTO login_attempts (username) VALUES (:username)');
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            $this->logger->logError("Databasefeil i logLoginAttempt: " . $e->getMessage());
+        }
+    }
+    
+    public function getLoginAttempts(string $username, int $timeWindowInMinutes): int {
+        try {
+            $stmt = $this->pdo->prepare(
+                'SELECT COUNT(*) 
+                 FROM login_attempts 
+                 WHERE username = :username AND attempt_time > (NOW() - INTERVAL :minutes MINUTE)'
+            );
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->bindParam(':minutes', $timeWindowInMinutes, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            return $stmt->fetchColumn();
+        } catch (PDOException $e) {
+            $this->logger->logError("Databasefeil i getLoginAttempts: " . $e->getMessage());
+    
+            // Returner 0 som standard ved feil
+            return 0;
+        }
+    }
+    
+    public function clearOldLoginAttempts(string $username): void {
+        try {
+            $stmt = $this->pdo->prepare(
+                'DELETE FROM login_attempts 
+                 WHERE username = :username AND attempt_time <= (NOW() - INTERVAL 1 HOUR)'
+            );
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            $this->logger->logError("Databasefeil i clearOldLoginAttempts: " . $e->getMessage());
+        }
+    }
+
     // Hent bruker hvis den eksisterer
     public function getUser($username) {
         $stmt = $this->pdo->prepare("SELECT * FROM accounts WHERE username = :username");

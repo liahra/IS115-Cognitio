@@ -9,9 +9,28 @@ if (!isset($_SESSION['loggedin'])) {
 
 require_once '../src/account.php';
 
-$account = unserialize($_SESSION['account']);
-$tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
+// Sjekk om brukeren er logget inn
+if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
+    header('Location: login.php');
+    exit();
+}
 
+// Sjekk at account er satt i session
+if (!isset($_SESSION['account'])) {
+    echo '<p style="color: red;">Brukerdata kunne ikke lastes. Prøv å logge inn på nytt.</p>';
+    exit();
+}
+
+// Hent account-objektet
+$account = unserialize($_SESSION['account']);
+
+// Sjekk om unserialize fungerer
+if (!$account) {
+    echo '<p style="color: red;">Feil med brukersession. Prøv å logge inn på nytt.</p>';
+    exit();
+}
+
+$tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
 $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke brukeren
 
 require "../src/inc/utilities.inc.php";
@@ -90,7 +109,6 @@ require "../src/inc/utilities.inc.php";
         <section class="task-section">
             <div class="task-container">
                 <h2>Gjøremål</h2>
-                <!-- <button id="add_todo" class="add-task-button">Legg til gjøremål</button> -->
 
                 <div>
                 <?php if (!empty($todos)): ?>
