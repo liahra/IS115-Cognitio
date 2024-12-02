@@ -31,11 +31,6 @@ function handleFileUpload($file) {
     return null; // Returner null hvis ingen fil ble lastet opp
 }
 
-/* // Opprett en instans av Account-klassen og sett bruker-ID
-$account = unserialize($_SESSION['account']); */
-
-
-
 // Hent oppgaveinformasjon fra skjema og håndter evt. manglende data
 $title = isset($_POST['title']) ? $_POST['title'] : '';
 $course_code = isset($_POST['course_code']) ? $_POST['course_code'] : '';
