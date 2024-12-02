@@ -21,6 +21,15 @@ ALTER TABLE accounts
 ADD COLUMN profileUrl VARCHAR(255) DEFAULT NULL;
 ```
 
+### Innloggingsforsøk / login attempts
+```sql
+CREATE TABLE login_attempts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    attempt_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
 ## Oppgaver / tasks
 ```sql
 CREATE TABLE IF NOT EXISTS tasks (
