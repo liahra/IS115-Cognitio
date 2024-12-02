@@ -19,14 +19,17 @@ class Validation {
 
     private function sanitizeInput(array $data): array {
         foreach ($data as $key => $value) {
-            $data[$key] = trim(htmlspecialchars($value, ENT_QUOTES, 'UTF-8'));
+            $data[$key] = trim($value);
+            $data[$key] = strip_tags($data[$key]);
+            $data[$key] = stripslashes($data[$key]);
+            $data[$key] = htmlspecialchars($data[$key]);
+            return $data;
         }
         return $data;
     }
 
     private function validateRequiredFields(array $fields, array $data): void {
         foreach ($fields as $field) {
-            /* echo $data[$field] . "<br> "; */
             if (empty($data[$field])) {
                 $this->errors[] = ucfirst($field) . ' er et obligatorisk felt.';
             }
