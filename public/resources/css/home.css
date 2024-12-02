@@ -168,9 +168,6 @@ input[type="submit"]:hover,
     align-items: center;
     justify-content: center;
 }
-.bottombuttons>a:hover{
-    background-color: #45a049;
-}
 
 .todo_complete{
     margin-right: 1rem;

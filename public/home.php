@@ -121,7 +121,6 @@ require "../src/inc/utilities.inc.php";
                                 // Legg til todo-itemet
                                 include './inc/todo_item.php'; 
                             }
-                            
                         } ?>
                         <?php //endforeach; 
                         ?>
