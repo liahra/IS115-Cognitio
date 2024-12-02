@@ -17,6 +17,21 @@ require "../src/inc/utilities.inc.php";
 $account = unserialize($_SESSION['account']);
 $db = new Database();
 
+// Håndter filnedlasting
+if (isset($_GET['download']) && !empty($_GET['download'])) {
+    $filePath = '../src/uploads/' . basename($_GET['download']); // Tilpass stien til opplastingsmappen
+    if (file_exists($filePath)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
+        readfile($filePath);
+        exit;
+    } else {
+        echo "<p>Filen finnes ikke.</p>";
+        exit;
+    }
+}
+
 // Gyldige sorteringsfelt og standard sorteringsretning
 $validSortFields = ['title', 'description', 'course_code', 'due_date', 'status', 'material_url'];
 $sortField = isset($_GET['sort']) && in_array($_GET['sort'], $validSortFields) ? $_GET['sort'] : 'due_date';
@@ -80,7 +95,7 @@ function getSortIcon($field, $currentSortField, $currentSortOrder) {
                             <td> <?=htmlspecialchars(getStatus($task['status']), ENT_QUOTES) ?></td>
                             <td>
                                 <?php if (!empty($task['material_url'])): ?>
-                                    <a href="<?= htmlspecialchars($task['material_url'], ENT_QUOTES) ?>" target="_blank">
+                                    <a href="tasks.php?download=<?= urlencode($task['material_url']) ?>">
                                         <?= htmlspecialchars(basename($task['material_url']), ENT_QUOTES) ?>
                                     </a>
                                 <?php else: ?>

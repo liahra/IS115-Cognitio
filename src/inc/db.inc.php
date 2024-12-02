@@ -130,17 +130,6 @@ class Database {
 
         $stmt = $this->pdo->prepare($sql);
 
-        // Binder verdier til navngitte parametere.
-        // Kommentar: Denne fungerer men gir feilmeldingen "Only variables should be passed by reference..."
-        // Dette er grunnen til at vi først henter ut verdiene i variabler
-        /* $stmt->bindParam(':fname', $account->getFirstName(), PDO::PARAM_STR);
-        $stmt->bindParam(':lname', $account->getLastName(), PDO::PARAM_STR);
-        $stmt->bindParam(':username', $account->getUserName(), PDO::PARAM_STR);
-        $stmt->bindParam(':email', $account->getEmail(), PDO::PARAM_STR);
-        $stmt->bindParam(':password', $account->getPassword(), PDO::PARAM_STR);
-        $stmt->bindParam(':role', $account->getRole(), PDO::PARAM_STR);
-        $stmt->bindParam(':regDate', $account->getRegDate(), PDO::PARAM_STR); */
-
         $fname = $account->getFirstName();
         $lname = $account->getLastName();
         $username = $account->getUserName();
@@ -215,11 +204,7 @@ class Database {
 
     public function getUpcomingTasks($id) {
         try {
-            /* $stmt = $this->pdo->prepare("SELECT * FROM tasks 
-                                        WHERE user_id = :user_id
-                                        AND status IN ('pending', 'not-started') 
-                                        AND due_date >= NOW() 
-                                        ORDER BY due_date ASC"); */
+
             $stmt = $this->pdo->prepare("SELECT * FROM tasks 
                                         WHERE user_id = :user_id
                                         AND status IN ('pending', 'not-started') 

@@ -12,6 +12,21 @@ require_once '../src/inc/db.inc.php';
 $account = unserialize($_SESSION['account']);
 $db = new Database();
 
+// Håndter filnedlasting
+if (isset($_GET['download']) && !empty($_GET['download'])) {
+    $filePath = '../src/uploads/' . basename($_GET['download']);
+    if (file_exists($filePath)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
+        readfile($filePath);
+        exit;
+    } else {
+        echo "<p>Filen finnes ikke.</p>";
+        exit;
+    }
+}
+
 // Sjekk at 'task_id' er satt i URL
 if (!isset($_GET['task_id']) || empty(trim($_GET['task_id']))) {
     echo "<p>Ingen oppgave valgt.</p>";
@@ -65,7 +80,7 @@ require('../src/inc/utilities.inc.php');
         
         <?php if (!empty($task['material_url'])): ?>
             <p><strong>Fil:</strong> 
-                <a href="<?= htmlspecialchars($task['material_url'], ENT_QUOTES) ?>" class="file-link" target="_blank">
+                <a href="task_details.php?task_id=<?= urlencode($taskId) ?>&download=<?= urlencode($task['material_url']) ?>" class="file-link">
                     <?= htmlspecialchars(basename($task['material_url']), ENT_QUOTES) ?>
                 </a>
             </p>
