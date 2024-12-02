@@ -320,7 +320,7 @@ main p {
   transition: background-color 0.2s;
 }
 .login form input[type="submit"]:hover {
-  background-color: #395c90;
+  background-color: #5e7458;
   transition: background-color 0.2s;
 }
 
@@ -430,7 +430,7 @@ body.loggedin {
 }
 
 .register form input[type="submit"]:hover {
-  background-color: #2868c7;
+  background-color: #5e7458;
   transition: background-color 0.2s;
 }
 /* Dialoger/modale vindu */
@@ -463,26 +463,32 @@ dialog::backdrop {
 
 .todo_item .value {
   width: calc(100% - 55px);
-  background-color: var(--line-clr);
+  /* background-color: var(--line-clr); */
   padding: 0.5rem 1rem;
 }
 .todo_item .icon {
   display: block;
   width: 50px;
   text-align: center;
-  background-color: var(--line-clr);
-  color: var(--text-clr);
+/*   background-color: var(--line-clr);
+ */  color: var(--text-clr);
   padding: 0.5rem 1rem;
 }
 
 .todo_item .value:hover {
-  background-color: var(--accent-clr);
+  background-color: #5e7458;
+  color: white;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .todo_item .icon:hover{
   background-color: #EB625F;
+  border-radius: 4px;
 }
+
+
+
 
 @media screen and (max-width: 800px) {
   .content {

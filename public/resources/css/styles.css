@@ -184,7 +184,7 @@ body.loggedin {
   transition: background-color 0.2s;
 }
 .register form input[type="submit"]:hover {
-  background-color: #2868c7;
+  background-color: #5e7458;
   transition: background-color 0.2s;
 }
 

@@ -3,6 +3,7 @@ class Validation {
     private $errors = [];
 
     public function validateFormData(array $data): bool {
+
         // Sanitering av data
         $data = $this->sanitizeInput($data);
 
@@ -25,6 +26,7 @@ class Validation {
 
     private function validateRequiredFields(array $fields, array $data): void {
         foreach ($fields as $field) {
+            /* echo $data[$field] . "<br> "; */
             if (empty($data[$field])) {
                 $this->errors[] = ucfirst($field) . ' er et obligatorisk felt.';
             }

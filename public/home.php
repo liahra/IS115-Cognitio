@@ -11,7 +11,7 @@ require_once '../src/account.php';
 
 // Sjekk om brukeren er logget inn
 if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
-    header('Location: login.php');
+    header('Location index.php');
     exit();
 }
 
@@ -78,13 +78,13 @@ require "../src/inc/utilities.inc.php";
                                     📝 <?= htmlspecialchars($task['title'], ENT_QUOTES) ?>
                                 </a>
                             </h3>
-                            <?php echo isLate($task['due_date'], $task['status']) ? "<div class='late'>Sein</div>" : ""; ?>
+                            <!-- <?php echo isLate($task['due_date'], $task['status']) ? "<div class='late'>mangler</div>" : ""; ?> -->
                             <div class="task-details">
-                                <div><strong>Emne:</strong> <?= htmlspecialchars($task['course_code'], ENT_QUOTES) ?></div>
+                                <div><strong>Emne</strong> <?= htmlspecialchars($task['course_code'], ENT_QUOTES) ?></div>
                                 <span class="separator">|</span>
-                                <div><strong>Forfall:</strong> <?= htmlspecialchars(formatNorwegianDateTime($task['due_date']), ENT_QUOTES) ?></div>
+                                <div><strong>Forfall</strong> <?= htmlspecialchars(formatNorwegianDateTime($task['due_date']), ENT_QUOTES) ?></div>
                                 <span class="separator">|</span>
-                                <div><strong>Status:</strong> <?= htmlspecialchars(getStatus($task['status']), ENT_QUOTES) ?></div>
+                                <div class="task_status"><strong>Status</strong>&nbsp; <?= isLate($task['due_date'], $task['status']) ?  "<span class='late'>mangler</span>" : htmlspecialchars(getStatus($task['status']), ENT_QUOTES)  ?></div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -129,7 +129,8 @@ require "../src/inc/utilities.inc.php";
                     <p>Ingen kommende gjøremål.</p>
                 <?php endif; ?>
                 </div>
-                <form action="../src/process_add_todo.php" method="post">
+                <form action="../src/process_add_todo.php" method="post" class="todo_input_form">
+                    <button type="submit" class="plussbutton">+</button>
                     <input type="text" placeholder="Legg til gjøremål" name="todovalue" class="todo_input">
                 </form>
                 

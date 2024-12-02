@@ -42,7 +42,7 @@ class Database {
             // Håndterer feil ved tilkobling og viser en melding
             //echo 'Feil ved tilkobling til databasen: ' . $e->getMessage();
             $this->logger->logError($e->getMessage() . '\n' . $this->port);
-            header("Location: ../public/login.php?status=500");
+            header("Location: ../public/index.php?status=500");
             exit();
         }
     }

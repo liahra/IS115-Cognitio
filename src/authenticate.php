@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($username) || empty($password)) {
         $_SESSION['error'] = "Brukernavn og passord må fylles ut.";
-        header('Location: ../public/login.php');
+        header('Location: ../public/index.php');
         exit();
     }
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($failedAttempts >= 3) {
             $_SESSION['error'] = "For mange mislykkede forsøk. Kontoen er låst i én time.";
-            header('Location: ../public/login.php');
+            header('Location: ../public/index.php');
             exit();
         }
 
@@ -57,17 +57,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $db->logLoginAttempt($username);
                 $_SESSION['error'] = "Feil brukernavn eller passord.";
-                header('Location: ../public/login.php');
+                header('Location: ../public/index.php');
                 exit();
             }
         } else {
             $_SESSION['error'] = "Feil brukernavn eller passord.";
-            header('Location: ../public/login.php');
+            header('Location: ../public/index.php');
             exit();
         }
     } catch (Exception $e) {
         $_SESSION['error'] = "En feil oppstod. Prøv igjen senere.";
-        header('Location: ../public/login.php');
+        header('Location: ../public/index.php');
         exit();
     }
 }

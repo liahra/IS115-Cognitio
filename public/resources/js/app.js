@@ -109,11 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const complete_todos = document.querySelectorAll("[id^=todo_check]");
 
   // Sett opp sidebar-toggle
-  toggleButton.addEventListener("click", () => {
-    /* sidebar.classList.toggle("close");
-    toggleButton.classList.toggle("rotate"); */
+  /* toggleButton.addEventListener("click", () => {
+    sidebar.classList.toggle("close");
+    toggleButton.classList.toggle("rotate");
     console.log("Currently not implemented :D");
-  });
+  }); */
 
   // Sett opp modalhåndtering for å legge til gjøremål
   //setupModalHandlers(add_todo, cancel_add_todo, add_todo_window);

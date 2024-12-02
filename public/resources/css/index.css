@@ -1,0 +1,10 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+img{
+    align-self: flex-start;
+    margin: 2rem 0 0 2rem;  
+}

@@ -9,12 +9,12 @@ $validator = new Validation();
 
 // Hent inputdata og sanitere
 $inputData = [
-    'fname' => filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_STRING),
-    'lname' => filter_input(INPUT_POST, 'lname', FILTER_SANITIZE_STRING),
-    'username' => filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING),
-    'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
-    'password' => filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING),
-    'confirm_password' => filter_input(INPUT_POST, 'confirm_password', FILTER_SANITIZE_STRING),
+    'fname' => htmlspecialchars($_POST['fname'], ENT_QUOTES, 'UTF-8'),
+    'lname' => htmlspecialchars($_POST['lname'], ENT_QUOTES, 'UTF-8'),
+    'username' => htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8'),
+    'email' => htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8'),
+    'password' => htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8'),
+    'confirm_password' => htmlspecialchars($_POST['confirm_password'], ENT_QUOTES, 'UTF-8'),
 ];
 
 // Validering
@@ -50,7 +50,7 @@ try {
     $db->createAccount($account);
 
     // Bekreft registrering
-    header('Location: ../public/login.php');
+    header('Location: ../public/index.php');
     exit();
 } catch (PDOException $e) {
     exit('Noe gikk galt. Prøv igjen senere.');

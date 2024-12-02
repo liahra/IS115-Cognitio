@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="./resources/css/styles.css">
+    <link rel="stylesheet" href="./resources/css/register.css">
+
     <title>Registrering</title>
 </head>
 <body>
+    <img src="./resources/img/cognitio_logo_sort.png" alt="" height="35">
     <div class="register">
         <h1>Lag din Cognitio-konto</h1>
         <form action="../src/register.php" method="post" autocomplete="off">
