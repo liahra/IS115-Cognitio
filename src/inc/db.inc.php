@@ -55,13 +55,19 @@ class Database {
 
     // Sjekker om brukernavn allerede eksisterer
     public function usernameExists($username) {
-        //$pdo = $this->getDbConnection();
         $stmt = $this->pdo->prepare("SELECT id FROM accounts WHERE username = :username");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
         
         return $stmt->rowCount() > 0;
 
+    }
+
+    public function emailExists(string $email): bool {
+        $stmt = $this->pdo->prepare('SELECT COUNT(*) FROM accounts WHERE email = :email');
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
     }
 
     // Hent bruker hvis den eksisterer
