@@ -32,7 +32,7 @@ body {
 /* Navbar & Main */
 #sidebar {
   box-sizing: border-box;
-  width: 250px;
+  width: 200px;
   height: 100vh;
   padding: 5px 1em;
   background-color: var(--base-clr);
@@ -56,11 +56,11 @@ body {
 
 #sidebar > ul > li:first-child {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-bottom: 8px;
-  .logo {
+  /* .logo {
     font-weight: 600;
-  }
+  } */
 }
 
 #sidebar > ul > li:nth-child(2){
@@ -68,10 +68,8 @@ body {
   flex-direction: column;
   align-items: center;
   margin-bottom: 16px;
-  padding: 0.85rem;
-  width: max-content;
-
-  
+  padding: 0;
+  justify-content: center;
 }
 
 .profile_picture{
@@ -79,7 +77,7 @@ body {
   height: 64px;
   border-radius: 999999px;
   object-fit: cover;
-
+  margin-bottom: .75rem;
 }
 
 #sidebar ul li.active a {
@@ -91,8 +89,7 @@ body {
 }
 
 #sidebar a,
-#sidebar .dropdown-btn,
-#sidebar .logo {
+#sidebar .dropdown-btn {
   border-radius: 0.5em;
   padding: 0.85em;
   text-decoration: none;
@@ -100,6 +97,9 @@ body {
   display: flex;
   align-items: center;
   gap: 1em;
+}
+#sidebar .logo{
+  width: 100px;
 }
 
 .dropdown-btn {
@@ -157,8 +157,8 @@ body {
 }
 
 #toggle-btn {
-  margin-left: auto;
-  padding: 1em;
+  /* margin-left: auto; */
+  /* padding: 1em; */
   border: none;
   border-radius: 0.5em;
   background: none;

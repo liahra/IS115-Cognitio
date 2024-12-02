@@ -110,8 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Sett opp sidebar-toggle
   toggleButton.addEventListener("click", () => {
-    sidebar.classList.toggle("close");
-    toggleButton.classList.toggle("rotate");
+    /* sidebar.classList.toggle("close");
+    toggleButton.classList.toggle("rotate"); */
+    console.log("Currently not implemented :D");
   });
 
   // Sett opp modalhåndtering for å legge til gjøremål
