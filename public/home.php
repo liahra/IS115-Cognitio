@@ -11,6 +11,7 @@ require_once '../src/account.php';
 
 $account = unserialize($_SESSION['account']);
 $tasks = $account->getUpcomingTasks(); // Henter oppgaver for den spesifikke brukeren
+
 $todos = $account->getUnfinishedTodos(); // Henter gjøremål for den spesifikke brukeren
 
 require "../src/inc/utilities.inc.php";
@@ -26,6 +27,7 @@ require "../src/inc/utilities.inc.php";
     <link rel="stylesheet" href="./resources/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="./resources/css/home.css">
+
 </head>
 
 
@@ -34,7 +36,6 @@ require "../src/inc/utilities.inc.php";
     <?php
     $page = 'home';
     include("./inc/sidebar.inc.php");
-    //phpinfo();
     ?>
 
     <!-- Main Content -->
@@ -58,6 +59,7 @@ require "../src/inc/utilities.inc.php";
                                     📝 <?= htmlspecialchars($task['title'], ENT_QUOTES) ?>
                                 </a>
                             </h3>
+                            <?php echo isLate($task['due_date'], $task['status']) ? "<div class='late'>Sein</div>" : ""; ?>
                             <div class="task-details">
                                 <div><strong>Emne:</strong> <?= htmlspecialchars($task['course_code'], ENT_QUOTES) ?></div>
                                 <span class="separator">|</span>

@@ -178,3 +178,12 @@ input[type="submit"]:hover,
 s{
     text-decoration-thickness: 1px;
 }
+
+.late{
+    width: fit-content;
+    padding: 0.25rem .5rem;
+    border-radius: 10000px;
+    font-size: 0.85rem;
+    background-color: red;
+    color: white;
+}
