@@ -14,11 +14,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    /* Sørger for at elementene legges oppå hverandre */
     gap: 10px;
-    /* Avstand mellom oppgavene */
     height: auto;
-    /* Dynamisk høyde */
 }
 
 .task-container h2 {
@@ -50,13 +47,13 @@
 }
 
 .task-card h3 {
-    font-size: 14px;
+    font-size: 15px;
     color: #333;
 }
 
 .task-card p {
     margin: 5px 0;
-    font-size: 14px;
+    font-size: 15px;
     color: #555;
 }
 
@@ -71,31 +68,30 @@
 
 .task-details .separator {
     margin: 0 10px;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 300;
 }
 
 .task-details div {
-    font-size: 10px;
+    margin-top: 2px;
+    font-size: 14px;
     font-weight: 300;
 }
 
 .task-link {
     text-decoration: none;
-    /* Fjerner understrek */
+    font-size: 18px;
     font-weight: 600;
-    /* Gjør teksten tydeligere */
     color: black;
 }
 
 .task-link:hover {
     color: #45a049;
-    /* Mørkere farge ved hover */
 }
 
 input[type="submit"],
 .add-task-button {
-    background-color: #83BF73;
+    background-color: #91b189;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -132,7 +128,7 @@ input[type="submit"]:hover,
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
-    background-color: #83BF73;
+    background-color: #91b189;
     color: white;
     border-radius: 4px;
     font-weight: 100;
@@ -152,7 +148,7 @@ input[type="submit"]:hover,
     width: 100%;
 }
 .bottombuttons>a{
-    background-color: #83BF73;
+    background-color: #91b189;
     color: white;
     padding: 10px 15px;
     border: none;

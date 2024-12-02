@@ -33,7 +33,7 @@ body {
   align-items: center;
   width: 50px;
   height: 50px;
-  background-color: #395c90;
+  background-color: #91b189;;
   color: #ffffff;
 }
 .login form input[type="password"],
@@ -48,7 +48,7 @@ body {
   width: 100%;
   padding: 15px;
   margin-top: 20px;
-  background-color: #395c90;
+  background-color: #91b189;;
   border: 0;
   cursor: pointer;
   font-weight: bold;
@@ -56,7 +56,7 @@ body {
   transition: background-color 0.2s;
 }
 .login form input[type="submit"]:hover {
-  background-color: #395c90;
+  background-color: #91b189;;
   transition: background-color 0.2s;
 }
 
@@ -160,7 +160,7 @@ body.loggedin {
   align-items: center;
   width: 50px;
   height: 50px;
-  background-color: #3274d6;
+  background-color: #91b189;;
   color: #ffffff;
 }
 .register form input[type="password"],
@@ -176,7 +176,7 @@ body.loggedin {
   width: 100%;
   padding: 15px;
   margin-top: 20px;
-  background-color: #3274d6;
+  background-color: #91b189;
   border: 0;
   cursor: pointer;
   font-weight: bold;
@@ -186,4 +186,21 @@ body.loggedin {
 .register form input[type="submit"]:hover {
   background-color: #2868c7;
   transition: background-color 0.2s;
+}
+
+.register-prompt {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+  color: #555;
+}
+
+.register-link {
+  color: #5e7458;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link:hover {
+  text-decoration: underline;
 }

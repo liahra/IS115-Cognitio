@@ -25,6 +25,9 @@ session_start();
                 <i class="fas fa-lock"></i>
             </label>
             <input type="password" name="password" placeholder="Passord" id="password" required>
+            <p class="register-prompt">
+                Ny bruker? <a href="./register.html" class="register-link">Registrer deg her</a>.
+            </p>
             <!-- Vis feilmelding her -->
             <?php if (!empty($_SESSION['error'])): ?>
                 <p style="color: red; text-align: center;"><?= htmlspecialchars($_SESSION['error'], ENT_QUOTES, 'UTF-8') ?></p>
